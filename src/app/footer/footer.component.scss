@@ -1,0 +1,15 @@
+.container {
+
+    color: grey;
+    background-color: rgb(69, 54, 54);
+    height: 80px;
+    position: relative;
+    display: flex;
+
+    align-items: center;
+
+    div {
+        position: absolute;
+        right: 5%;
+    }
+}
