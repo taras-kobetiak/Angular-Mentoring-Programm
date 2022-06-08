@@ -8,13 +8,8 @@
     align-items: center;
 }
 
-
-
-
-
 .left-box {
-    margin-left: 20px;
-
+    margin-left: 4%;
     min-width: 30%;
 
     display: flex;
@@ -28,6 +23,7 @@
     }
 
     .title {
+        margin-left: -150px;
         font-size: 16px;
     }
 
