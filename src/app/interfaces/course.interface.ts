@@ -1,4 +1,4 @@
-interface IPage {
+export interface IPage {
     id: number;
     title: string;
     creationDate: Date;

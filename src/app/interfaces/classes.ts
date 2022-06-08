@@ -1,3 +1,6 @@
+import { IPage } from "./course.interface";
+import { IUserEntyty } from "./user-entyty.interface";
+
 export class CoursePage implements IPage {
     id!: number;
     title!: string;

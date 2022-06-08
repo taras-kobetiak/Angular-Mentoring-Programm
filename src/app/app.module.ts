@@ -10,6 +10,7 @@ import { CoursesPageComponent } from './courses-page/courses-page.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { AddCourseButtonComponent } from './add-course-button/add-course-button.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddCourseButtonComponent } from './add-course-button/add-course-button.
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

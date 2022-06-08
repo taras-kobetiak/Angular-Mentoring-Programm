@@ -12,4 +12,13 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  inputData!: string;
+  onFindClick(): void {
+    console.log(this.inputData);
+
+  }
+
+
+
 }
