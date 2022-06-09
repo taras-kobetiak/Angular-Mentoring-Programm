@@ -11,6 +11,9 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { AddCourseButtonComponent } from './add-course-button/add-course-button.component';
 import { FormsModule } from '@angular/forms';
+import { ButtonEditComponent } from './button-edit/button-edit.component';
+import { ButtonDeleteComponent } from './button-delete/button-delete.component';
+import { LoadMoreComponent } from './load-more/load-more.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,11 @@ import { FormsModule } from '@angular/forms';
     CoursesPageComponent,
     SearchFormComponent,
     BreadcrumbsComponent,
-    AddCourseButtonComponent
+    AddCourseButtonComponent,
+    ButtonEditComponent,
+    ButtonDeleteComponent,
+    LoadMoreComponent,
+
   ],
   imports: [
     BrowserModule,

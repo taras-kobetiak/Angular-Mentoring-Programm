@@ -1,26 +1,41 @@
 .main-container {
 
-    height: 100vh;
+    height: 97vh;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
 }
 
 .header {
-    height: 10%;
+    height: 7%;
 }
 
 .breadcrumbs {
-    height: 10%;
+    height: 7%;
 }
 
 .main {
-    height: 70%;
+    height: 79%;
     min-width: 600px;
 
     background: rgb(228, 225, 225);
 }
 
 .footer {
-    height: 10%;
+    height: 7%;
+}
+
+
+
+.test {
+    // white-space: nowrap;
+    /* Отменяем перенос текста */
+    overflow: hidden;
+    /* Обрезаем содержимое */
+    padding: 5px;
+    /* Поля */
+    text-overflow: ellipsis;
+    /* Многоточие */
+
+
 }

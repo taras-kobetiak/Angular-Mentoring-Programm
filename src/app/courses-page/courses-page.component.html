@@ -7,8 +7,8 @@
                 </div>
 
                 <div class="hours-minutes">
-                    <div class="timer">{{createHourAndMinutes()}}</div>
-                    <div class="calendar">{{createYearAndMonth()}}</div>
+                    <div class="timer">{{course.createHourAndMinutes()}}</div>
+                    <div class="calendar">{{course.createYearAndMonth()}}</div>
                 </div>
 
             </div>
@@ -20,8 +20,8 @@
 
         <div class="management-button">
 
-            <button class="edit">Edit</button>
-            <button class="delete">Delite</button>
+            <app-button-edit></app-button-edit>
+            <app-button-delete></app-button-delete>
         </div>
 
 

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
-
 
 @Component({
   selector: 'app-courses-page',
@@ -10,15 +9,7 @@ import { CoursePage } from '../interfaces/classes';
 export class CoursesPageComponent implements OnInit {
 
 
-  courses: CoursePage[] = [
-    new CoursePage(111, 'SomeTitle', new Date(), 1, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.')
-
-  ]
-
-
-
-
-
+  @Input() course!: CoursePage;
   constructor() { }
 
   ngOnInit(): void {

@@ -2,20 +2,32 @@ import { IPage } from "./course.interface";
 import { IUserEntyty } from "./user-entyty.interface";
 
 export class CoursePage implements IPage {
+    public get description(): string {
+        return this._description;
+    }
+    public set description(value: string) {
+        if (value.length > 190)
+            this._description = value.slice(0, 189) + '...';
+    }
     constructor(public id: number,
         public title: string,
         public creationDate: Date,
         public durationInMinutes: number,
-        public description: string) { }
+        private _description: string) {
+
+    }
+
+
+
 
 
     createHourAndMinutes(): string {
-        return this.course.creationDate.getHours() + 'h ' + this.course.creationDate.getMinutes() + 'min'
+        return this.creationDate.getHours() + 'h ' + this.creationDate.getMinutes() + 'min'
     }
 
     createYearAndMonth(): string {
         let month: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return this.course.creationDate.getDate() + ' ' + month[this.course.creationDate.getMonth()] + ', ' + this.course.creationDate.getFullYear()
+        return this.creationDate.getDate() + ' ' + month[this.creationDate.getMonth()] + ', ' + this.creationDate.getFullYear()
     }
 
 }

@@ -1,0 +1,23 @@
+.container {
+    margin: 2% 10%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    background: white;
+    height: 50px;
+
+    p {
+        cursor: pointer;
+        text-decoration: underline;
+        color: blue;
+
+
+        &:active {
+            color: red;
+        }
+    }
+
+}
