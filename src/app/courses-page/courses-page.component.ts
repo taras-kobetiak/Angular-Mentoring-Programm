@@ -10,13 +10,13 @@ import { CoursePage } from '../interfaces/classes';
 export class CoursesPageComponent implements OnInit {
 
 
-  course: CoursePage = {
-    id: 111,
-    title: 'SomeTitle',
-    creationDate: new Date(),
-    durationInMinutes: 1,
-    description: 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'
-  }
+  courses: CoursePage[] = [
+    new CoursePage(111, 'SomeTitle', new Date(), 1, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.')
+
+  ]
+
+
+
 
 
   constructor() { }

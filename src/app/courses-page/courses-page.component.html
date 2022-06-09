@@ -1,20 +1,29 @@
 <div class="container">
-    <div class="info">
-        <div class="info-header">
-            <h2>{{course.title}}</h2>
-            <div class="hours-minutes">
+    <div class="row">
+        <div class="info">
+            <div class="info-header">
+                <div class="info-header-title">
+                    <h2>{{course.title}}</h2>
+                </div>
+
+                <div class="hours-minutes">
+                    <div class="timer">{{createHourAndMinutes()}}</div>
+                    <div class="calendar">{{createYearAndMonth()}}</div>
+                </div>
 
             </div>
-            <div class="date-year"></div>
+            <div class="description">
+                <p>{{course.description}}</p>
+
+            </div>
         </div>
 
-        <p>{{course.description}}</p>
+        <div class="management-button">
+
+            <button class="edit">Edit</button>
+            <button class="delete">Delite</button>
+        </div>
+
+
     </div>
-
-    <div class="management-button">
-
-    </div>
-
-
-
 </div>

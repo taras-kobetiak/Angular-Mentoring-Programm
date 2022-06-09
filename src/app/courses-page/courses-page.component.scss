@@ -1,0 +1,81 @@
+.container {
+    margin: 0 10%;
+    border-radius: 10px;
+    background: white;
+}
+
+.row {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info {
+    width: 80%;
+
+
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.hours-minutes {
+    color: rgb(179, 178, 178);
+    display: flex;
+    align-items: center;
+}
+
+.timer {
+    background: url('https://icons8.com/iconizer/files/Web_Design_Creatives/orig/Wall-clock.png') no-repeat left;
+    background-size: 15px auto;
+    padding-left: 20px;
+}
+
+.calendar {
+    margin-left: 15px;
+    background: url('https://ru.seaicons.com/wp-content/uploads/2015/06/Time-And-Date-Calendar-icon.png') no-repeat left;
+    background-size: 15px auto;
+    padding-left: 20px;
+}
+
+.description {
+    text-align: justify;
+
+}
+
+
+
+.management-button {
+    position: relative;
+    bottom: -30px;
+
+    button {
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        height: 35px;
+        width: 90px;
+        color: white;
+
+        &.edit {
+            background: url('https://ru.seaicons.com/wp-content/uploads/2016/05/Pencil-icon.png') no-repeat 8px rgb(91, 167, 221);
+            background-size: 10px auto;
+
+        }
+
+        &.delete {
+            background: url('https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1432400-1211078.png') no-repeat 8px rgb(91, 167, 221);
+            background-size: 10px auto;
+            padding-left: 20px;
+
+        }
+
+    }
+
+
+}
