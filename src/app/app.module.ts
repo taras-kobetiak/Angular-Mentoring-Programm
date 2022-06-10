@@ -16,10 +16,11 @@ import { FormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './load-more/load-more.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PagesBlockComponent } from './pages-block/pages-block.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: CoursesPageComponent },
+  { path: '', component: PagesBlockComponent },
   { path: 'header', component: HeaderComponent },
   { path: '**', component: NotFoundComponent }
 ]
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
     AddCourseButtonComponent,
     LoadMoreComponent,
     NotFoundComponent,
+    PagesBlockComponent,
 
   ],
   imports: [

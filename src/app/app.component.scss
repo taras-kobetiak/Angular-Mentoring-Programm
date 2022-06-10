@@ -3,7 +3,7 @@
     height: 97vh;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
+
 }
 
 .header {
@@ -23,19 +23,4 @@
 
 .footer {
     height: 7%;
-}
-
-
-
-.test {
-    // white-space: nowrap;
-    /* Отменяем перенос текста */
-    overflow: hidden;
-    /* Обрезаем содержимое */
-    padding: 5px;
-    /* Поля */
-    text-overflow: ellipsis;
-    /* Многоточие */
-
-
 }

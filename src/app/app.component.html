@@ -12,14 +12,7 @@
     </div>
 
     <div class="main">
-        <div class="container">
-            <app-search-form></app-search-form>
-            <app-add-course-button></app-add-course-button>
-            <app-courses-page *ngFor="let course of courses" [course]="course" (deleteClicked)="deleteComponent(course)"
-                (editClicked)="editComponent(course)">
-            </app-courses-page>
-            <app-load-more (loadClick)="loadNewCourses()"></app-load-more>
-        </div>
+        <router-outlet></router-outlet>
     </div>
 
 
