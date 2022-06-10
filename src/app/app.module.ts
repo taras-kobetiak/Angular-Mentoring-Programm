@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,9 +13,17 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { AddCourseButtonComponent } from './add-course-button/add-course-button.component';
 import { FormsModule } from '@angular/forms';
-import { ButtonEditComponent } from './button-edit/button-edit.component';
-import { ButtonDeleteComponent } from './button-delete/button-delete.component';
 import { LoadMoreComponent } from './load-more/load-more.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './not-found/not-found.component';
+
+
+const appRoutes: Routes = [
+  { path: '', component: CoursesPageComponent },
+  { path: 'header', component: HeaderComponent },
+  { path: '**', component: NotFoundComponent }
+]
+
 
 @NgModule({
   declarations: [
@@ -25,15 +35,15 @@ import { LoadMoreComponent } from './load-more/load-more.component';
     SearchFormComponent,
     BreadcrumbsComponent,
     AddCourseButtonComponent,
-    ButtonEditComponent,
-    ButtonDeleteComponent,
     LoadMoreComponent,
+    NotFoundComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

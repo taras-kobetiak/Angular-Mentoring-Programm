@@ -5,19 +5,19 @@
     max-height: 150px;
     overflow: hidden;
     font-size: 18px;
-
+    overflow: hidden
 }
 
 .row {
     margin: 0 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
+
 }
 
 .info {
     width: 80%;
-
 
 }
 
@@ -48,16 +48,41 @@
 }
 
 .description {
+    padding-bottom: 5px;
     text-align: justify;
-    text-overflow: ellipsis
+    overflow: hidden
 }
 
 
 
 .management-button {
+    margin-bottom: 10px;
     position: relative;
-    bottom: -30px;
+    align-self: flex-end;
+
+    button {
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        height: 35px;
+        width: 90px;
+        color: white;
+        cursor: pointer;
 
 
+
+    }
+
+    .delete {
+        background: url('https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1432400-1211078.png') no-repeat 8px rgb(91, 167, 221);
+        background-size: 10px auto;
+        padding-left: 20px;
+
+    }
+
+    .edit {
+        background: url('https://ru.seaicons.com/wp-content/uploads/2016/05/Pencil-icon.png') no-repeat 8px rgb(91, 167, 221);
+        background-size: 10px auto;
+    }
 
 }

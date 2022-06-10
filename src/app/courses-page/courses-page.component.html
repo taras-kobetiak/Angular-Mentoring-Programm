@@ -13,15 +13,15 @@
 
             </div>
             <div class="description">
-                <p>{{course.description}}</p>
+                <div>{{course.description}}</div>
 
             </div>
         </div>
 
         <div class="management-button">
 
-            <app-button-edit></app-button-edit>
-            <app-button-delete></app-button-delete>
+            <button class="edit" (click)="onEditClicked()">Edit</button>
+            <button class="delete" (click)="onDeleteClicked()">Delete</button>
         </div>
 
 

@@ -9,14 +9,10 @@ import { CoursePage } from './interfaces/classes';
 export class AppComponent {
   title = 'Angular-Mentoring-Programm';
 
-
-
-
   courses: CoursePage[] = [
-    new CoursePage(111, 'SomeTitle1', new Date(), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-    new CoursePage(111, 'SomeTitle2', new Date(), 1, 'Not good course.'),
-    new CoursePage(111, 'SomeTitle3', new Date(), 1, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-
+    new CoursePage(1, 'SomeTitle1', new Date(), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+    new CoursePage(2, 'SomeTitle2', new Date(), 1, 'Not good course.'),
+    new CoursePage(3, 'SomeTitle3', new Date(), 1, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
 
 
   ]
@@ -27,12 +23,12 @@ export class AppComponent {
 
   }
 
-
-
-
-
   deleteComponent(course: CoursePage): void {
     console.log(course.id);
+  }
+
+  editComponent(course: CoursePage): void {
+    console.log(course.description);
 
   }
 

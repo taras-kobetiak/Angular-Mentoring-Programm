@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
 
 @Component({
@@ -8,13 +8,23 @@ import { CoursePage } from '../interfaces/classes';
 })
 export class CoursesPageComponent implements OnInit {
 
-
   @Input() course!: CoursePage;
-  constructor() { }
+  @Output() deleteClicked: EventEmitter<void> = new EventEmitter();
+  @Output() editClicked: EventEmitter<void> = new EventEmitter();
 
   ngOnInit(): void {
   }
 
+
+  onDeleteClicked() {
+
+    this.deleteClicked.emit()
+
+  }
+
+  onEditClicked() {
+    this.editClicked.emit()
+  }
 
 
 
