@@ -12,6 +12,9 @@ export class CoursesPageComponent implements OnInit {
   @Output() deleteClicked: EventEmitter<void> = new EventEmitter();
   @Output() editClicked: EventEmitter<void> = new EventEmitter();
 
+
+
+
   ngOnInit(): void {
   }
 
@@ -25,8 +28,6 @@ export class CoursesPageComponent implements OnInit {
   onEditClicked() {
     this.editClicked.emit()
   }
-
-
 
 
 }

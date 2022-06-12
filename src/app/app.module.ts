@@ -17,6 +17,7 @@ import { LoadMoreComponent } from './load-more/load-more.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
+import { NicePopUpComponent } from './nice-pop-up/nice-pop-up.component';
 
 
 const appRoutes: Routes = [
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     LoadMoreComponent,
     NotFoundComponent,
     PagesBlockComponent,
+    NicePopUpComponent,
 
   ],
   imports: [

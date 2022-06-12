@@ -2,18 +2,18 @@ import { IPage } from "./course.interface";
 import { IUserEntyty } from "./user-entyty.interface";
 
 export class CoursePage implements IPage {
-    public get description(): string {
-        return this._description;
-    }
-    public set description(value: string) {
-        if (value.length > 190)
-            this._description = value.slice(0, 189) + '...';
-    }
+    // public get description(): string {
+    //     return this._description;
+    // }
+    // public set description(value: string) {
+    //     if (value.length > 190)
+    //         this._description = value.slice(0, 189) + '...';
+    // }
     constructor(public id: number,
         public title: string,
         public creationDate: Date,
         public durationInMinutes: number,
-        private _description: string) {
+        public description: string) {
 
     }
 
