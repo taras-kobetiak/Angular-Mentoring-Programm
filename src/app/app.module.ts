@@ -14,17 +14,11 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { AddCourseButtonComponent } from './add-course-button/add-course-button.component';
 import { FormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './load-more/load-more.component';
-import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NicePopUpComponent } from './nice-pop-up/nice-pop-up.component';
 
 
-const appRoutes: Routes = [
-  { path: '', component: PagesBlockComponent },
-  { path: 'header', component: HeaderComponent },
-  { path: '**', component: NotFoundComponent }
-]
 
 
 @NgModule({
@@ -47,7 +41,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+
   ],
   providers: [],
   bootstrap: [AppComponent]

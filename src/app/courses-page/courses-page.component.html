@@ -12,18 +12,20 @@
                 </div>
 
             </div>
-            <div class="description">
-                <div>{{course.description}}</div>
+            <div class="description-row">
+                <div class="description">
+                    <div>{{course.description}}</div>
 
+                </div>
             </div>
         </div>
 
         <div class="management-button">
 
-            <button class="edit" (click)="onEditClicked()">Edit</button>
-            <button class="delete" (click)="onDeleteClicked()">Delete</button>
+            <div> <button class="edit" (click)="onEditClicked()">Edit</button></div>
+            <div><button class="delete" (click)="onDeleteClicked()">Delete</button></div>
+
+
+
         </div>
-
-
     </div>
-</div>
