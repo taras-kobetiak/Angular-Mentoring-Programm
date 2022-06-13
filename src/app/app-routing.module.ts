@@ -6,7 +6,6 @@ import { PagesBlockComponent } from './pages-block/pages-block.component';
 
 const routes: Routes = [
   { path: '', component: PagesBlockComponent },
-  { path: 'header', component: HeaderComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

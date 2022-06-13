@@ -1,0 +1,35 @@
+.main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.header {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 7%;
+          flex: 0 0 7%;
+}
+
+.breadcrumbs {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 7%;
+          flex: 0 0 7%;
+}
+
+.main {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 79%;
+          flex: 0 0 79%;
+  min-width: 600px;
+  background: #e4e1e1;
+}
+
+.footer {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 7%;
+          flex: 0 0 7%;
+}

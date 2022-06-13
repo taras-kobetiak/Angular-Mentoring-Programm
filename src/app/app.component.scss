@@ -1,47 +1,23 @@
-html,
-body {
-    height: 90%;
-}
-
 .main-container {
 
-    // height: 97vh;
     display: flex;
     flex-direction: column;
-
 }
 
 .header {
-    height: 7%;
+    flex: 0 0 7%;
 }
 
 .breadcrumbs {
-
-    height: 7%;
+    flex: 0 0 7%;
 }
 
 .main {
-    height: 79%;
+    flex: 0 0 79%;
     min-width: 600px;
-
     background: rgb(228, 225, 225);
 }
 
 .footer {
-    height: 7%;
-}
-
-
-
-.newmessage {
-    color: green;
-
-    bottom: 38%;
-    left: 40%;
-    font-size: 50px;
-    position: absolute;
-    z-index: 10;
-
-
-
+    flex: 0 0 7%;
 }

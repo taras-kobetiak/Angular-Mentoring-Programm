@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './load-more/load-more.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
-import { NicePopUpComponent } from './nice-pop-up/nice-pop-up.component';
+
 
 
 
@@ -34,7 +34,7 @@ import { NicePopUpComponent } from './nice-pop-up/nice-pop-up.component';
     LoadMoreComponent,
     NotFoundComponent,
     PagesBlockComponent,
-    NicePopUpComponent,
+
 
   ],
   imports: [
