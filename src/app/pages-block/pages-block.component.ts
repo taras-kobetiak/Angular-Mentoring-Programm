@@ -8,7 +8,7 @@ import { CoursePage } from '../interfaces/classes';
 })
 export class PagesBlockComponent implements OnInit {
 
-  courses!: CoursePage[];
+  courses: CoursePage[] = [];
 
   loadNewCourses() {
     console.log('here is come action');
