@@ -14,12 +14,7 @@ export class CoursePage implements IPage {
         public creationDate: Date,
         public durationInMinutes: number,
         public description: string) {
-
     }
-
-
-
-
 
     createHourAndMinutes(): string {
         return this.creationDate.getHours() + 'h ' + this.creationDate.getMinutes() + 'min'
@@ -32,10 +27,8 @@ export class CoursePage implements IPage {
 
 }
 
-
 export class User implements IUserEntyty {
     id!: number;
     firstName!: string;
     lastName!: string;
-
 }

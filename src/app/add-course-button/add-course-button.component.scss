@@ -1,6 +1,4 @@
 .container {
-
-    width: 100%;
     display: flex;
     justify-content: end;
 }
@@ -11,15 +9,14 @@
 }
 
 button {
-
     width: 120px;
     height: 40px;
     border: none;
     border-radius: 5spx;
     font-size: 14px;
     color: white;
-    background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 5px rgb(79, 218, 79);
+    background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 10px rgb(79, 218, 79);
     background-size: 20px auto;
-    padding-left: 20px;
+    padding-left: 35px;
     cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -6,14 +6,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   templateUrl: './load-more.component.html',
   styleUrls: ['./load-more.component.scss']
 })
-export class LoadMoreComponent implements OnInit {
-
+export class LoadMoreComponent {
   @Output() loadClick: EventEmitter<void> = new EventEmitter()
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
   onLoadClick() {
     this.loadClick.emit()
   }

@@ -5,27 +5,19 @@
                 <div class="info-header-title">
                     <h2>{{course.title}}</h2>
                 </div>
-
                 <div class="hours-minutes">
                     <div class="timer">{{course.createHourAndMinutes()}}</div>
                     <div class="calendar">{{course.createYearAndMonth()}}</div>
                 </div>
-
             </div>
             <div class="description-row">
                 <div class="description">
                     <div>{{course.description}}</div>
-
                 </div>
             </div>
         </div>
-
         <div class="management-button">
-
             <div> <button class="edit" (click)="onEditClicked()">Edit</button></div>
             <div><button class="delete" (click)="onDeleteClicked()">Delete</button></div>
-
-
-
         </div>
     </div>

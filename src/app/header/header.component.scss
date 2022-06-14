@@ -1,16 +1,16 @@
 .container {
-    padding-left: 10%;
     color: white;
     background-color: rgb(69, 54, 54);
-    height: 80px;
-    // width: 100%;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .left-box {
-    min-width: 30%;
+    width: 30%;
     display: flex;
     flex: 0 1 auto;
     align-items: center;
@@ -19,38 +19,39 @@
         height: 60px;
     }
 
-
     .title {
         margin-left: 3%;
         font-size: 16px;
     }
-
 }
 
-
-
 .login-form {
-    margin: 20px;
-    min-width: 30%;
-
+    // margin: 20px;
+    width: 40%;
     display: flex;
-    flex: 0 1 auto;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
+    .user-login {
+        width: 60%;
+        display: flex;
+        align-items: center;
+    }
 
-    .user-login,
     .user-log-of {
+        width: 30%;
         display: flex;
         align-items: center;
     }
 
     img {
-        margin-right: 20px;
+
+        // margin-right: 20px;
         height: 30px;
     }
 
     input {
+        min-width: 50px;
         color: whitesmoke;
         background-color: rgb(69, 54, 54);
     }
