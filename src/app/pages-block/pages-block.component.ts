@@ -10,7 +10,7 @@ export class PagesBlockComponent implements OnInit {
 
   constructor() { }
 
-  courses!: CoursePage[];
+  courses: CoursePage[] = [];
 
   loadNewCourses() {
     console.log('here is come action');
@@ -23,9 +23,6 @@ export class PagesBlockComponent implements OnInit {
   editComponent(course: CoursePage): void {
     console.log(course.description);
   }
-
-
-
 
   ngOnInit(): void {
     this.courses = [
@@ -41,10 +38,5 @@ export class PagesBlockComponent implements OnInit {
         course.description = course.description.slice(0, 179) + '…'
       }
     })
-
-
-
   }
-
-
 }
