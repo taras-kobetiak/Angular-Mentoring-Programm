@@ -1,7 +1,9 @@
 .container {
-  padding-left: 10%;
   color: white;
   background-color: #453636;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,7 +16,7 @@
 }
 
 .left-box {
-  min-width: 30%;
+  width: 30%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,23 +38,30 @@
 }
 
 .login-form {
-  margin: 20px;
-  min-width: 30%;
+  width: 40%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 auto;
-          flex: 0 1 auto;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.login-form .user-login,
+.login-form .user-login {
+  width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .login-form .user-log-of {
+  width: 30%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,11 +71,11 @@
 }
 
 .login-form img {
-  margin-right: 20px;
   height: 30px;
 }
 
 .login-form input {
+  min-width: 50px;
   color: whitesmoke;
   background-color: #453636;
 }

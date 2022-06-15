@@ -6,8 +6,8 @@
                     <h2>{{course.title}}</h2>
                 </div>
                 <div class="hours-minutes">
-                    <div class="timer">{{course.createHourAndMinutes()}}</div>
-                    <div class="calendar">{{course.createYearAndMonth()}}</div>
+                    <div class="timer">{{course.creationDate | dateHour}}</div>
+                    <div class="calendar">{{course.creationDate | date: 'd MMM, y'}}</div>
                 </div>
             </div>
             <div class="description-row">

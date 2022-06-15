@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { DateHour } from './courses-page/date.pipe';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ import { PagesBlockComponent } from './pages-block/pages-block.component';
     LoadMoreComponent,
     NotFoundComponent,
     PagesBlockComponent,
+    DateHour
   ],
   imports: [
     BrowserModule,

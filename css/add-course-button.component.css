@@ -1,11 +1,11 @@
 .container {
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
-          justify-content: end;
+          justify-content: flex-end;
+  height: 100%;
 }
 
 .add-button {
@@ -20,8 +20,16 @@ button {
   border-radius: 5spx;
   font-size: 14px;
   color: white;
-  background: url("https://atlantic-freight.com/s/i/plus-button.png") no-repeat 5px #4fda4f;
+  background: url("https://atlantic-freight.com/s/i/plus-button.png") no-repeat 10px #4fda4f;
   background-size: 20px auto;
-  padding-left: 20px;
+  padding-left: 35px;
   cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  button {
+    width: 90px;
+    height: 30px;
+    font-size: 10px;
+  }
 }

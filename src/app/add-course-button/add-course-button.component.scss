@@ -1,6 +1,7 @@
 .container {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    height: 100%;
 }
 
 .add-button {
@@ -19,4 +20,12 @@ button {
     background-size: 20px auto;
     padding-left: 35px;
     cursor: pointer;
+}
+
+@media (max-width:500px) {
+    button {
+        width: 90px;
+        height: 30px;
+        font-size: 10px;
+    }
 }

@@ -15,16 +15,6 @@ export class CoursePage implements IPage {
         public durationInMinutes: number,
         public description: string) {
     }
-
-    createHourAndMinutes(): string {
-        return this.creationDate.getHours() + 'h ' + this.creationDate.getMinutes() + 'min'
-    }
-
-    createYearAndMonth(): string {
-        let month: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return this.creationDate.getDate() + ' ' + month[this.creationDate.getMonth()] + ', ' + this.creationDate.getFullYear()
-    }
-
 }
 
 export class User implements IUserEntyty {

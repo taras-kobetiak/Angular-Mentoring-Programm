@@ -1,16 +1,19 @@
 .container {
   color: grey;
   background-color: #453636;
-  position: relative;
+  height: 100%;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.container div {
-  position: absolute;
-  right: 5%;
+.author {
+  margin-right: 50px;
 }
