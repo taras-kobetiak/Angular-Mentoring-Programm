@@ -14,8 +14,6 @@ export class PagesBlockComponent implements OnInit {
   }
 
   deleteComponent(id: number): void {
-    // this.courses.splice(this.courses.findIndex(el => el.id === id), 1)
-
     this.courses = this.courses.filter(el => el.id !== id)
   }
 
@@ -25,9 +23,9 @@ export class PagesBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses = [
-      new CoursePage(1, 'SomeTitle1', new Date(), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-      new CoursePage(2, 'SomeTitle2', new Date(), 10, 'Not good course.'),
-      new CoursePage(3, 'SomeTitle3', new Date(), 12, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+      new CoursePage(1, 'SomeTitle1', new Date(2022, 5, 3), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+      new CoursePage(2, 'SomeTitle2', new Date(2022, 5, 21), 10, 'Not good course.'),
+      new CoursePage(3, 'SomeTitle3', new Date(2021, 5, 3), 12, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
     ]
   }
 }
