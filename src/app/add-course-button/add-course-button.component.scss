@@ -5,13 +5,13 @@
 }
 
 .add-button {
-    margin-top: 10px;
     margin-right: 10%;
+    height: 100%;
 }
 
 button {
-    width: 120px;
-    height: 40px;
+    max-width: 120px;
+    min-height: 88%;
     border: none;
     border-radius: 5spx;
     font-size: 14px;
@@ -20,12 +20,4 @@ button {
     background-size: 20px auto;
     padding-left: 35px;
     cursor: pointer;
-}
-
-@media (max-width:500px) {
-    button {
-        width: 90px;
-        height: 30px;
-        font-size: 10px;
-    }
 }

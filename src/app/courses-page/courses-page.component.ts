@@ -8,7 +8,7 @@ import { CoursePage } from '../interfaces/classes';
 })
 export class CoursesPageComponent {
 
-  @Input() course!: CoursePage;
+  @Input() course: CoursePage;
   @Output() deleteClicked: EventEmitter<number> = new EventEmitter();
   @Output() editClicked: EventEmitter<void> = new EventEmitter();
 

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 
 export class DateHour implements PipeTransform {
-    transform(value: any, ...args: any[]): string {
-        return value.getHours() + 'h ' + value.getMinutes() + 'min'
+    transform(value: any): string {
+        return ` ${value.getHours()} h ${value.getMinutes()} min`
     }
 }
 

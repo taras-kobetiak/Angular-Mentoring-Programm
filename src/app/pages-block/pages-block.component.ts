@@ -7,15 +7,16 @@ import { CoursePage } from '../interfaces/classes';
   styleUrls: ['./pages-block.component.scss']
 })
 export class PagesBlockComponent implements OnInit {
-  a = new Date();
-  courses: CoursePage[] = [];
+  courses: CoursePage[];
 
   loadNewCourses() {
     console.log('here is come action');
   }
 
   deleteComponent(id: number): void {
-    this.courses.splice(this.courses.findIndex(el => el.id === id), 1)
+    // this.courses.splice(this.courses.findIndex(el => el.id === id), 1)
+
+    this.courses = this.courses.filter(el => el.id !== id)
   }
 
   editComponent(course: CoursePage): void {
@@ -28,9 +29,5 @@ export class PagesBlockComponent implements OnInit {
       new CoursePage(2, 'SomeTitle2', new Date(), 10, 'Not good course.'),
       new CoursePage(3, 'SomeTitle3', new Date(), 12, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
     ]
-
-
-
-
   }
 }

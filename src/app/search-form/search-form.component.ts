@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent {
-  inputData: string = '';
+
+  inputData: string;
+
   onFindClick(): void {
     console.log(this.inputData);
   }
