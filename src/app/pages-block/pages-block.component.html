@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="serch-form">
+        <app-search-form></app-search-form>
+    </div>
+    <div class="add-course">
+        <app-add-course-button></app-add-course-button>
+    </div>
+    <div class="pages">
+        <app-courses-page *ngFor="let course of courses" [course]="course" (deleteClicked)="deleteComponent($event)"
+            (editClicked)="editComponent(course)">
+        </app-courses-page>
+    </div>
+    <div class="load-more">
+        <app-load-more (loadClick)="loadNewCourses()"></app-load-more>
+    </div>
+</div>

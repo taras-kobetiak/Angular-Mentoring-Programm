@@ -1,0 +1,32 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.serch-form {
+    height: 5%;
+}
+
+.add-course {
+    height: 5%;
+}
+
+.pages {
+    height: 74%;
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    app-courses-page {
+        height: 30%;
+        flex: 0 1 auto;
+    }
+}
+
+.load-more {
+    height: 8%;
+    margin-bottom: 10px;
+}

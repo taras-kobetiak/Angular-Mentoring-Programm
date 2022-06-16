@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FakeLogoComponentsComponent } from './fake-logo-components.component';
+import { PagesBlockComponent } from './pages-block.component';
 
-describe('FakeLogoComponentsComponent', () => {
-  let component: FakeLogoComponentsComponent;
-  let fixture: ComponentFixture<FakeLogoComponentsComponent>;
+describe('PagesBlockComponent', () => {
+  let component: PagesBlockComponent;
+  let fixture: ComponentFixture<PagesBlockComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FakeLogoComponentsComponent ]
+      declarations: [ PagesBlockComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FakeLogoComponentsComponent);
+    fixture = TestBed.createComponent(PagesBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

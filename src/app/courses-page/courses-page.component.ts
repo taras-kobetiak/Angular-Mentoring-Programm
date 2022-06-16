@@ -1,16 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CoursePage } from '../interfaces/classes';
 
 @Component({
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',
   styleUrls: ['./courses-page.component.scss']
 })
-export class CoursesPageComponent implements OnInit {
+export class CoursesPageComponent {
 
-  constructor() { }
+  @Input() course: CoursePage;
+  @Output() deleteClicked: EventEmitter<number> = new EventEmitter();
+  @Output() editClicked: EventEmitter<void> = new EventEmitter();
 
-  ngOnInit(): void {
+
+  onDeleteClicked() {
+    this.deleteClicked.emit(this.course.id)
   }
+
+  onEditClicked() {
+    this.editClicked.emit()
+  }
+
 
 }
 

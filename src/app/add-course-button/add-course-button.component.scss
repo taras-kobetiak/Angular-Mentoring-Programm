@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.add-button {
+    margin-right: 10%;
+    height: 100%;
+}
+
+button {
+    max-width: 120px;
+    min-height: 88%;
+    border: none;
+    border-radius: 5spx;
+    font-size: 14px;
+    color: white;
+    background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 10px rgb(79, 218, 79);
+    background-size: 20px auto;
+    padding-left: 35px;
+    cursor: pointer;
+}
