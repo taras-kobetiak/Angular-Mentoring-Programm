@@ -10,7 +10,8 @@ import { OrderByPipe } from './order-by.pipe';
 })
 export class PagesBlockComponent implements OnInit, OnChanges {
 
-  courses: CoursePage[];
+  courses: CoursePage[] = [];
+
 
   loadNewCourses() {
     console.log('here is come action');
@@ -27,7 +28,6 @@ export class PagesBlockComponent implements OnInit, OnChanges {
   changeRate(course: CoursePage): void {
     course.topRated = !course.topRated;
     console.log(course.topRated);
-
   }
 
   ngOnInit(): void {
@@ -45,5 +45,4 @@ export class PagesBlockComponent implements OnInit, OnChanges {
     console.log(changes);
 
   }
-
 }
