@@ -13,8 +13,10 @@ export class CoursePage implements IPage {
         public title: string,
         public creationDate: Date,
         public durationInMinutes: number,
-        public description: string) {
+        public description: string,
+        public topRated: boolean = false) {
     }
+
 }
 
 export class User implements IUserEntyty {

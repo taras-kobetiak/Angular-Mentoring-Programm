@@ -12,6 +12,8 @@ export class CoursesPageComponent implements OnInit {
   @Input() course: CoursePage;
   @Output() deleteClicked: EventEmitter<number> = new EventEmitter();
   @Output() editClicked: EventEmitter<void> = new EventEmitter();
+  @Output() starClicked: EventEmitter<boolean> = new EventEmitter()
+
 
   upcoming: boolean = false;
   fresh: boolean = false;
@@ -28,16 +30,15 @@ export class CoursesPageComponent implements OnInit {
 
   onEditClicked() {
     this.editClicked.emit()
-    this.createUpcomingBorder()
+  }
+
+  onStarClicked() {
+    this.starClicked.emit(this.course.topRated)
   }
 
   createFreshBorder(): void {
     if ((+this.course.creationDate - +new Date()) / this.milisecToDay > -14 &&
       +this.course.creationDate - +new Date() < 0) {
-
-      console.log((+this.course.creationDate - +new Date()) / this.milisecToDay);
-
-
       this.fresh = true;
     }
   }
@@ -46,7 +47,6 @@ export class CoursesPageComponent implements OnInit {
     if ((+this.course.creationDate - +new Date()) > 0) {
       this.upcoming = true;
     }
-
   }
 
 }

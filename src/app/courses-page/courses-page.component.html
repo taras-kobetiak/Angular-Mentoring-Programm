@@ -1,12 +1,24 @@
-<div class="container" [ngClass]="{'fresh-course':fresh, 'upcoming-course': upcoming}">
+<div class="container" appNewBorder [ngClass]="{'topRated': course.topRated}">
     <div class="row">
         <div class="info">
             <div class="info-header">
                 <div class="info-header-title">
-                    <h2>{{course.title}}</h2>
+                    <div class="title">
+                        <h2>{{course.title | uppercase}}</h2>
+                    </div>
+                    <div class="title-img" (click)="onStarClicked()" *ngIf="!course.topRated">
+                        <img src="https://img.icons8.com/ios/344/christmas-star.png" alt="star">
+                    </div>
+                    <div class="title-img-new" (click)="onStarClicked()" *ngIf="course.topRated">
+                        <img src="https://img.icons8.com/color/344/filled-star--v1.png" alt="star">
+                    </div>
                 </div>
                 <div class="hours-minutes">
                     <div class="timer">{{course.creationDate | dateHour}}</div>
+
+
+
+
                     <div class="calendar">{{course.creationDate | date: 'd MMM, y'}}</div>
                 </div>
             </div>

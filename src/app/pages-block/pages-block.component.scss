@@ -2,22 +2,25 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
 }
 
 .serch-form {
+    margin-bottom: 2%;
     height: 5%;
 }
 
 .add-course {
+    margin-bottom: 2%;
     height: 5%;
 }
 
 .pages {
+    margin-bottom: 2%;
     height: 74%;
     flex: 0 1 auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
 
     app-courses-page {
@@ -29,4 +32,13 @@
 .load-more {
     height: 8%;
     margin-bottom: 10px;
+}
+
+.no-data {
+    margin: 0 10%;
+    padding: 20px;
+    border: 1px solid black;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
 }

@@ -11,10 +11,24 @@
 }
 
 .info-header {
-    height: 40%;
+    max-height: 40%;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
 }
+
+.info-header-title {
+    max-height: 80%;
+    display: flex;
+    align-items: center;
+
+    img {
+        padding-left: 25%;
+        max-height: 20px;
+        cursor: pointer;
+    }
+}
+
 
 .hours-minutes {
     color: rgb(179, 178, 178);
@@ -128,8 +142,19 @@
             bottom: 10px;
         }
     }
-}
 
+    .info-header-title {
+
+        h2 {
+            font-size: 14px;
+        }
+
+        img {
+            padding-left: 5%;
+            height: 15px;
+        }
+    }
+}
 
 .fresh-course {
     border: 2px solid rgb(47, 255, 61);
@@ -137,4 +162,8 @@
 
 .upcoming-course {
     border: 2px solid rgb(45, 201, 218);
+}
+
+.topRated {
+    background-color: rgb(175, 243, 229);
 }

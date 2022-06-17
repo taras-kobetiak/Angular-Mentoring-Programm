@@ -4,4 +4,5 @@ export interface IPage {
     creationDate: Date;
     durationInMinutes: number;
     description: string;
+    topRated: boolean;
 }
