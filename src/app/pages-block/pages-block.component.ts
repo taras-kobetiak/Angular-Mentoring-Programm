@@ -1,5 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
+import { OrderByPipe } from './order-by.pipe';
+
 
 @Component({
   selector: 'app-pages-block',
@@ -30,12 +32,13 @@ export class PagesBlockComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.courses = [
-      new CoursePage(1, 'SomeTitle1', new Date(2022, 5, 13), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-      new CoursePage(2, 'SomeTitle2', new Date(2022, 5, 21), 10, 'Not good course.'),
-      new CoursePage(3, 'SomeTitle3', new Date(2021, 5, 3), 12, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+      new CoursePage(1, 'SomeTitle1', new Date(2022, 5, 13), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+      new CoursePage(2, 'SomeTitle2', new Date(2022, 5, 21), 59, 'Not good course.'),
+      new CoursePage(3, 'SomeTitle3', new Date(2021, 5, 3), 96, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
     ]
+    // this.courses.sort((a, b) => +b.creationDate - +a.creationDate)
 
-    this.courses.sort((a, b) => +b.creationDate - +a.creationDate)
+    OrderByPipe.prototype.transform(this.courses)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

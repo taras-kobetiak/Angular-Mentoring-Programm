@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DateHour } from './courses-page/date.pipe';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +16,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './courses-page/new-border.directive';
 import { DurationPipe } from './courses-page/duration.pipe';
+import { OrderByPipe } from './pages-block/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -30,9 +30,9 @@ import { DurationPipe } from './courses-page/duration.pipe';
     LoadMoreComponent,
     NotFoundComponent,
     PagesBlockComponent,
-    DateHour,
     NewBorderDirective,
-    DurationPipe
+    DurationPipe,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
