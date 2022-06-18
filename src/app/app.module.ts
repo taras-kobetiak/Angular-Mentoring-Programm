@@ -32,7 +32,7 @@ import { OrderByPipe } from './pages-block/order-by.pipe';
     PagesBlockComponent,
     NewBorderDirective,
     DurationPipe,
-    OrderByPipe
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,

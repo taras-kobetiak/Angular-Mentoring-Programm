@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-search-form',
@@ -6,11 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent {
-
+  @Output() findClick: EventEmitter<string> = new EventEmitter()
   inputData: string;
 
-  onFindClick(): void {
-    console.log(this.inputData);
+  onFindClick() {
+    this.findClick.emit(this.inputData)
+
   }
 
 

@@ -1,9 +1,26 @@
 .container {
     margin: 0 10%;
     height: 100%;
-    border-radius: 10px;
-    background: white;
+
     font-size: 16px;
+}
+
+.main-row {
+    height: 90%;
+    background: white;
+    border-radius: 10px;
+}
+
+.row {
+    margin: 0 5%;
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom-space {
+    height: 12%;
 }
 
 .info {
@@ -28,7 +45,6 @@
         cursor: pointer;
     }
 }
-
 
 .hours-minutes {
     color: rgb(179, 178, 178);
@@ -104,15 +120,6 @@
     }
 }
 
-.row {
-    margin: 0 5%;
-    height: 100%;
-    max-width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-
 @media (max-width:550px) {
     .container {
         height: 100%;
@@ -139,7 +146,7 @@
         button {
             height: 20px;
             font-size: 10px;
-            bottom: 10px;
+            bottom: 5px;
         }
     }
 
