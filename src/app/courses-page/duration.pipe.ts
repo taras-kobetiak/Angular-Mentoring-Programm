@@ -10,6 +10,5 @@ export class DurationPipe implements PipeTransform {
     let minutes = duration % 60
     return hours > 1 ? `${hours} h ${minutes} min` :
       `${minutes} min`
-
   }
 }

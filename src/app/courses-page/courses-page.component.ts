@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
 
 
@@ -14,7 +14,6 @@ export class CoursesPageComponent implements OnInit {
   @Output() editClicked: EventEmitter<void> = new EventEmitter();
   @Output() starClicked: EventEmitter<boolean> = new EventEmitter()
 
-
   upcoming: boolean = false;
   fresh: boolean = false;
   milisecToDay: number = 1000 * 60 * 60 * 24;
@@ -23,6 +22,20 @@ export class CoursesPageComponent implements OnInit {
     this.createFreshBorder()
     this.createUpcomingBorder()
   }
+
+  //this is my tost for new-border directive
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log(changes);
+  // }
+
+  // ngDoCheck(): void {
+  //   if ((+this.course.creationDate - +new Date()) / this.milisecToDay > -14 &&
+  //     +this.course.creationDate - +new Date() < 0) {
+  //     console.log(this.course);
+
+  //   }
+  // }
 
   onDeleteClicked() {
     this.deleteClicked.emit(this.course.id)
@@ -48,7 +61,12 @@ export class CoursesPageComponent implements OnInit {
       this.upcoming = true;
     }
   }
-
 }
+
+
+
+
+
+
 
 

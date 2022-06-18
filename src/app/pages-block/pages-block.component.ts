@@ -1,8 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
 import { FoundCoursesPipe } from './found-courses.pipe';
-import { OrderByPipe } from './order-by.pipe';
-
 
 @Component({
   selector: 'app-pages-block',
@@ -12,7 +10,6 @@ import { OrderByPipe } from './order-by.pipe';
 export class PagesBlockComponent implements OnInit, OnChanges {
 
   courses: CoursePage[] = [];
-
 
   loadNewCourses() {
     console.log('here is come action');
@@ -32,28 +29,19 @@ export class PagesBlockComponent implements OnInit, OnChanges {
 
   findClick(inputData: string) {
     FoundCoursesPipe.prototype.transform(this.courses, inputData)
-
-    // this.courses.sort((a, b) => b.title.toLowerCase().includes(inputData.toLowerCase())
-    //   && !a.title.toLowerCase().includes(inputData.toLowerCase()) ? 1 : -1)
-    // console.log(inputData);
-
   }
 
   ngOnInit(): void {
     this.courses = [
-      new CoursePage(1, 'First', new Date(2022, 5, 13), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-      new CoursePage(2, 'Second', new Date(2022, 5, 21), 59, 'Not good course.'),
+      new CoursePage(1, 'First', new Date(2025, 1, 12), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
+      new CoursePage(2, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
       new CoursePage(3, 'Third', new Date(2021, 5, 3), 96, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-      new CoursePage(2123, 'Second', new Date(2022, 5, 21), 59, 'Not good course.'),
-      new CoursePage(22, 'Second', new Date(2022, 5, 21), 59, 'Not good course.'),
-      new CoursePage(12, 'Second mama', new Date(2022, 5, 21), 59, 'Not good course.'),
-      new CoursePage(342, 'Second', new Date(2022, 5, 21), 59, 'Not good course.'),
-      new CoursePage(221, 'Second', new Date(2022, 5, 21), 59, 'Not good course.'),
+      new CoursePage(2123, 'Second mama', new Date(2020, 5, 21), 59, 'Not good course.'),
+      new CoursePage(23, 'Second pajfo', new Date(2020, 5, 21), 59, 'Not good course.'),
+      new CoursePage(231, 'Seconasdfasf', new Date(2020, 5, 21), 59, 'Not good course.'),
 
     ]
-    // this.courses.sort((a, b) => +b.creationDate - +a.creationDate)
-
-    OrderByPipe.prototype.transform(this.courses)
+    this.courses.sort((a, b) => +b.creationDate - +a.creationDate)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
