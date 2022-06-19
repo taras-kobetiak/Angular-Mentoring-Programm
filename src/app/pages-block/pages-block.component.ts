@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
-import { FoundCoursesPipe } from './found-courses.pipe';
+import { FoundCoursesPipe } from './pipes/found-courses.pipe';
 
 @Component({
   selector: 'app-pages-block',

@@ -1,5 +1,5 @@
 import { Input, Pipe, PipeTransform } from '@angular/core';
-import { CoursePage } from '../interfaces/classes';
+import { CoursePage } from '../../interfaces/classes';
 
 @Pipe({
   name: 'foundCourses'
