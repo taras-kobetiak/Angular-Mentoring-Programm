@@ -38,7 +38,6 @@ import { TranslateBlockDirective } from './pages-block/directives/translate-bloc
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

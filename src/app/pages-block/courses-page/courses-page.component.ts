@@ -25,7 +25,6 @@ export class CoursesPageComponent {
   onStarClicked() {
     this.starClicked.emit(this.course.topRated)
   }
-
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
 import { FoundCoursesPipe } from './pipes/found-courses.pipe';
 
@@ -7,7 +7,7 @@ import { FoundCoursesPipe } from './pipes/found-courses.pipe';
   templateUrl: './pages-block.component.html',
   styleUrls: ['./pages-block.component.scss']
 })
-export class PagesBlockComponent implements OnInit, OnChanges {
+export class PagesBlockComponent implements OnInit {
 
   courses: CoursePage[] = [];
 
@@ -32,6 +32,7 @@ export class PagesBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
     this.courses = [
       new CoursePage(1, 'First', new Date(2025, 1, 12), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
       new CoursePage(2, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
@@ -39,13 +40,8 @@ export class PagesBlockComponent implements OnInit, OnChanges {
       new CoursePage(2123, 'Second mama', new Date(2020, 5, 21), 59, 'Not good course.'),
       new CoursePage(23, 'Second pajfo', new Date(2020, 5, 21), 59, 'Not good course.'),
       new CoursePage(231, 'Seconasdfasf', new Date(2020, 5, 21), 59, 'Not good course.'),
-
     ]
+
     this.courses.sort((a, b) => +b.creationDate - +a.creationDate)
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-
   }
 }

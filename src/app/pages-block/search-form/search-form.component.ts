@@ -13,7 +13,6 @@ export class SearchFormComponent {
 
   onFindClick() {
     this.findClick.emit(this.inputData)
-
   }
 
 
