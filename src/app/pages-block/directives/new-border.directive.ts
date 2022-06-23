@@ -23,20 +23,8 @@ export class NewBorderDirective implements OnInit {
       this.element.nativeElement.style.border = '2px solid rgb(45, 201, 218)'
     }
   }
-
-
 }
 
-
-  // 
-  // constructor(private el: ElementRef) {
-
-  //   this.el.nativeElement.style.border = '2px solid yellow'
-  //   // if ((+this.course.creationDate - +new Date()) / this.milisecToDay > -14 &&
-  //   //   +this.course.creationDate - +new Date() < 0) {
-  //   //   this.el.nativeElement.style.border = '1px solid yellow'
-  //   // }
-  // }
 
 
 

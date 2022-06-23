@@ -1,7 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-
-
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -14,7 +12,4 @@ export class SearchFormComponent {
   onFindClick() {
     this.findClick.emit(this.inputData)
   }
-
-
-
 }

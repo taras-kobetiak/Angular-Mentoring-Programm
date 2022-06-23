@@ -33,7 +33,6 @@ export class PagesBlockComponent implements OnInit {
     console.log('here is come action');
   }
 
-
   editComponent(course: CoursePage): void {
     console.log(course.description);
   }
@@ -49,5 +48,4 @@ export class PagesBlockComponent implements OnInit {
   ngOnInit(): void {
     this.courses.sort((a, b) => +b.creationDate - +a.creationDate);
   }
-
 }

@@ -19,5 +19,4 @@ export class LoginPageComponent {
     console.log('logged in');
     this.onSubmitClick.emit(form.value.email)
   }
-
 }

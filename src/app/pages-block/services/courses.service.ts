@@ -13,7 +13,6 @@ export class CoursesService {
     new CoursePage(12, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
     new CoursePage(22, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
     new CoursePage(3322, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
-
   ];
 
   getCoursesList(): Array<CoursePage> {
@@ -35,10 +34,4 @@ export class CoursesService {
   updateCourse(course: CoursePage) {
     course.topRated = !course.topRated;
   }
-
 }
-
-
-// console.log(id);
-// this.courses[this.courses.findIndex(el => el.id === id)] = new CoursePage(231, 'A', new Date(20232, 5, 21), 59, 'Not good course.');
-    // this.courses = this.courses.splice(this.courses.findIndex(el => el.id === id), 1)

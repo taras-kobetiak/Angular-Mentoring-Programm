@@ -15,8 +15,6 @@ export class AppComponent {
 
   constructor(private authService: AuthServiceService) { }
 
-
-
   logClick() {
     this.isAuth = this.authService.isAuthenticated()
     this.showLogIn = !this.showLogIn;

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/interfaces/classes';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +9,6 @@ export class AuthServiceService {
   users: User[];
 
   isAuth: boolean = true;
-
 
   logIn(form: any) {
     localStorage.setItem(form.value.email, form.value.password)

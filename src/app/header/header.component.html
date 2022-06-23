@@ -12,10 +12,10 @@
             <img src="https://www.neuro-cardiolab.com.ua/img/%D0%B1%D0%B5%D0%B7%D1%84%D0%BE%D1%82%D0%BE.png" alt="">
             <input type="text" placeholder="{{currentUser || 'Enter your login'}}">
         </div>
-        <div class="user-log-of" (click)="onLogClick()">
+        <div class="user-log-of">
             <img src="https://help-odnoklassniki.ru/wp-content/uploads/2019/02/login-square-arrow-button-outline.png"
                 alt="">
-            <p *ngIf="isLogClicked; else  logout">Log in</p>
+            <p *ngIf="isLogClicked; else  logout" (click)="onLogClick()">Log in</p>
             <ng-template #logout>
                 <p (click)="logOutClick()">Log out</p>
             </ng-template>
