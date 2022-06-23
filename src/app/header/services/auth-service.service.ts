@@ -14,7 +14,6 @@ export class AuthServiceService {
 
   logIn(form: any) {
     localStorage.setItem(form.value.email, form.value.password)
-    this.isAuthenticated();
   }
 
   logOut() {
@@ -27,12 +26,13 @@ export class AuthServiceService {
 
   getUserInfo(form: any): string | void {
 
-    this.users.map(user => {
-      if (user.email === form.value.email && user.password === form.value.password) {
-        return user.login
-      } else {
-        return
-      }
-    })
+    //   this.users.map(user => {
+    //     if (user.email === form.value.email && user.password === form.value.password) {
+    //       return user.login
+    //     } else {
+    //       return
+    //     }
+    //   })
+    // }
   }
 }

@@ -8,7 +8,7 @@ import { AuthServiceService } from './services/auth-service.service';
 })
 export class HeaderComponent {
 
-  @Input() user: string;
+  @Input() currentUser: string;
   @Output() logClick: EventEmitter<void> = new EventEmitter()
 
   isAuth: boolean = true;
@@ -22,7 +22,6 @@ export class HeaderComponent {
 
   logOutClick() {
     this.authService.logOut()
-    console.log(this.user);
-
+    this.isAuth = !this.isAuth
   }
 }

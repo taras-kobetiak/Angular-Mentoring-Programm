@@ -17,10 +17,7 @@ export class LoginPageComponent {
   onSubmit(form: any) {
     this.authService.logIn(form);
     console.log('logged in');
-    console.log(localStorage);
-
     this.onSubmitClick.emit(form.value.email)
-
   }
 
 }

@@ -18,5 +18,6 @@ export class AppComponent {
   submitClick(email: string) {
     this.showLogIn = !this.showLogIn;
     this.user = email;
+    console.log(this.user);
   }
 }
