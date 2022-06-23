@@ -20,9 +20,13 @@
     padding-bottom: 1%;
     flex: 1 1 auto;
     height: 76%;
-    min-width: 100%;
     width: 100%;
     background: rgb(228, 225, 225);
+}
+
+.main__block {
+    height: 100%;
+    width: 100%;
 }
 
 .footer {

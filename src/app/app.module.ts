@@ -17,6 +17,7 @@ import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './pages-block/directives/new-border.directive';
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
 import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
+import { LoginPageModule } from './login-page/login-page.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TranslateBlockDirective } from './pages-block/directives/translate-bloc
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    LoginPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

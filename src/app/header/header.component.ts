@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -6,4 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+  @Input() user: string;
+  @Output() logClick: EventEmitter<void> = new EventEmitter()
+
+  isAuth: boolean = true;
+
+  constructor(private authService: AuthServiceService) { }
+
+  onLogClick(): void {
+    this.logClick.emit()
+    this.isAuth = this.authService.isAuthenticated()
+  }
+
+  logOutClick() {
+    this.authService.logOut()
+    console.log(this.user);
+
+  }
 }

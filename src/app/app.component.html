@@ -1,12 +1,16 @@
 <div class="main-container">
     <div class="header">
-        <app-header></app-header>
+        <app-header (logClick)="logInForm()"></app-header>
     </div>
     <div class="breadcrumbs">
         <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="main">
-        <router-outlet></router-outlet>
+        <app-login-page [hidden]="!showLogIn" (onSubmitClick)="submitClick($event)"></app-login-page>
+        <div [hidden]="showLogIn" class="main__block">
+            <router-outlet></router-outlet>
+        </div>
+
     </div>
     <div class="footer">
         <app-footer></app-footer>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-course-button',
@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AddCourseButtonComponent {
 
+  @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
+
   onAddButtonClick(): void {
-    console.log('Here will be some act connecting to adding courses');
+    this.addButtonClicked.emit()
   }
 }

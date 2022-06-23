@@ -3,7 +3,7 @@
         <app-search-form (findClick)="findClick($event)"></app-search-form>
     </div>
     <div class="add-course">
-        <app-add-course-button></app-add-course-button>
+        <app-add-course-button (addButtonClicked)="addCourses()"></app-add-course-button>
     </div>
     <div class="pages">
         <app-courses-page *ngFor="let course of courses" [course]="course" (starClicked)="changeRate(course)"

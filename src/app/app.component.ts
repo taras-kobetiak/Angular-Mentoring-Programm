@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+
+  showLogIn = false;
+  user: string;
+
+  logInForm() {
+    this.showLogIn = !this.showLogIn;
+  }
+
+  submitClick(email: string) {
+    this.showLogIn = !this.showLogIn;
+    this.user = email;
+  }
 }
