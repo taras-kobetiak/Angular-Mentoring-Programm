@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthServiceService } from './header/services/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,22 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
 
+  isAuth: boolean = true;
   showLogIn = false;
   user: string;
 
-  logInForm() {
+  constructor(private authService: AuthServiceService) { }
+
+
+
+  logClick() {
+    this.isAuth = this.authService.isAuthenticated()
     this.showLogIn = !this.showLogIn;
   }
 
   submitClick(email: string) {
     this.showLogIn = !this.showLogIn;
     this.user = email;
-    console.log(this.user);
+    this.isAuth = this.authService.isAuthenticated()
   }
 }

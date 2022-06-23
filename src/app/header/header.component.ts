@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,19 +10,19 @@ import { AuthServiceService } from './services/auth-service.service';
 export class HeaderComponent {
 
   @Input() currentUser: string;
+  @Input() isAuth: boolean;
   @Output() logClick: EventEmitter<void> = new EventEmitter()
 
-  isAuth: boolean = true;
+  isLogClicked: boolean = false;
 
   constructor(private authService: AuthServiceService) { }
 
   onLogClick(): void {
-    this.logClick.emit()
-    this.isAuth = this.authService.isAuthenticated()
+    this.logClick.emit();
+    this.isLogClicked != this.isLogClicked;
   }
 
   logOutClick() {
     this.authService.logOut()
-    this.isAuth = !this.isAuth
   }
 }

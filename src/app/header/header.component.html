@@ -15,7 +15,7 @@
         <div class="user-log-of" (click)="onLogClick()">
             <img src="https://help-odnoklassniki.ru/wp-content/uploads/2019/02/login-square-arrow-button-outline.png"
                 alt="">
-            <p *ngIf="isAuth; else  logout">Log in</p>
+            <p *ngIf="isLogClicked; else  logout">Log in</p>
             <ng-template #logout>
                 <p (click)="logOutClick()">Log out</p>
             </ng-template>

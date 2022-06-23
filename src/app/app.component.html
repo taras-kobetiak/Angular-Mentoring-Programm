@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="header">
-        <app-header (logClick)="logInForm()" [currentUser]="user"></app-header>
+        <app-header (logClick)="logClick()" [currentUser]="user" [isAuth]="isAuth"></app-header>
     </div>
     <div class="breadcrumbs" [hidden]="showLogIn">
         <app-breadcrumbs></app-breadcrumbs>
