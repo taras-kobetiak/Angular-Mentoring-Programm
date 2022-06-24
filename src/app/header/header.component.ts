@@ -10,19 +10,19 @@ export class HeaderComponent {
 
   @Input() currentUser: string;
   @Input() isAuth: boolean;
-  @Output() logClick: EventEmitter<void> = new EventEmitter()
+  @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
   isLogClicked: boolean = true;
 
   constructor(private authService: AuthServiceService) { }
 
-  onLogClick(): void {
-    this.logClick.emit();
+  onLoginClick(): void {
+
     this.isLogClicked = !this.isLogClicked;
   }
 
-  logOutClick() {
-    this.isLogClicked = !this.isLogClicked;
+  onLogOutClick(): void {
+    this.logOutClick.emit();
     this.authService.logOut()
   }
 }

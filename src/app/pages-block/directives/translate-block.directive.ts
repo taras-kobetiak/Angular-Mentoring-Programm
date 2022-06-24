@@ -10,18 +10,17 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 export class TranslateBlockDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
-    // отут я хз як правильно зробити. я хотів додати це чисто до цього опускання, а щоб бордери зразу появлялись
     this.renderer.setStyle(this.element.nativeElement, 'transition-duration', '0.2s')
   }
 
-  onMouseEnter() {
+  onMouseEnter(): void {
     this.transform('translate(0, 2px)');
   }
-  onMouseLeave() {
+  onMouseLeave(): void {
     this.transform('translate(0)')
   }
 
-  private transform(val: string) {
+  private transform(val: string): void {
     this.renderer.setStyle(this.element.nativeElement, 'transform', val)
   }
 

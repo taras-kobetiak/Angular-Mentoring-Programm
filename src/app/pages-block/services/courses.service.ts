@@ -19,19 +19,19 @@ export class CoursesService {
     return this.courses
   }
 
-  addCourses(course: CoursePage) {
+  addCourses(course: CoursePage): void {
     this.courses.push(course)
   }
 
-  deleteCourse(id: number) {
+  deleteCourse(id: number): CoursePage[] {
     return this.courses = this.courses.filter(el => el.id !== id);
   }
 
-  getCourseById(id: number) {
+  getCourseById(id: number): CoursePage[] {
     return this.courses = this.courses.filter(course => course.id === id)
   }
 
-  updateCourse(course: CoursePage) {
+  updateCourse(course: CoursePage): void {
     course.topRated = !course.topRated;
   }
 }

@@ -12,7 +12,7 @@ export class NewBorderDirective implements OnInit {
 
   constructor(private element: ElementRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     let milisecToDay: number = 1000 * 60 * 60 * 24;
 
     if ((+this.course.creationDate - +new Date()) / milisecToDay > -14 &&

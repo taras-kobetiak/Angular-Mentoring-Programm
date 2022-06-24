@@ -8,7 +8,6 @@ import { FooterComponent } from './footer/footer.component';
 import { CoursesPageComponent } from './pages-block/courses-page/courses-page.component';
 import { SearchFormComponent } from './pages-block/search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { AddCourseButtonComponent } from './pages-block/add-course-button/add-course-button.component';
 import { FormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -17,6 +16,8 @@ import { NewBorderDirective } from './pages-block/directives/new-border.directiv
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
 import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
 import { LoginPageModule } from './login-page/login-page.module';
+import { AddCourseModule } from './add-course/add-course.module';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +27,6 @@ import { LoginPageModule } from './login-page/login-page.module';
     CoursesPageComponent,
     SearchFormComponent,
     BreadcrumbsComponent,
-    AddCourseButtonComponent,
     LoadMoreComponent,
     NotFoundComponent,
     PagesBlockComponent,
@@ -38,7 +38,8 @@ import { LoginPageModule } from './login-page/login-page.module';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    LoginPageModule
+    LoginPageModule,
+    AddCourseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

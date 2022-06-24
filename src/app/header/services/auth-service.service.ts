@@ -8,7 +8,7 @@ export class AuthServiceService {
 
   users: User[];
 
-  isAuth: boolean = true;
+  isAuth: boolean;
 
   logIn(form: any) {
     localStorage.setItem(form.value.email, form.value.password)

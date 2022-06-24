@@ -10,11 +10,9 @@ export class LoginPageComponent {
 
   @Output() onSubmitClick: EventEmitter<string> = new EventEmitter()
 
-  user: string;
-
   constructor(private authService: AuthServiceService) { }
 
-  onSubmit(form: any) {
+  onSubmit(form: any): void {
     this.authService.logIn(form);
     console.log('logged in');
     this.onSubmitClick.emit(form.value.email)

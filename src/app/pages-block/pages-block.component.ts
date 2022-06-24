@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
 import { FoundCoursesPipe } from './pipes/found-courses.pipe';
 import { CoursesService } from './services/courses.service';
@@ -13,39 +13,33 @@ import { CoursesService } from './services/courses.service';
 
 export class PagesBlockComponent implements OnInit {
 
+  @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
+
   courses: CoursePage[] = [];
 
-  constructor(private coursesPages: CoursesService) {
-    this.courses = coursesPages.getCoursesList();
+  constructor(private coursesPagesService: CoursesService) {
   }
 
-  addCourses() {
-    this.coursesPages.addCourses(new CoursePage(231, 'Seconasdfasf', new Date(2020, 5, 21), 59, 'Not good course.'))
-  }
-
-  deleteComponent(id: number) {
+  deleteComponent(id: number): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.courses = this.coursesPages.deleteCourse(id)
+      this.courses = this.coursesPagesService.deleteCourse(id)
     }
   }
 
-  loadNewCourses() {
+  loadNewCourses(): void {
     console.log('here is come action');
   }
 
-  editComponent(course: CoursePage): void {
-    console.log(course.description);
-  }
-
   changeRate(course: CoursePage): void {
-    this.coursesPages.updateCourse(course)
+    this.coursesPagesService.updateCourse(course)
   }
 
-  findClick(inputData: string) {
+  findClick(inputData: string): void {
     FoundCoursesPipe.prototype.transform(this.courses, inputData)
   }
 
   ngOnInit(): void {
-    this.courses.sort((a, b) => +b.creationDate - +a.creationDate);
+    this.courses = this.coursesPagesService.getCoursesList()
+      .sort((a, b) => +b.creationDate - +a.creationDate);
   }
 }

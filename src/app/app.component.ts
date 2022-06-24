@@ -9,18 +9,19 @@ import { AuthServiceService } from './header/services/auth-service.service';
 
 export class AppComponent {
 
-  isAuth: boolean = true;
+  isAuth: boolean = false;
   showLogIn = false;
+  showAddCourseForm = false;
   user: string;
 
   constructor(private authService: AuthServiceService) { }
 
-  logClick() {
+  logOutFunction(): void {
     this.isAuth = this.authService.isAuthenticated()
     this.showLogIn = !this.showLogIn;
   }
 
-  submitClick(email: string) {
+  submitClick(email: string): void {
     this.showLogIn = !this.showLogIn;
     this.user = email;
     this.isAuth = this.authService.isAuthenticated()
