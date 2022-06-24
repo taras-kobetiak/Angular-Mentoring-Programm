@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="pages">
-        <app-courses-page *ngFor="let course of courses" [course]="course" (starClicked)="changeRate(course)"
+        <app-courses-page *ngFor="let course of courses |orderBy" [course]="course" (starClicked)="changeRate(course)"
             (deleteClicked)="deleteComponent($event)">
         </app-courses-page>
         <div *ngIf="!courses.length" class="no-data">{{'No data. Feel free to add new courses' | uppercase}} </div>

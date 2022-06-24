@@ -16,6 +16,7 @@ import { DurationPipe } from './pages-block/pipes/duration.pipe';
 import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
 import { LoginPageModule } from './login-page/login-page.module';
 import { AddCourseModule } from './add-course/add-course.module';
+import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AddCourseModule } from './add-course/add-course.module';
     NewBorderDirective,
     DurationPipe,
     TranslateBlockDirective,
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,

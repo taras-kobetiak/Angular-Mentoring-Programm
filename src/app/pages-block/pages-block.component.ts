@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CoursePage } from '../interfaces/classes';
-import { FoundCoursesPipe } from './pipes/found-courses.pipe';
 import { CoursesService } from './services/courses.service';
-
 
 @Component({
   selector: 'app-pages-block',
@@ -16,8 +14,7 @@ export class PagesBlockComponent implements OnInit {
 
   courses: CoursePage[] = [];
 
-  constructor(private coursesPagesService: CoursesService) {
-  }
+  constructor(private coursesPagesService: CoursesService) { }
 
   deleteComponent(id: number): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
@@ -34,11 +31,16 @@ export class PagesBlockComponent implements OnInit {
   }
 
   findClick(inputData: string): void {
-    FoundCoursesPipe.prototype.transform(this.courses, inputData)
+
+    this.courses.sort((a, b) => isInclude(b.title, inputData)
+      && !isInclude(a.title, inputData) ? 1 : -1)
+
+    function isInclude(title: string, inputData: string): boolean {
+      return title.toLowerCase().includes(inputData.toLowerCase())
+    }
   }
 
   ngOnInit(): void {
     this.courses = this.coursesPagesService.getCoursesList()
-      .sort((a, b) => +b.creationDate - +a.creationDate);
   }
 }
