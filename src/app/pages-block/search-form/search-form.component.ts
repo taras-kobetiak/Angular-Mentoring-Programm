@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class SearchFormComponent {
   @Output() findClick: EventEmitter<string> = new EventEmitter()
+
   inputData: string;
 
   onFindClick() {

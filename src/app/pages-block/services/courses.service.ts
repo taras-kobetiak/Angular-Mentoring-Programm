@@ -20,7 +20,7 @@ export class CoursesService {
   }
 
   addCourses(course: CoursePage) {
-    this.courses.push(course)
+    this.courses = this.courses.concat(course)
   }
 
   deleteCourse(id: number) {
