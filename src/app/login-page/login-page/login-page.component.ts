@@ -8,13 +8,13 @@ import { AuthServiceService } from 'src/app/header/services/auth-service.service
 })
 export class LoginPageComponent {
 
-  @Output() onSubmitClick: EventEmitter<string> = new EventEmitter()
+  @Output() onSubmitClick = new EventEmitter<object>()
 
   constructor(private authService: AuthServiceService) { }
 
   onSubmit(form: any): void {
     this.authService.logIn(form);
     console.log('logged in');
-    this.onSubmitClick.emit(form.value.email)
+    this.onSubmitClick.emit(form)
   }
 }

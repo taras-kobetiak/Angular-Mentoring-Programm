@@ -15,12 +15,12 @@ export class CoursesService {
     new CoursePage(3322, 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
   ];
 
-  getCoursesList(): Array<CoursePage> {
+  getCoursesList(): CoursePage[] {
     return this.courses
   }
 
   addCourses(course: CoursePage): void {
-    this.courses.push(course)
+    this.courses = this.courses.concat(course)
   }
 
   deleteCourse(id: number): CoursePage[] {

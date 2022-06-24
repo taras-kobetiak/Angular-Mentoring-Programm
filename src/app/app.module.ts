@@ -10,7 +10,6 @@ import { SearchFormComponent } from './pages-block/search-form/search-form.compo
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './pages-block/directives/new-border.directive';
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
@@ -28,7 +27,6 @@ import { AddCourseModule } from './add-course/add-course.module';
     SearchFormComponent,
     BreadcrumbsComponent,
     LoadMoreComponent,
-    NotFoundComponent,
     PagesBlockComponent,
     NewBorderDirective,
     DurationPipe,

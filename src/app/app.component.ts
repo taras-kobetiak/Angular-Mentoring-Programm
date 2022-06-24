@@ -17,13 +17,17 @@ export class AppComponent {
   constructor(private authService: AuthServiceService) { }
 
   logOutFunction(): void {
-    this.isAuth = this.authService.isAuthenticated()
+    this.isAuth = !this.isAuth;
     this.showLogIn = !this.showLogIn;
+    console.log(localStorage)
   }
 
-  submitClick(email: string): void {
+  submitClick(form: any): void {
+    this.authService.logIn(form);
+    this.user = form.value.email;
     this.showLogIn = !this.showLogIn;
-    this.user = email;
-    this.isAuth = this.authService.isAuthenticated()
+    this.isAuth = !this.isAuth;
+
+    // this.authService.isAuthenticated(form.value.email);
   }
 }

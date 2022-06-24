@@ -8,7 +8,6 @@ import { CoursesService } from './services/courses.service';
   selector: 'app-pages-block',
   templateUrl: './pages-block.component.html',
   styleUrls: ['./pages-block.component.scss'],
-  providers: [CoursesService]
 })
 
 export class PagesBlockComponent implements OnInit {

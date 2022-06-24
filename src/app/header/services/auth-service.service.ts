@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/interfaces/classes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  users: User[];
-
-  isAuth: boolean;
-
-  logIn(form: any) {
+  logIn(form: any): void {
     localStorage.setItem(form.value.email, form.value.password)
   }
 
-  logOut() {
+  logOut(): void {
     localStorage.clear()
   }
 
-  isAuthenticated() {
-    return this.isAuth = !this.isAuth;
+  isAuthenticated(form: any): boolean {
+    return localStorage.getItem(form.email) ? true :
+      false;
   }
 
   getUserInfo(form: any): string | void {

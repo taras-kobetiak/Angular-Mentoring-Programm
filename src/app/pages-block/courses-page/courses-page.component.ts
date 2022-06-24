@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CoursePage } from '../../interfaces/classes';
 
-
 @Component({
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',

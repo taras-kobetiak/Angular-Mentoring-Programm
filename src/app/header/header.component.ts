@@ -14,15 +14,12 @@ export class HeaderComponent {
 
   isLogClicked: boolean = true;
 
-  constructor(private authService: AuthServiceService) { }
-
   onLoginClick(): void {
-
     this.isLogClicked = !this.isLogClicked;
   }
 
   onLogOutClick(): void {
     this.logOutClick.emit();
-    this.authService.logOut()
+    this.isAuth = !this.isAuth;
   }
 }
