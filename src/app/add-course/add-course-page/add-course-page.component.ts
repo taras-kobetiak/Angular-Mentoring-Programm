@@ -12,4 +12,9 @@ export class AddCoursePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  onSubmit(form: any) {
+
+  }
+
 }

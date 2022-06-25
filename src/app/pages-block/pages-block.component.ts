@@ -16,6 +16,10 @@ export class PagesBlockComponent implements OnInit {
 
   constructor(private coursesPagesService: CoursesService) { }
 
+  ngOnInit(): void {
+    this.courses = this.coursesPagesService.getCoursesList()
+  }
+
   deleteComponent(id: number): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       this.courses = this.coursesPagesService.deleteCourse(id)
@@ -27,20 +31,15 @@ export class PagesBlockComponent implements OnInit {
   }
 
   changeRate(course: CoursePage): void {
+    course.topRated = !course.topRated
     this.coursesPagesService.updateCourse(course)
+    console.log(this.courses);
   }
 
   findClick(inputData: string): void {
+    this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
 
-    this.courses.sort((a, b) => isInclude(b.title, inputData)
-      && !isInclude(a.title, inputData) ? 1 : -1)
-
-    function isInclude(title: string, inputData: string): boolean {
-      return title.toLowerCase().includes(inputData.toLowerCase())
-    }
-  }
-
-  ngOnInit(): void {
-    this.courses = this.coursesPagesService.getCoursesList()
+    // this.courses.sort((a, b) => b.title.toLowerCase().includes(inputData.toLowerCase())
+    //   && !a.title.toLowerCase().includes(inputData.toLowerCase()) ? 1 : -1)
   }
 }

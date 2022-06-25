@@ -13,20 +13,12 @@ export class AuthServiceService {
     localStorage.clear()
   }
 
-  isAuthenticated(form: any): boolean {
-    return localStorage.getItem(form.email) ? true :
+  isAuthenticated(user: string): boolean {
+    return localStorage.getItem(user) ? true :
       false;
   }
 
   getUserInfo(form: any): string | void {
-
-    //   this.users.map(user => {
-    //     if (user.email === form.value.email && user.password === form.value.password) {
-    //       return user.login
-    //     } else {
-    //       return
-    //     }
-    //   })
-    // }
+    return form.value.email
   }
 }

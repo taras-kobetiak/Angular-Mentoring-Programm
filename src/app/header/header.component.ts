@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnChanges, DoCheck } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
@@ -6,20 +6,35 @@ import { AuthServiceService } from './services/auth-service.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnChanges, DoCheck {
 
   @Input() currentUser: string;
-  @Input() isAuth: boolean;
   @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
-  isLogClicked: boolean = true;
+  start: boolean = true;
 
-  onLoginClick(): void {
-    this.isLogClicked = !this.isLogClicked;
+  isAuth: boolean = false;
+  isLogClicked: boolean = true;
+  currentUserHello: string;
+
+  constructor(private authService: AuthServiceService) { }
+
+  ngDoCheck(): void {
+    this.isAuth = this.authService.isAuthenticated(this.currentUser);
   }
+
+  ngOnChanges(): void {
+    if (this.currentUser) {
+      this.currentUserHello = `Hello, ${this.currentUser.split('@')[0]}`
+    }
+  }
+
+  onLoginClick(): void { }
 
   onLogOutClick(): void {
     this.logOutClick.emit();
-    this.isAuth = !this.isAuth;
+    this.authService.logOut();
+    this.start = false;
+
   }
 }

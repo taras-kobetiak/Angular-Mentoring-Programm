@@ -7,17 +7,17 @@
             <h1>VIDEO COURSE</h1>
         </div>
     </div>
-    <div class="login-form" *ngIf="!isAuth">
+    <div class="login-form" *ngIf="start || isAuth">
         <div class="user-login">
             <img src="https://www.neuro-cardiolab.com.ua/img/%D0%B1%D0%B5%D0%B7%D1%84%D0%BE%D1%82%D0%BE.png" alt="">
-            <input type="text" placeholder="{{currentUser || 'Enter your login'}}">
+            <input type="text" placeholder="{{currentUserHello || 'Enter your login'}}">
         </div>
         <div class="user-log-of">
             <img src="https://help-odnoklassniki.ru/wp-content/uploads/2019/02/login-square-arrow-button-outline.png"
                 alt="">
-            <p *ngIf="!isLogClicked; else  logout" (click)="onLoginClick()">Log in</p>
-            <ng-template #logout>
-                <p (click)="onLogOutClick()">Log out</p>
+            <p *ngIf="isAuth ||start; else login" (click)="onLogOutClick()">Log out</p>
+            <ng-template #login>
+                <p (click)="onLoginClick()">Log out</p>
             </ng-template>
         </div>
     </div>

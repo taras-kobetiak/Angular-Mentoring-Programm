@@ -1,6 +1,6 @@
 <div class="main-container">
     <div class="header">
-        <app-header (logOutClick)="logOutFunction()" [currentUser]="user" [isAuth]="isAuth"></app-header>
+        <app-header (logOutClick)="logOutFunction()" [currentUser]="user"></app-header>
     </div>
     <div class="breadcrumbs" *ngIf="!showLogIn || showAddCourseForm">
         <app-breadcrumbs></app-breadcrumbs>

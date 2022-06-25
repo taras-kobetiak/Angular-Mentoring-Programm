@@ -32,6 +32,6 @@ export class CoursesService {
   }
 
   updateCourse(course: CoursePage): void {
-    course.topRated = !course.topRated;
+    this.courses = this.courses.filter(el => el.id !== course.id).concat(course)
   }
 }
