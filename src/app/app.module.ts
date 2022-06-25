@@ -15,7 +15,6 @@ import { NewBorderDirective } from './pages-block/directives/new-border.directiv
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
 import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
 import { LoginPageModule } from './login-page/login-page.module';
-import { AddCourseModule } from './add-course/add-course.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 
 
@@ -39,7 +38,6 @@ import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
     AppRoutingModule,
     FormsModule,
     LoginPageModule,
-    AddCourseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
