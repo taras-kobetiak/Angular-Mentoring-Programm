@@ -3,11 +3,10 @@
         <app-header (logOutClick)="logOutFunction()" [currentUser]="user"></app-header>
     </div>
 
-    <div class="breadcrumbs" *ngIf="!showLogIn || showAddCourseForm">
+    <div class="breadcrumbs" *ngIf="!showLogIn && !showAddCoursePage">
         <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="main">
-
         <app-add-course-page *ngIf="showAddCoursePage" (cancelButtonClick)="cancelAddingCourse()"
             (saveButtonClick)="saveNewCourse()"></app-add-course-page>
 

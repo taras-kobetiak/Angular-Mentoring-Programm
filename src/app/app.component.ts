@@ -28,12 +28,16 @@ export class AppComponent {
 
   openAddCoursePage() {
     this.showAddCoursePage = !this.showAddCoursePage
+    console.log(this.showAddCoursePage);
+
   }
 
   cancelAddingCourse() {
     this.showAddCoursePage = !this.showAddCoursePage
+    console.log(this.showAddCoursePage);
   }
   saveNewCourse() {
     this.showAddCoursePage = !this.showAddCoursePage
+    console.log(this.showAddCoursePage);
   }
 }
