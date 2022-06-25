@@ -19,6 +19,8 @@ export class CoursesPageComponent {
   onStarClicked(): void {
     this.starClicked.emit(this.course)
   }
+
+  //some strange
 }
 
 
