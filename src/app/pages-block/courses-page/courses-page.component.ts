@@ -20,7 +20,6 @@ export class CoursesPageComponent {
     this.starClicked.emit(this.course)
   }
 
-  //some strange
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-add-course-page',
@@ -7,14 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCoursePageComponent implements OnInit {
 
-  constructor() { }
+  @Output() saveButtonClick: EventEmitter<void> = new EventEmitter()
+  @Output() cancelButtonClick: EventEmitter<void> = new EventEmitter()
 
   ngOnInit(): void {
   }
 
-
   onSubmit(form: any) {
+    console.log(form.value);
+    this.saveButtonClick.emit();
+  }
 
+  onCancelButtonClick() {
+    this.cancelButtonClick.emit()
   }
 
 }

@@ -9,6 +9,7 @@ import { AuthServiceService } from './header/services/auth-service.service';
 
 export class AppComponent {
 
+  showAddCoursePage = false
   showLogIn = false;
   showAddCourseForm = false;
   user: any;
@@ -23,5 +24,16 @@ export class AppComponent {
     this.authService.logIn(form);
     this.user = this.authService.getUserInfo(form);
     this.showLogIn = !this.showLogIn;
+  }
+
+  openAddCoursePage() {
+    this.showAddCoursePage = !this.showAddCoursePage
+  }
+
+  cancelAddingCourse() {
+    this.showAddCoursePage = !this.showAddCoursePage
+  }
+  saveNewCourse() {
+    this.showAddCoursePage = !this.showAddCoursePage
   }
 }

@@ -6,7 +6,7 @@
                     <h5>Title:</h5>
                 </div>
                 <div class="input">
-                    <input name="title" type="text">
+                    <input ngModel name="title" type="text">
                 </div>
             </div>
             <div class="date__element">
@@ -14,7 +14,7 @@
                     <h5>Description:</h5>
                 </div>
                 <div class="input">
-                    <textarea name="description" id="" cols="30" rows="10"></textarea>
+                    <textarea ngModel name="description" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="date__element">
@@ -22,7 +22,7 @@
                     <h5>Date:</h5>
                 </div>
                 <div class="input">
-                    <input name="date" type="text">
+                    <input ngModel name="date" type="text">
                 </div>
             </div>
             <div class="duration__element">
@@ -30,7 +30,7 @@
                     <h5>Duration:</h5>
                 </div>
                 <div class="input">
-                    <input name="duration" type="text">
+                    <input ngModel name="duration" type="text">
                 </div>
             </div>
             <div class="authors__element">
@@ -38,15 +38,15 @@
                     <h5>Authors:</h5>
                 </div>
                 <div class="input">
-                    <input name="authors" type="text">
+                    <input ngModel name="authors" type="text">
                 </div>
             </div>
             <div class="management__block">
                 <div class="submit__button">
-                    <button type="reset">Save</button>
+                    <button type="submit">Save</button>
                 </div>
                 <div class="cancel__button">
-                    <button type="submit">Cancel</button>
+                    <button type="reset" (click)="onCancelButtonClick()">Cancel</button>
                 </div>
             </div>
         </div>
