@@ -20,7 +20,7 @@ export class AppComponent {
     this.showLogIn = !this.showLogIn;
   }
 
-  submitClick(userInfo: ILoginForm) {
+  submitClick(userInfo: ILoginForm): void {
     this.authService.logIn(userInfo);
     this.user = this.authService.getUserInfo(userInfo);
     this.showLogIn = !this.showLogIn;
