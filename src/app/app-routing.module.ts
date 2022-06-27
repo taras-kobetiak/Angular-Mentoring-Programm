@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 

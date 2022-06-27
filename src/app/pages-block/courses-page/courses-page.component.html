@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="main-row" [appNewBorder]="course" appTranslateBlock [ngClass]="{'topRated': course.topRated}">
+        <div class="row">
+            <div class="info">
+                <div class="info-header">
+                    <div class="info-header-title">
+                        <div class="title">
+                            <h2>{{course.title | uppercase}}</h2>
+                        </div>
+                        <div class="title-img" (click)="onStarClicked()" *ngIf="!course.topRated">
+                            <img src="https://img.icons8.com/ios/344/christmas-star.png" alt="star">
+                        </div>
+                        <div class="title-img-new" (click)="onStarClicked()" *ngIf="course.topRated">
+                            <img src="https://img.icons8.com/color/344/filled-star--v1.png" alt="star">
+                        </div>
+                    </div>
+                    <div class="hours-minutes">
+                        <div class="timer">{{course.durationInMinutes | duration}}</div>
+                        <div class="calendar">{{course.creationDate | date: 'd MMM, y'}}</div>
+                    </div>
+                </div>
+                <div class="description-row">
+                    <div class="description">
+                        <div>{{course.description}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="management-button">
+                <div> <button class="edit">Edit</button></div>
+                <div><button class="delete" (click)="onDeleteClicked()">Delete</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-space"></div>
+</div>

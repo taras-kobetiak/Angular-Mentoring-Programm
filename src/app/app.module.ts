@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DateHour } from './courses-page/date.pipe';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { CoursesPageComponent } from './courses-page/courses-page.component';
-import { SearchFormComponent } from './search-form/search-form.component';
+import { CoursesPageComponent } from './pages-block/courses-page/courses-page.component';
+import { SearchFormComponent } from './pages-block/search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { AddCourseButtonComponent } from './add-course-button/add-course-button.component';
 import { FormsModule } from '@angular/forms';
-import { LoadMoreComponent } from './load-more/load-more.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
+import { NewBorderDirective } from './pages-block/directives/new-border.directive';
+import { DurationPipe } from './pages-block/pipes/duration.pipe';
+import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
+import { LoginModule } from './login-page/login-page.module';
+import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
+
 
 @NgModule({
   declarations: [
@@ -24,17 +26,18 @@ import { PagesBlockComponent } from './pages-block/pages-block.component';
     CoursesPageComponent,
     SearchFormComponent,
     BreadcrumbsComponent,
-    AddCourseButtonComponent,
     LoadMoreComponent,
-    NotFoundComponent,
     PagesBlockComponent,
-    DateHour
+    NewBorderDirective,
+    DurationPipe,
+    TranslateBlockDirective,
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

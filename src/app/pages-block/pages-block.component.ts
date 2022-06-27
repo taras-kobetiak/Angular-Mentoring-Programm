@@ -1,33 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { CoursePage } from '../interfaces/classes';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ICoursePage } from '../interfaces/course.interface';
+import { CoursesService } from './services/courses.service';
 
 @Component({
   selector: 'app-pages-block',
   templateUrl: './pages-block.component.html',
-  styleUrls: ['./pages-block.component.scss']
+  styleUrls: ['./pages-block.component.scss'],
 })
-export class PagesBlockComponent implements OnInit {
-  courses: CoursePage[];
 
-  loadNewCourses() {
-    console.log('here is come action');
+export class PagesBlockComponent implements OnInit {
+
+  @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
+
+  courses: ICoursePage[] = [];
+
+  constructor(private coursesPagesService: CoursesService) { }
+
+  ngOnInit(): void {
+    this.courses = this.coursesPagesService.getCoursesList()
   }
 
   deleteComponent(id: number): void {
-    // this.courses.splice(this.courses.findIndex(el => el.id === id), 1)
-
-    this.courses = this.courses.filter(el => el.id !== id)
+    if (confirm('Do you really want to delete this course? Yes/No')) {
+      this.courses = this.coursesPagesService.deleteCourse(id)
+    }
   }
 
-  editComponent(course: CoursePage): void {
-    console.log(course.description);
+  loadNewCourses(): void {
+    console.log('here is come action');
   }
 
-  ngOnInit(): void {
-    this.courses = [
-      new CoursePage(1, 'SomeTitle1', new Date(), 1, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-      new CoursePage(2, 'SomeTitle2', new Date(), 10, 'Not good course.'),
-      new CoursePage(3, 'SomeTitle3', new Date(), 12, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-    ]
+  changeRate(course: ICoursePage): void {
+    course.topRated = !course.topRated
+    this.coursesPagesService.updateCourse(course)
+  }
+
+  findClick(inputData: string): void {
+    this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
   }
 }

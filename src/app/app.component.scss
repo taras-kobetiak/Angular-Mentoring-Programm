@@ -5,27 +5,31 @@
     min-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .header {
-    height: 7%;
+    height: 6%;
     min-width: 100%;
 }
 
 .breadcrumbs {
-    height: 7%;
+    min-height: 5%;
 }
 
 .main {
-    padding-bottom: 30px;
-    min-height: 79%;
-    min-width: 100%;
+    padding-bottom: 1%;
+    flex: 1 1 auto;
+    height: 76%;
     width: 100%;
     background: rgb(228, 225, 225);
 }
 
+.main__block {
+    height: 100%;
+    width: 100%;
+}
+
 .footer {
-    height: 7%;
+    min-height: 6%;
     min-width: 100%;
 }

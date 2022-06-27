@@ -9,7 +9,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class LoadMoreComponent {
   @Output() loadClick: EventEmitter<void> = new EventEmitter()
 
-  onLoadClick() {
+  onLoadClick(): void {
     this.loadClick.emit()
   }
 }
