@@ -32,6 +32,7 @@ export class CoursesService {
   }
 
   updateCourse(course: CoursePage): void {
-    this.courses[this.courses.findIndex(item => item.id === course.id)] = course;
+    let index = this.courses.findIndex(item => item.id === course.id)
+    this.courses[index] = course;
   }
 }
