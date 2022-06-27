@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnChanges, DoCheck } from '@angular/core';
+import { ILoginForm } from '../login-page/interfaces/login.form.interface';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnChanges, DoCheck {
   @Input() currentUser: string;
   @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
-  start: boolean = true;
+  showLoginFormBeforeBEforeAuth: boolean = true;
 
   isAuth: boolean = false;
   isLogClicked: boolean = true;
@@ -29,12 +30,9 @@ export class HeaderComponent implements OnChanges, DoCheck {
     }
   }
 
-  onLoginClick(): void { }
-
   onLogOutClick(): void {
     this.logOutClick.emit();
     this.authService.logOut();
-    this.start = false;
-
+    this.showLoginFormBeforeBEforeAuth = false;
   }
 }

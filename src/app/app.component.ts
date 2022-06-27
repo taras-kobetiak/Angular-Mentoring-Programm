@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthServiceService } from './header/services/auth-service.service';
+import { ILoginForm } from './login-page/interfaces/login.form.interface';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
 
   showLogIn = false;
   showAddCourseForm = false;
-  user: any;
+  user: string;
 
   constructor(private authService: AuthServiceService) { }
 
@@ -19,9 +20,13 @@ export class AppComponent {
     this.showLogIn = !this.showLogIn;
   }
 
-  submitClick(form: any): any {
-    this.authService.logIn(form);
-    this.user = this.authService.getUserInfo(form);
+  submitClick(userInfo: ILoginForm) {
+    this.authService.logIn(userInfo);
+
+
+    console.log(userInfo);
+
+    this.user = this.authService.getUserInfo(userInfo);
     this.showLogIn = !this.showLogIn;
   }
 }
