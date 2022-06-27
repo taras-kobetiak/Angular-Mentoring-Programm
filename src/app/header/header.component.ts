@@ -12,7 +12,7 @@ export class HeaderComponent implements OnChanges, DoCheck {
   @Input() currentUser: string;
   @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
-  showLoginFormBeforeBEforeAuth: boolean = true;
+  temporaryStartScreen: boolean = true;
   isAuth: boolean = false;
   isLogClicked: boolean = true;
   currentUserHello: string;
@@ -32,6 +32,6 @@ export class HeaderComponent implements OnChanges, DoCheck {
   onLogOutClick(): void {
     this.logOutClick.emit();
     this.authService.logOut();
-    this.showLoginFormBeforeBEforeAuth = false;
+    this.temporaryStartScreen = false;
   }
 }

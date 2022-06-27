@@ -10,7 +10,7 @@ import { ILoginForm } from '../interfaces/login.form.interface';
 })
 export class LoginPageComponent {
 
-  @Output() onSubmitClick = new EventEmitter<ILoginForm>()
+  @Output() onSubmitClick: EventEmitter<ILoginForm> = new EventEmitter()
 
   userInfo: ILoginForm;
   email: string;
