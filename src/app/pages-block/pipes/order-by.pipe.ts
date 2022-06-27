@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CoursePage } from 'src/app/interfaces/classes';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
 
 @Pipe({
   name: 'orderBy'
 })
 export class OrderByPipe implements PipeTransform {
 
-  transform(courses: CoursePage[]): CoursePage[] {
+  transform(courses: ICoursePage[]): ICoursePage[] {
     return courses.sort((a, b) => +b.creationDate - +a.creationDate)
   }
 

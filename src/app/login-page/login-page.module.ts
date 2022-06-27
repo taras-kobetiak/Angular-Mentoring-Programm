@@ -14,4 +14,4 @@ import { FormsModule } from '@angular/forms';
   ],
   bootstrap: []
 })
-export class LoginPageModule { }
+export class LoginModule { }

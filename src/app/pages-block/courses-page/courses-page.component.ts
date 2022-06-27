@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CoursePage } from '../../interfaces/classes';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
 
 @Component({
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',
-  styleUrls: ['./courses-page.component.scss']
+  styleUrls: ['./courses-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesPageComponent {
 
-  @Input() course: CoursePage;
+  @Input() course: ICoursePage;
   @Output() deleteClicked: EventEmitter<number> = new EventEmitter();
-  @Output() starClicked: EventEmitter<object> = new EventEmitter()
+  @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter()
 
   onDeleteClicked(): void {
     this.deleteClicked.emit(this.course.id)

@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AuthServiceService } from 'src/app/header/services/auth-service.service';
+import { ILoginForm } from '../interfaces/login.form.interface';
 
 @Component({
   selector: 'app-login-page',
@@ -8,13 +10,17 @@ import { AuthServiceService } from 'src/app/header/services/auth-service.service
 })
 export class LoginPageComponent {
 
-  @Output() onSubmitClick = new EventEmitter<object>()
+  @Output() onSubmitClick: EventEmitter<ILoginForm> = new EventEmitter()
+
+  userInfo: ILoginForm;
+  email: string;
+  password: string;
 
   constructor(private authService: AuthServiceService) { }
 
-  onSubmit(form: any): void {
-    this.authService.logIn(form);
-    console.log('logged in');
-    this.onSubmitClick.emit(form)
+  onSubmit(form: NgForm): void {
+    this.userInfo = form.value;
+    this.authService.logIn(this.userInfo);
+    this.onSubmitClick.emit(this.userInfo)
   }
 }

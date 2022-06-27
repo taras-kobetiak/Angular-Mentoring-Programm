@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
+import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  logIn(form: any): void {
-    localStorage.setItem(form.value.email, form.value.password)
+  logIn(userInfo: ILoginForm): void {
+    localStorage.setItem(userInfo.email, userInfo.password)
   }
 
   logOut(): void {
     localStorage.clear()
   }
 
-  isAuthenticated(user: string): boolean {
-    return localStorage.getItem(user) ? true :
-      false;
+  isAuthenticated(userLogin: string): boolean {
+    return Boolean(localStorage.getItem(userLogin))
   }
 
-  getUserInfo(form: any): string | void {
-    return form.value.email
+  getUserInfo(userInfo: ILoginForm): string {
+    return userInfo.email
   }
 }

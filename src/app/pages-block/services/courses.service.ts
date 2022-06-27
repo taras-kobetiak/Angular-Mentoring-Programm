@@ -32,6 +32,7 @@ export class CoursesService {
   }
 
   updateCourse(course: CoursePage): void {
-    this.courses = this.courses.filter(el => el.id !== course.id).concat(course)
+    let index = this.courses.findIndex(item => item.id === course.id)
+    this.courses[index] = course;
   }
 }

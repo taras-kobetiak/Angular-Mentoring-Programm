@@ -1,6 +1,6 @@
 
 import { Directive, ElementRef, Input, OnInit, } from '@angular/core';
-import { CoursePage } from 'src/app/interfaces/classes';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
 
 @Directive({
   selector: '[appNewBorder]',
@@ -8,7 +8,7 @@ import { CoursePage } from 'src/app/interfaces/classes';
 
 export class NewBorderDirective implements OnInit {
 
-  @Input('appNewBorder') course: CoursePage;
+  @Input('appNewBorder') course: ICoursePage;
 
   constructor(private element: ElementRef) { }
 

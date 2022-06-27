@@ -1,4 +1,4 @@
-export interface IPage {
+export interface ICoursePage {
     id: number;
     title: string;
     creationDate: Date;
