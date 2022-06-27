@@ -13,7 +13,6 @@ export class HeaderComponent implements OnChanges, DoCheck {
   @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
   showLoginFormBeforeBEforeAuth: boolean = true;
-
   isAuth: boolean = false;
   isLogClicked: boolean = true;
   currentUserHello: string;

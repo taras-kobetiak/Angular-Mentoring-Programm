@@ -22,10 +22,6 @@ export class AppComponent {
 
   submitClick(userInfo: ILoginForm) {
     this.authService.logIn(userInfo);
-
-
-    console.log(userInfo);
-
     this.user = this.authService.getUserInfo(userInfo);
     this.showLogIn = !this.showLogIn;
   }
