@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { CoursePage } from '../interfaces/classes';
+import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class PagesBlockComponent implements OnInit {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
-  courses: CoursePage[] = [];
+  courses: ICoursePage[] = [];
 
   constructor(private coursesPagesService: CoursesService) { }
 
@@ -30,7 +30,7 @@ export class PagesBlockComponent implements OnInit {
     console.log('here is come action');
   }
 
-  changeRate(course: CoursePage): void {
+  changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated
     this.coursesPagesService.updateCourse(course)
   }

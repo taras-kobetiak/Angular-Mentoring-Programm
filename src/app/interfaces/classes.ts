@@ -1,7 +1,7 @@
-import { IPage } from "./course.interface";
+import { ICoursePage } from "./course.interface";
 import { IUserEntyty } from "./user-entyty.interface";
 
-export class CoursePage implements IPage {
+export class CoursePage implements ICoursePage {
     // public get description(): string {
     //     return this._description;
     // }
