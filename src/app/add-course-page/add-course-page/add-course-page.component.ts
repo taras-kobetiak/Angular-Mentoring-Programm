@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-course-page',
@@ -16,8 +17,7 @@ export class AddCoursePageComponent {
   duration: number;
   authors: string;
 
-  onSubmit(form: any): void {
-    console.log(form.value);
+  onSubmit(form: NgForm): void {
     this.saveButtonClick.emit();
   }
 
