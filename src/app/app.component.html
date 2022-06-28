@@ -2,13 +2,15 @@
     <div class="header">
         <app-header (logOutClick)="logOutFunction()" [currentUser]="user"></app-header>
     </div>
-    <div class="breadcrumbs" *ngIf="!showLogIn || showAddCourseForm">
+    <div class="breadcrumbs" *ngIf="!showLogIn && !showAddCourseForm">
         <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="main">
         <app-login-page *ngIf="showLogIn" (onSubmitClick)="submitClick($event)"></app-login-page>
+        <app-add-course-page *ngIf="showAddCourseForm"></app-add-course-page>
+
         <div *ngIf="!showLogIn" class="main__block">
-            <router-outlet> </router-outlet>
+            <app-pages-block (addButtonClicked)="addNewCourse()" *ngIf="!showAddCourseForm"></app-pages-block>
         </div>
     </div>
     <div class="footer">
