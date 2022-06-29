@@ -1,11 +1,11 @@
-import { Component, Output, EventEmitter, Input, OnChanges, DoCheck } from '@angular/core';
-import { ILoginForm } from '../login-page/interfaces/login.form.interface';
+import { Component, Output, EventEmitter, Input, OnChanges, DoCheck, ChangeDetectionStrategy } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnChanges, DoCheck {
 

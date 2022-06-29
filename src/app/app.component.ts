@@ -25,4 +25,8 @@ export class AppComponent {
     this.user = this.authService.getUserInfo(userInfo);
     this.showLogIn = !this.showLogIn;
   }
+
+  addNewCourse(): void {
+    this.showAddCourseForm = !this.showAddCourseForm
+  }
 }
