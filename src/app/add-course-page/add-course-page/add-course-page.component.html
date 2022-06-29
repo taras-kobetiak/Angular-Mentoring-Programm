@@ -26,20 +26,11 @@
                 </div>
             </div>
             <div class="duration__element">
-                <div class="subtitle">
-                    <h5>Duration:</h5>
-                </div>
-                <div class="input">
-                    <input [(ngModel)]="duration" name="duration" type="text">
-                </div>
+                <app-course-duration [duration]="duration" (durationSubmit)="durationSubmit($event)">
+                </app-course-duration>
             </div>
-            <div class="authors__element">
-                <div class="subtitle">
-                    <h5>Authors:</h5>
-                </div>
-                <div class="input">
-                    <input [(ngModel)]="authors" name="authors" type="text">
-                </div>
+            <div class=" authors__element">
+                <app-course-authors [authors]="authors" (authorsSubmit)="authorsSubmit($event)"></app-course-authors>
             </div>
             <div class="management__block">
                 <div class="submit__button">
