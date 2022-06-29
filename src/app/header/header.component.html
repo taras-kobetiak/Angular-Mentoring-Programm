@@ -15,9 +15,10 @@
         <div class="user-log-of">
             <img src="https://help-odnoklassniki.ru/wp-content/uploads/2019/02/login-square-arrow-button-outline.png"
                 alt="">
-            <p *ngIf="isAuth || temporaryStartScreen; else login" (click)="onLogOutClick()">Log out</p>
+            <p *ngIf="isAuth || temporaryStartScreen; else login" routerLink="login" (click)="onLogOutClick()">Log out
+            </p>
             <ng-template #login>
-                <p>Log out</p>
+                <p>Log in</p>
             </ng-template>
         </div>
     </div>

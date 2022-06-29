@@ -1,11 +1,14 @@
 <div class="container">
+    <div class="breadcrumbs">
+        <app-breadcrumbs></app-breadcrumbs>
+    </div>
     <div class="serch-form">
         <app-search-form (findClick)="findClick($event)"></app-search-form>
     </div>
     <div class="add-course">
         <div class="button__row">
             <div class="add-button">
-                <button (click)="onAddButtonClick()">Add course</button>
+                <button routerLink="new">Add course</button>
             </div>
         </div>
     </div>

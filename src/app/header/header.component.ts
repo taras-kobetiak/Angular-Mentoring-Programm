@@ -10,11 +10,10 @@ import { AuthServiceService } from './services/auth-service.service';
 export class HeaderComponent implements OnChanges, DoCheck {
 
   @Input() currentUser: string;
-  @Output() logOutClick: EventEmitter<void> = new EventEmitter()
 
   temporaryStartScreen: boolean = true;
   isAuth: boolean = false;
-  isLogClicked: boolean = true;
+  // isLogClicked: boolean = true;
   currentUserHello: string;
 
   constructor(private authService: AuthServiceService) { }
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnChanges, DoCheck {
   }
 
   onLogOutClick(): void {
-    this.logOutClick.emit();
     this.authService.logOut();
     this.temporaryStartScreen = false;
   }

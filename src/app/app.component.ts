@@ -10,23 +10,21 @@ import { ILoginForm } from './login-page/interfaces/login.form.interface';
 
 export class AppComponent {
 
-  showLogIn = false;
-  showAddCourseForm = false;
+  // showLogIn = false;
+  // showAddCourseForm = false;
   user: string;
 
   constructor(private authService: AuthServiceService) { }
 
-  logOutFunction(): void {
-    this.showLogIn = !this.showLogIn;
-  }
+
 
   submitClick(userInfo: ILoginForm): void {
     this.authService.logIn(userInfo);
     this.user = this.authService.getUserInfo(userInfo);
-    this.showLogIn = !this.showLogIn;
+    // this.showLogIn = !this.showLogIn;
   }
 
-  addNewCourse(): void {
-    this.showAddCourseForm = !this.showAddCourseForm
-  }
+  // addNewCourse(): void {
+  //   this.showAddCourseForm = !this.showAddCourseForm
+  // }
 }

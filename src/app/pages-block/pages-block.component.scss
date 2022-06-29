@@ -5,6 +5,12 @@
     justify-content: flex-start
 }
 
+.breadcrumbs {
+    min-height: 6%;
+    background-color: white;
+}
+
+
 .serch-form {
     margin-bottom: 1%;
     min-height: 5%;
@@ -17,7 +23,7 @@
 
 .pages {
     margin-bottom: 2%;
-    max-height: 74%;
+    max-height: 68%;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;

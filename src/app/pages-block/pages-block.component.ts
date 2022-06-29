@@ -38,8 +38,4 @@ export class PagesBlockComponent implements OnInit {
   findClick(inputData: string): void {
     this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
   }
-
-  onAddButtonClick() {
-    this.addButtonClicked.emit()
-  }
 }
