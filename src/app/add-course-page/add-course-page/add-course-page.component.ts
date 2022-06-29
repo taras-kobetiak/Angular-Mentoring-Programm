@@ -14,14 +14,11 @@ export class AddCoursePageComponent {
   title: string;
   description: string;
   date: Date;
-  duration: number = 134;
-  authors: string = 'asdas';
+  duration: number;
+  authors: string;
 
   onSubmit(form: NgForm): void {
     this.saveButtonClick.emit();
-    console.log(form.value);
-    console.log(this.duration);
-    console.log(this.authors);
   }
 
   onCancelButtonClick(): void {
