@@ -12,15 +12,15 @@ export class AppComponent {
 
   // showLogIn = false;
   // showAddCourseForm = false;
-  user: string;
+  // user: string;
 
   constructor(private authService: AuthServiceService) { }
 
 
 
   submitClick(userInfo: ILoginForm): void {
-    this.authService.logIn(userInfo);
-    this.user = this.authService.getUserInfo(userInfo);
+    // this.authService.logIn(userInfo);
+    // this.user = this.authService.getUserInfo(userInfo);
     // this.showLogIn = !this.showLogIn;
   }
 

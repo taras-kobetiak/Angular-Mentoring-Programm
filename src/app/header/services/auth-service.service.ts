@@ -6,8 +6,12 @@ import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
 })
 export class AuthServiceService {
 
+  currentUser: ILoginForm;
+
+
   logIn(userInfo: ILoginForm): void {
-    localStorage.setItem(userInfo.email, userInfo.password)
+    localStorage.setItem(userInfo.email, userInfo.password);
+    this.currentUser = userInfo
   }
 
   logOut(): void {
@@ -18,7 +22,10 @@ export class AuthServiceService {
     return Boolean(localStorage.getItem(userLogin))
   }
 
-  getUserInfo(userInfo: ILoginForm): string {
-    return userInfo.email
+  getUserInfo(): string | undefined {
+    if (this.currentUser) {
+      return this.currentUser.email
+    }
+    else return;
   }
 }

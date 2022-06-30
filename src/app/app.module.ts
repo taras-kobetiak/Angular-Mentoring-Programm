@@ -17,6 +17,10 @@ import { TranslateBlockDirective } from './pages-block/directives/translate-bloc
 import { LoginModule } from './login-page/login-page.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 import { AddCoursePageModule } from './add-course-page/add-course-page.module';
+import { isAuthGuard } from './guards/isAuth.guard';
+import { AuthServiceService } from './header/services/auth-service.service';
+import { CoursesService } from './pages-block/services/courses.service';
+
 
 
 @NgModule({
@@ -41,7 +45,7 @@ import { AddCoursePageModule } from './add-course-page/add-course-page.module';
     LoginModule,
     AddCoursePageModule
   ],
-  providers: [],
+  providers: [AuthServiceService, CoursesService, isAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

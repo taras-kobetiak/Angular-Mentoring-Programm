@@ -1,30 +1,29 @@
-import { Component, Output, EventEmitter, Input, OnChanges, DoCheck, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnChanges, DoCheck {
-
-  @Input() currentUser: string;
+export class HeaderComponent implements DoCheck {
 
   temporaryStartScreen: boolean = true;
   isAuth: boolean = false;
-  // isLogClicked: boolean = true;
-  currentUserHello: string;
+  currentUser: string | undefined;
+  currentUserHello: string | undefined;
 
   constructor(private authService: AuthServiceService) { }
 
-  ngDoCheck(): void {
-    this.isAuth = this.authService.isAuthenticated(this.currentUser);
-  }
 
-  ngOnChanges(): void {
+  ngDoCheck(): void {
+    if (this.authService.getUserInfo()) {
+      this.currentUser = this.authService.getUserInfo();
+    }
+
     if (this.currentUser) {
-      this.currentUserHello = `Hello, ${this.currentUser.split('@')[0]}`
+      this.isAuth = this.authService.isAuthenticated(this.currentUser);
+      this.currentUserHello = `Hello, ${this.currentUser.split('@')[0]} `
     }
   }
 

@@ -1,4 +1,4 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <div class="row">
             <div class="title__element">
@@ -22,11 +22,11 @@
                     <h5>Date:</h5>
                 </div>
                 <div class="input">
-                    <input [(ngModel)]="date" name="date" type="text">
+                    <input [(ngModel)]="creationDate" name="date" type="text">
                 </div>
             </div>
             <div class="duration__element">
-                <app-course-duration [duration]="duration" (durationSubmit)="durationSubmit($event)">
+                <app-course-duration [duration]="durationInMinutes" (durationSubmit)="durationSubmit($event)">
                 </app-course-duration>
             </div>
             <div class=" authors__element">

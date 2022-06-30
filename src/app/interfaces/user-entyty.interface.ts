@@ -1,5 +1,5 @@
 export interface IUserEntyty {
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
     login: string;

@@ -3,7 +3,7 @@ import { IUserEntyty } from "./user-entyty.interface";
 
 export class CoursePage implements ICoursePage {
 
-    constructor(public id: number,
+    constructor(public id: string,
         public title: string,
         public creationDate: Date,
         public durationInMinutes: number,
@@ -16,7 +16,7 @@ export class User implements IUserEntyty {
     login: string;
     email: string;
     password: string;
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
 }

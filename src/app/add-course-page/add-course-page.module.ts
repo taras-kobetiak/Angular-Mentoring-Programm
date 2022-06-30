@@ -6,11 +6,12 @@ import { CourseAuthorsComponent } from './add-course-page/course-authors/course-
 import { CourseDurationComponent } from './add-course-page/course-duration/course-duration.component';
 
 
+
 @NgModule({
   declarations: [
     AddCoursePageComponent,
     CourseAuthorsComponent,
-    CourseDurationComponent
+    CourseDurationComponent,
 
   ],
   imports: [

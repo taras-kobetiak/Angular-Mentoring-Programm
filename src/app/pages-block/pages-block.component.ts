@@ -20,7 +20,7 @@ export class PagesBlockComponent implements OnInit {
     this.courses = this.coursesPagesService.getCoursesList()
   }
 
-  deleteComponent(id: number): void {
+  deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       this.courses = this.coursesPagesService.deleteCourse(id)
     }
