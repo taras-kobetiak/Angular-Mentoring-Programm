@@ -1,8 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
-import { DurationPipe } from 'src/app/pages-block/pipes/duration.pipe';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 
 @Component({
@@ -12,46 +10,39 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
-  course: ICoursePage;
-  title: string;
-  description: string;
-  creationDate: any;
-  durationInMinutes: number;
+  course: ICoursePage = {
+    id: '',
+    title: '',
+    creationDate: new Date(),
+    durationInMinutes: 0,
+    description: '',
+    topRated: false
+  }
+
   authors: string;
-
-
   courseId: any;
-
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
-
   ngOnInit() {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
+
     if (this.courseService.getCourseById(this.courseId)) {
       this.course = this.courseService.getCourseById(this.courseId);
-      this.title = this.course.title;
-      this.description = this.course.description
-      this.creationDate = this.course.creationDate;
-      this.durationInMinutes = this.course.durationInMinutes;
     }
   }
 
   onSubmit(): void {
+    this.durationSubmit(this.course.durationInMinutes)
+
     if (this.course.id) {
+
       this.courseService.updateCourse(this.course)
     } else {
-      console.log(1);
-
-      console.log(this.course);
-
-      this.course.id = '12'
+      this.courseService.addCourses(this.course)
       this.courseService.addCourses(this.course)
     }
-
-
     this.router.navigate(['courses'])
-
   }
 
   onCancelButtonClick(): void {
@@ -65,4 +56,5 @@ export class AddCoursePageComponent implements OnInit {
   authorsSubmit(authors: string): void {
     this.authors = authors;
   }
+
 }

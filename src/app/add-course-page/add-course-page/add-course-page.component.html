@@ -6,7 +6,7 @@
                     <h5>Title:</h5>
                 </div>
                 <div class="input">
-                    <input [(ngModel)]="title" name="title" type="text">
+                    <input [(ngModel)]="course.title" name="title" type="text">
                 </div>
             </div>
             <div class="descriotion__element">
@@ -14,7 +14,7 @@
                     <h5>Description:</h5>
                 </div>
                 <div class="input">
-                    <textarea [(ngModel)]="description" name="description" id="" cols="30" rows="10"></textarea>
+                    <textarea [(ngModel)]="course.description" name="description" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="date__element">
@@ -22,11 +22,11 @@
                     <h5>Date:</h5>
                 </div>
                 <div class="input">
-                    <input [(ngModel)]="creationDate" name="date" type="text">
+                    <input [(ngModel)]="course.creationDate" name="date" type="text">
                 </div>
             </div>
             <div class="duration__element">
-                <app-course-duration [duration]="durationInMinutes" (durationSubmit)="durationSubmit($event)">
+                <app-course-duration [duration]="course.durationInMinutes" (durationSubmit)="durationSubmit($event)">
                 </app-course-duration>
             </div>
             <div class=" authors__element">
