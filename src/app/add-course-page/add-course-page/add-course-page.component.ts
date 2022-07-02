@@ -24,22 +24,17 @@ export class AddCoursePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-
     if (this.courseService.getCourseById(this.courseId)) {
       this.course = this.courseService.getCourseById(this.courseId);
     }
   }
 
   onSubmit(): void {
-    this.durationSubmit(this.course.durationInMinutes)
-
     if (this.course.id) {
-
       this.courseService.updateCourse(this.course)
     } else {
-      this.courseService.addCourses(this.course)
       this.courseService.addCourses(this.course)
     }
     this.router.navigate(['courses'])
