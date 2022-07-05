@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
@@ -10,13 +10,18 @@ import { CoursesService } from '../pages-block/services/courses.service';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent implements DoCheck {
+export class BreadcrumbsComponent implements DoCheck, OnChanges {
 
   courseId: string | null;
   course: ICoursePage;
   breadcrumbpsTitle: string;
 
   constructor(private router: Router, private courseService: CoursesService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(1);
+  }
+
+
 
   ngDoCheck(): void {
     let idData: string | string[] = this.router.url;

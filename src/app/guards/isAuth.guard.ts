@@ -6,7 +6,7 @@ import { AuthServiceService } from "../header/services/auth-service.service";
 @Injectable({
     providedIn: 'root'
 })
-export class isAuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
     currentUser: string | undefined;
 
@@ -18,7 +18,7 @@ export class isAuthGuard implements CanActivate {
         }
 
         if (this.currentUser) {
-            return this.authService.isAuthenticated(this.currentUser)
+            return this.authService.isAuthenticated()
         }
         // alert('please login in the account')
         this.router.navigate(['/login'])

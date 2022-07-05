@@ -20,7 +20,7 @@ export class AppComponent implements DoCheck {
       this.currentUser = this.authService.getUserInfo();
     }
     if (this.currentUser) {
-      this.isAuth = this.authService.isAuthenticated(this.currentUser);
+      this.isAuth = this.authService.isAuthenticated();
     }
   }
 }

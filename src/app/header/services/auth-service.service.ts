@@ -10,7 +10,7 @@ export class AuthServiceService {
 
 
   logIn(userInfo: ILoginForm): void {
-    localStorage.setItem(userInfo.email, userInfo.password);
+    localStorage.setItem('currentUser', JSON.stringify({ email: userInfo.email, password: userInfo.password }));
     this.currentUser = userInfo
   }
 
@@ -18,13 +18,14 @@ export class AuthServiceService {
     localStorage.clear()
   }
 
-  isAuthenticated(userLogin: string): boolean {
-    return Boolean(localStorage.getItem(userLogin))
+  isAuthenticated(): boolean {
+    return Boolean(localStorage.getItem('currentUser'))
   }
 
   getUserInfo(): string | undefined {
-    if (this.currentUser) {
-      return this.currentUser.email
+    if (localStorage.getItem('currentUser')) {
+      let userInfo = JSON.parse(localStorage.getItem('currentUser')!)
+      return userInfo.email
     }
     else return;
   }

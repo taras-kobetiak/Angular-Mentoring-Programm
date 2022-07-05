@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/header/services/auth-service.service';
@@ -14,6 +14,7 @@ export class LoginPageComponent {
   userInfo: ILoginForm;
 
   constructor(private authService: AuthServiceService, private router: Router) { }
+
 
   onSubmit(form: NgForm): void {
     this.userInfo = form.value;

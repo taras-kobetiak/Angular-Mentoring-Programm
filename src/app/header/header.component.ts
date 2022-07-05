@@ -17,12 +17,13 @@ export class HeaderComponent implements DoCheck {
 
 
   ngDoCheck(): void {
+
     if (this.authService.getUserInfo()) {
       this.currentUser = this.authService.getUserInfo();
     }
 
     if (this.currentUser) {
-      this.isAuth = this.authService.isAuthenticated(this.currentUser);
+      this.isAuth = this.authService.isAuthenticated();
       this.currentUserHello = `Hello, ${this.currentUser.split('@')[0]} `
     }
   }

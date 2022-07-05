@@ -17,7 +17,7 @@ import { TranslateBlockDirective } from './pages-block/directives/translate-bloc
 import { LoginModule } from './login-page/login-page.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 import { AddCoursePageModule } from './add-course-page/add-course-page.module';
-import { isAuthGuard } from './guards/isAuth.guard';
+import { AuthGuard } from './guards/isAuth.guard';
 import { AuthServiceService } from './header/services/auth-service.service';
 import { CoursesService } from './pages-block/services/courses.service';
 
@@ -45,7 +45,7 @@ import { CoursesService } from './pages-block/services/courses.service';
     LoginModule,
     AddCoursePageModule
   ],
-  providers: [AuthServiceService, CoursesService, isAuthGuard],
+  providers: [AuthServiceService, CoursesService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

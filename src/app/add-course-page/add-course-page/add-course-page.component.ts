@@ -14,7 +14,7 @@ export class AddCoursePageComponent implements OnInit {
     id: '',
     title: '',
     creationDate: new Date(),
-    durationInMinutes: 0,
+    duration: 0,
     description: '',
     topRated: false
   }
@@ -32,11 +32,9 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.course.id) {
-      this.courseService.updateCourse(this.course)
-    } else {
-      this.courseService.addCourses(this.course)
-    }
+    this.course.id ? this.updateCourse() :
+      this.newCourse()
+
     this.router.navigate(['courses'])
   }
 
@@ -45,11 +43,22 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   durationSubmit(duration: number): void {
-    this.course.durationInMinutes = duration;
+    this.course.duration = duration;
   }
 
   authorsSubmit(authors: string): void {
     this.authors = authors;
+  }
+
+  updateCourse(): void {
+    this.courseService.updateCourse(this.course);
+    this.course.creationDate = new Date(this.course.creationDate);
+  }
+
+  newCourse(): void {
+    this.course.id = Math.floor(Math.random() * 100000000) + ''
+    this.course.creationDate = new Date(this.course.creationDate)
+    this.courseService.addCourses(this.course)
   }
 
 }

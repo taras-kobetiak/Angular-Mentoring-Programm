@@ -23,10 +23,11 @@
                 </div>
                 <div class="input">
                     <input [(ngModel)]="course.creationDate" name="date" type="text">
+                    <p>{{course.creationDate | date}}</p>
                 </div>
             </div>
             <div class="duration__element">
-                <app-course-duration [duration]="course.durationInMinutes" (durationSubmit)="durationSubmit($event)">
+                <app-course-duration [duration]="course.duration" (durationSubmit)="durationSubmit($event)">
                 </app-course-duration>
             </div>
             <div class=" authors__element">
