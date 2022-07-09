@@ -15,7 +15,6 @@ export class AuthServiceService {
   logIn(userInfo: ILoginForm): void {
     localStorage.setItem('currentUser', JSON.stringify({ email: userInfo.email, password: userInfo.password }));
     this.currentUser = userInfo
-    console.log(this.currentUser);
   }
 
   logOut(): void {

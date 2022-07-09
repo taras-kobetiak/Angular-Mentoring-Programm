@@ -11,7 +11,15 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 export class AddCoursePageComponent implements OnInit {
 
   course: ICoursePage;
-  defaultCourseData: ICoursePage;
+  defaultCourseData: ICoursePage = {
+    id: '',
+    title: '',
+    creationDate: new Date(),
+    duration: 0,
+    description: '',
+    topRated: false
+  }
+
   authors: string;
   courseId: any;
 
@@ -48,7 +56,7 @@ export class AddCoursePageComponent implements OnInit {
 
   newCourse(): void {
     this.course.id = Math.floor(Math.random() * 100000000) + ''
-    this.course.creationDate = new Date(this.course.creationDate)
-    this.courseService.addCourses(this.course)
+    this.course.creationDate = new Date(this.course.creationDate);
+    this.courseService.addCourses(this.course);
   }
 }
