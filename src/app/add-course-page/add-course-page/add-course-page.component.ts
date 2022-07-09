@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
@@ -24,16 +25,17 @@ export class AddCoursePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void | undefined {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseService.getCourseById(this.courseId)) {
-      this.course = this.courseService.getCourseById(this.courseId);
+      this.course = this.courseService.getCourseById(this.courseId)!;
     }
   }
 
-  onSubmit(): void {
-    this.course.id ? this.updateCourse() :
-      this.newCourse()
+  onSubmit(): void | undefined {
+    if (this.course)
+      this.course.id ? this.updateCourse() :
+        this.newCourse()
 
     this.router.navigate(['courses'])
   }
@@ -51,8 +53,8 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   updateCourse(): void {
-    this.courseService.updateCourse(this.course);
     this.course.creationDate = new Date(this.course.creationDate);
+    this.courseService.updateCourse(this.course);
   }
 
   newCourse(): void {
@@ -60,5 +62,4 @@ export class AddCoursePageComponent implements OnInit {
     this.course.creationDate = new Date(this.course.creationDate)
     this.courseService.addCourses(this.course)
   }
-
 }

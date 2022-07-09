@@ -15,7 +15,7 @@ export class AuthServiceService {
   }
 
   logOut(): void {
-    localStorage.clear()
+    localStorage.removeItem('currentUser')
   }
 
   isAuthenticated(): boolean {
@@ -23,7 +23,7 @@ export class AuthServiceService {
   }
 
   getUserInfo(): string | undefined {
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('currentUser') !== null) {
       let userInfo = JSON.parse(localStorage.getItem('currentUser')!)
       return userInfo.email
     }

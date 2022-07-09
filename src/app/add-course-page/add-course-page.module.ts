@@ -17,6 +17,7 @@ import { CourseDurationComponent } from './add-course-page/course-duration/cours
   imports: [
     CommonModule,
     FormsModule
+
   ],
   exports: [AddCoursePageComponent]
 })

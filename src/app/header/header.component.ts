@@ -8,13 +8,11 @@ import { AuthServiceService } from './services/auth-service.service';
 })
 export class HeaderComponent implements DoCheck {
 
-  temporaryStartScreen: boolean = true;
   isAuth: boolean = false;
   currentUser: string | undefined;
   currentUserHello: string | undefined;
 
   constructor(private authService: AuthServiceService) { }
-
 
   ngDoCheck(): void {
 
@@ -30,6 +28,5 @@ export class HeaderComponent implements DoCheck {
 
   onLogOutClick(): void {
     this.authService.logOut();
-    this.temporaryStartScreen = false;
   }
 }

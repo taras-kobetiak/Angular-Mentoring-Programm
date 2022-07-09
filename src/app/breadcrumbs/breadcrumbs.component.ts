@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
 
@@ -12,7 +12,7 @@ import { CoursesService } from '../pages-block/services/courses.service';
 })
 export class BreadcrumbsComponent implements DoCheck, OnChanges {
 
-  courseId: string | null;
+  courseId: string;
   course: ICoursePage;
   breadcrumbpsTitle: string;
 
@@ -22,18 +22,18 @@ export class BreadcrumbsComponent implements DoCheck, OnChanges {
   }
 
 
-
   ngDoCheck(): void {
-    let idData: string | string[] = this.router.url;
-    idData = idData.split('/');
+    const regEx = /\d+/
+    const url: string = this.router.url
+    const res: RegExpMatchArray | null = url.match(regEx);
 
-    if (idData.length === 3 && idData[2] != 'new') {
-      this.courseId = idData[2];
-    }
+    this.courseId = res ? res[0] : '';
 
     if (this.courseId) {
-      this.course = this.courseService.getCourseById(this.courseId)
+      this.course = this.courseService.getCourseById(this.courseId)!
       this.breadcrumbpsTitle = ` / ${this.course.title}`;
+    } else {
+      this.breadcrumbpsTitle = ''
     }
   }
 }
