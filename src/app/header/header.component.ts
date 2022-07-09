@@ -9,21 +9,15 @@ import { AuthServiceService } from './services/auth-service.service';
 export class HeaderComponent implements DoCheck {
 
   isAuth: boolean = false;
-  currentUser: string | undefined;
-  currentUserHello: string | undefined;
+  currentUser: string;
+  currentUserName: string;
 
   constructor(private authService: AuthServiceService) { }
 
   ngDoCheck(): void {
-
-    if (this.authService.getUserInfo()) {
-      this.currentUser = this.authService.getUserInfo();
-    }
-
-    if (this.currentUser) {
-      this.isAuth = this.authService.isAuthenticated();
-      this.currentUserHello = `Hello, ${this.currentUser.split('@')[0]} `
-    }
+    this.currentUser = this.authService.getUserInfo().email || 'noData'
+    this.isAuth = this.authService.isAuthenticated();
+    this.currentUserName = this.currentUser.split('@')[0]
   }
 
   onLogOutClick(): void {

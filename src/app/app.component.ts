@@ -1,7 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { AuthServiceService } from './header/services/auth-service.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +16,7 @@ export class AppComponent implements DoCheck {
 
   ngDoCheck(): void {
     if (this.authService.getUserInfo()) {
-      this.currentUser = this.authService.getUserInfo();
+      this.currentUser = this.authService.getUserInfo().email;
     }
     if (this.currentUser) {
       this.isAuth = this.authService.isAuthenticated();

@@ -6,7 +6,6 @@ import { AuthGuard } from './guards/isAuth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/courses', pathMatch: 'full' },
   { path: 'courses', component: PagesBlockComponent, canActivate: [AuthGuard] },

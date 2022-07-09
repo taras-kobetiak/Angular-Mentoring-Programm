@@ -3,24 +3,19 @@ import { Router } from '@angular/router';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
 
-
-
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent implements DoCheck, OnChanges {
+export class BreadcrumbsComponent implements DoCheck {
 
   courseId: string;
   course: ICoursePage;
-  breadcrumbpsTitle: string;
+  breadcrumbpsTitle: string = '';
+  defaultCourseData: ICoursePage;
 
   constructor(private router: Router, private courseService: CoursesService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(1);
-  }
-
 
   ngDoCheck(): void {
     const regEx = /\d+/
@@ -29,8 +24,11 @@ export class BreadcrumbsComponent implements DoCheck, OnChanges {
 
     this.courseId = res ? res[0] : '';
 
+    //  I want to do something like that but without if\else I cant(
+    // this.breadcrumbpsTitle = ' /' + this.courseService.getCourseById(this.courseId)?.title || ''
+
     if (this.courseId) {
-      this.course = this.courseService.getCourseById(this.courseId)!
+      this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
       this.breadcrumbpsTitle = ` / ${this.course.title}`;
     } else {
       this.breadcrumbpsTitle = ''

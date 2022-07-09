@@ -5,19 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { CourseAuthorsComponent } from './add-course-page/course-authors/course-authors.component';
 import { CourseDurationComponent } from './add-course-page/course-duration/course-duration.component';
 
-
-
 @NgModule({
   declarations: [
     AddCoursePageComponent,
     CourseAuthorsComponent,
     CourseDurationComponent,
-
   ],
   imports: [
     CommonModule,
     FormsModule
-
   ],
   exports: [AddCoursePageComponent]
 })

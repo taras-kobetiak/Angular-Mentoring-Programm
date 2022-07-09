@@ -10,7 +10,10 @@
     <div class="login-form" *ngIf="isAuth">
         <div class="user-login">
             <img src="https://www.neuro-cardiolab.com.ua/img/%D0%B1%D0%B5%D0%B7%D1%84%D0%BE%D1%82%D0%BE.png" alt="">
-            <p>{{currentUserHello || 'Enter your login'}}</p>
+            <p *ngIf="isAuth; else startScreen">Hello, {{currentUserName}}</p>
+            <ng-template #startScreen>
+                <p>Please, login</p>
+            </ng-template>
         </div>
         <div class="user-log-of">
             <img src="https://help-odnoklassniki.ru/wp-content/uploads/2019/02/login-square-arrow-button-outline.png"

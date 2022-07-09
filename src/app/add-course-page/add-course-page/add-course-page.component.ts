@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
@@ -11,15 +10,8 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
-  course: ICoursePage = {
-    id: '',
-    title: '',
-    creationDate: new Date(),
-    duration: 0,
-    description: '',
-    topRated: false
-  }
-
+  course: ICoursePage;
+  defaultCourseData: ICoursePage;
   authors: string;
   courseId: any;
 
@@ -27,15 +19,12 @@ export class AddCoursePageComponent implements OnInit {
 
   ngOnInit(): void | undefined {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.courseService.getCourseById(this.courseId)) {
-      this.course = this.courseService.getCourseById(this.courseId)!;
-    }
+    this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
   }
 
   onSubmit(): void | undefined {
-    if (this.course)
-      this.course.id ? this.updateCourse() :
-        this.newCourse()
+    this.course.id ? this.updateCourse() :
+      this.newCourse()
 
     this.router.navigate(['courses'])
   }

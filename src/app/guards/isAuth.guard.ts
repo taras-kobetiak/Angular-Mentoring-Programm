@@ -13,11 +13,10 @@ export class AuthGuard implements CanActivate {
     constructor(private authService: AuthServiceService, private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.authService.getUserInfo()) {
-            this.currentUser = this.authService.getUserInfo();
-        }
 
-        if (this.currentUser) {
+        this.currentUser = this.authService.getUserInfo().email || 'invalid'
+
+        if (this.currentUser !== 'invalid') {
             return this.authService.isAuthenticated()
         }
         this.router.navigate(['/login'])

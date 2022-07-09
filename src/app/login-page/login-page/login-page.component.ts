@@ -15,7 +15,6 @@ export class LoginPageComponent {
 
   constructor(private authService: AuthServiceService, private router: Router) { }
 
-
   onSubmit(form: NgForm): void {
     this.userInfo = form.value;
     this.authService.logIn(this.userInfo);
