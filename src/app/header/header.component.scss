@@ -23,6 +23,10 @@
     .title {
         margin-left: 3%;
         font-size: 14px;
+
+        h1 {
+            margin: 0;
+        }
     }
 }
 
@@ -32,6 +36,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    font-size: 16px;
 
     .user-login {
         width: 25%;
@@ -57,14 +62,24 @@
         color: whitesmoke;
         background-color: rgb(69, 54, 54);
     }
+
+    p {
+        margin: 0;
+    }
 }
 
 @media (max-width: 950px) {
-    h1 {
-        font-size: 18px;
+    .title {
+        h1 {
+            font-size: 14px;
+            line-height: 14px;
+        }
     }
 
 
+    p {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 650px) {

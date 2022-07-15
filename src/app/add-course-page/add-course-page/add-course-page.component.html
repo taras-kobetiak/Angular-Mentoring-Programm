@@ -21,12 +21,11 @@
                 <div class="subtitle">
                     <h5>Date:</h5>
                 </div>
-                <div class="input">
-                    <input [(ngModel)]="course.creationDate" name="date" type="text">
-                </div>
+                <app-calendar [creationDate]="course.creationDate" (creationDateChange)="creationDateChange($event)">
+                </app-calendar>
             </div>
             <div class="duration__element">
-                <app-course-duration [duration]="course.duration" (durationSubmit)="durationSubmit($event)">
+                <app-course-duration [duration]="course.duration" (durationChange)="durationChange($event)">
                 </app-course-duration>
             </div>
             <div class=" authors__element">

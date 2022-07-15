@@ -20,7 +20,7 @@ import { AddCoursePageModule } from './add-course-page/add-course-page.module';
 import { AuthGuard } from './guards/isAuth.guard';
 import { AuthServiceService } from './header/services/auth-service.service';
 import { CoursesService } from './pages-block/services/courses.service';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -43,7 +43,10 @@ import { CoursesService } from './pages-block/services/courses.service';
     AppRoutingModule,
     FormsModule,
     LoginModule,
-    AddCoursePageModule
+    AddCoursePageModule,
+    BrowserAnimationsModule,
+
+
   ],
   providers: [AuthServiceService, CoursesService, AuthGuard],
   bootstrap: [AppComponent]
