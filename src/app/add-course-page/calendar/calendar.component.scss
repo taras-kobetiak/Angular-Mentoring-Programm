@@ -5,6 +5,16 @@
     background-color: #fff;
     border: 1px solid black;
 
-// отут прописати ті теги з індіго
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
 
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 0;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-underline::before {
+        height: 0;
+        background-color: none;
+    }
 }
