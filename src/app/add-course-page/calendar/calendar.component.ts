@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -14,8 +13,10 @@ export class CalendarComponent implements OnInit {
   placeholderData: string;
 
   ngOnInit(): void {
-    +this.creationDate - +new Date() > -100 && +this.creationDate - +new Date() < 0 ? this.placeholderData = 'Choose a date' :
-      this.placeholderData = `${this.creationDate.getDate()}/${this.creationDate.getMonth()}/${this.creationDate.getFullYear()}`
+    if (this.creationDate) {
+      +this.creationDate - +new Date() > -100 && +this.creationDate - +new Date() < 0 ? this.placeholderData = 'Choose a date' :
+        this.placeholderData = `${this.creationDate.getDate()}/${this.creationDate.getMonth()}/${this.creationDate.getFullYear()}`
+    }
   }
 
   onCreationDateChange(date: Date) {
