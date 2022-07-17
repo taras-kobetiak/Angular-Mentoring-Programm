@@ -27,7 +27,7 @@ export class AddCoursePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
+    this.course = Object.assign({}, this.courseService.getCourseById(this.courseId)) || this.defaultCourseData;
   }
 
   onSubmit(): void {
