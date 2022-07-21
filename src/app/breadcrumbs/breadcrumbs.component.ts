@@ -18,14 +18,11 @@ export class BreadcrumbsComponent implements DoCheck {
   constructor(private router: Router, private courseService: CoursesService) { }
 
   ngDoCheck(): void {
-    const regEx = /\d+/
-    const url: string = this.router.url
+    const regEx = /\d+/;
+    const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
 
     this.courseId = res ? res[0] : '';
-
-    //  I want to do something like that but without if\else I cant(
-    // this.breadcrumbpsTitle = ' /' + this.courseService.getCourseById(this.courseId)?.title || ''
 
     if (this.courseId) {
       this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;

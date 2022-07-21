@@ -8,18 +8,16 @@ import { AuthServiceService } from "../header/services/auth-service.service";
 })
 export class AuthGuard implements CanActivate {
 
-    currentUser: string | undefined;
+
 
     constructor(private authService: AuthServiceService, private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-        this.currentUser = this.authService.getUserInfo().email || 'invalid'
-
-        if (this.currentUser !== 'invalid') {
-            return this.authService.isAuthenticated()
+        if (this.authService.getUserInfo().email) {
+            return this.authService.isAuthenticated();
         }
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
         return false;
     }
 }

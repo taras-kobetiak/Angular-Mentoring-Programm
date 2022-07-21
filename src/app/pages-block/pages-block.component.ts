@@ -31,11 +31,15 @@ export class PagesBlockComponent implements OnInit {
   }
 
   changeRate(course: ICoursePage): void {
-    course.topRated = !course.topRated
-    this.coursesPagesService.updateCourse(course)
+    course.topRated = !course.topRated;
+    this.coursesPagesService.updateCourse(course);
   }
 
   findClick(inputData: string): void {
-    this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
+    if (inputData !== '') {
+      this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
+    } else {
+      this.courses = this.coursesPagesService.getCoursesList();
+    }
   }
 }

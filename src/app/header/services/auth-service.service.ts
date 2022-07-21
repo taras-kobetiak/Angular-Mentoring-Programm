@@ -6,7 +6,6 @@ import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
 })
 export class AuthServiceService {
 
-  currentUser: ILoginForm;
   defaultUser: ILoginForm = {
     email: '',
     password: ''
@@ -14,18 +13,22 @@ export class AuthServiceService {
 
   logIn(userInfo: ILoginForm): void {
     localStorage.setItem('currentUser', JSON.stringify({ email: userInfo.email, password: userInfo.password }));
-    this.currentUser = userInfo
   }
 
   logOut(): void {
-    localStorage.removeItem('currentUser')
+    localStorage.removeItem('currentUser');
   }
 
   isAuthenticated(): boolean {
-    return Boolean(localStorage.getItem('currentUser'))
+    return Boolean(localStorage.getItem('currentUser'));
   }
 
   getUserInfo(): ILoginForm {
-    return this.currentUser || this.defaultUser
+    let currentUser: ILoginForm;
+    let currentUserData: null | string = localStorage.getItem('currentUser');
+    if (currentUserData) {
+      return currentUser = JSON.parse(currentUserData);
+    }
+    return this.defaultUser
   }
 }

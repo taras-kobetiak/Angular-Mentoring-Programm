@@ -15,9 +15,9 @@ export class HeaderComponent implements DoCheck {
   constructor(private authService: AuthServiceService) { }
 
   ngDoCheck(): void {
-    this.currentUser = this.authService.getUserInfo().email || 'noData'
+    this.currentUser = this.authService.getUserInfo().email;
     this.isAuth = this.authService.isAuthenticated();
-    this.currentUserName = this.currentUser.split('@')[0]
+    this.currentUserName = this.currentUser.split('@')[0];
   }
 
   onLogOutClick(): void {

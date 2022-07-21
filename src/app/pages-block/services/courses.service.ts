@@ -10,9 +10,6 @@ export class CoursesService {
     new CoursePage('1', 'First', new Date(2021, 1, 12), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
     new CoursePage('2', 'Second', new Date(2025, 5, 30), 59, 'Not good course.'),
     new CoursePage('3', 'Third', new Date(2022, 6, 4), 96, 'Some description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-    new CoursePage('12', 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
-    new CoursePage('22', 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
-    new CoursePage('3322', 'Second', new Date(2022, 5, 17), 59, 'Not good course.'),
   ];
   course: CoursePage;
 

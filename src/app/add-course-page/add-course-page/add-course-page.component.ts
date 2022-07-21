@@ -27,7 +27,7 @@ export class AddCoursePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.course = Object.assign({}, this.courseService.getCourseById(this.courseId)) || this.defaultCourseData;
+    this.course = { ... this.courseService.getCourseById(this.courseId) || this.defaultCourseData };
   }
 
   onSubmit(): void {
@@ -41,7 +41,7 @@ export class AddCoursePageComponent implements OnInit {
     this.router.navigate(['/courses'])
   }
 
-  creationDateChange(creationDate: Date) {
+  creationDateChange(creationDate: Date): void {
     this.course.creationDate = creationDate;
   }
 
@@ -59,7 +59,7 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   newCourse(): void {
-    this.course.id = Math.floor(Math.random() * 100000000) + ''
+    this.course.id = this.courseService.getCoursesList().length + 1 + ''
     this.course.creationDate = new Date(this.course.creationDate);
     this.courseService.addCourses(this.course);
   }

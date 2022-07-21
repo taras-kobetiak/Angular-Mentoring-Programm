@@ -14,12 +14,12 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.creationDate) {
-      +this.creationDate - +new Date() > -100 && +this.creationDate - +new Date() < 0 ? this.placeholderData = 'Choose a date' :
+      Number(this.creationDate) - Number(new Date()) > -100 && Number(this.creationDate) - Number(new Date()) < 0 ? this.placeholderData = 'Choose a date' :
         this.placeholderData = `${this.creationDate.getDate()}/${this.creationDate.getMonth()}/${this.creationDate.getFullYear()}`
     }
   }
 
-  onCreationDateChange(date: Date) {
+  onCreationDateChange(date: Date): void {
     this.creationDateChange.emit(date)
   }
 
