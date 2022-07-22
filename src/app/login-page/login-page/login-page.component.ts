@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/header/services/auth-service.service';
 import { ILoginForm } from '../interfaces/login.form.interface';
 
@@ -10,17 +11,13 @@ import { ILoginForm } from '../interfaces/login.form.interface';
 })
 export class LoginPageComponent {
 
-  @Output() onSubmitClick: EventEmitter<ILoginForm> = new EventEmitter()
-
   userInfo: ILoginForm;
-  email: string;
-  password: string;
 
-  constructor(private authService: AuthServiceService) { }
+  constructor(private authService: AuthServiceService, private router: Router) { }
 
   onSubmit(form: NgForm): void {
     this.userInfo = form.value;
     this.authService.logIn(this.userInfo);
-    this.onSubmitClick.emit(this.userInfo)
+    this.router.navigate(['/courses'])
   }
 }

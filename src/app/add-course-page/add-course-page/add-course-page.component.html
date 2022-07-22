@@ -1,4 +1,4 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <div class="row">
             <div class="title__element">
@@ -6,7 +6,7 @@
                     <h5>Title:</h5>
                 </div>
                 <div class="input">
-                    <input [(ngModel)]="title" name="title" type="text">
+                    <input [(ngModel)]="course.title" name="title" type="text">
                 </div>
             </div>
             <div class="descriotion__element">
@@ -14,22 +14,21 @@
                     <h5>Description:</h5>
                 </div>
                 <div class="input">
-                    <textarea [(ngModel)]="description" name="description" id="" cols="30" rows="10"></textarea>
+                    <textarea [(ngModel)]="course.description" name="description" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="date__element">
                 <div class="subtitle">
                     <h5>Date:</h5>
                 </div>
-                <div class="input">
-                    <input [(ngModel)]="date" name="date" type="text">
-                </div>
+                <app-calendar [creationDate]="course.creationDate" (creationDateChange)="creationDateChange($event)">
+                </app-calendar>
             </div>
             <div class="duration__element">
-                <app-course-duration [duration]="duration" (durationSubmit)="durationSubmit($event)">
+                <app-course-duration [duration]="course.duration" (durationChange)="durationChange($event)">
                 </app-course-duration>
             </div>
-            <div class=" authors__element">
+            <div class="authors__element">
                 <app-course-authors [authors]="authors" (authorsSubmit)="authorsSubmit($event)"></app-course-authors>
             </div>
             <div class="management__block">

@@ -1,35 +1,66 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
+import { CoursesService } from 'src/app/pages-block/services/courses.service';
 
 @Component({
   selector: 'app-add-course-page',
   templateUrl: './add-course-page.component.html',
   styleUrls: ['./add-course-page.component.scss']
 })
-export class AddCoursePageComponent {
+export class AddCoursePageComponent implements OnInit {
 
-  @Output() saveButtonClick: EventEmitter<void> = new EventEmitter()
-  @Output() cancelButtonClick: EventEmitter<void> = new EventEmitter()
+  course: ICoursePage;
+  defaultCourseData: ICoursePage = {
+    id: '',
+    title: '',
+    creationDate: new Date(),
+    duration: 0,
+    description: '',
+    topRated: false
+  }
 
-  title: string;
-  description: string;
-  date: Date;
-  duration: number;
   authors: string;
+  courseId: any;
 
-  onSubmit(form: NgForm): void {
-    this.saveButtonClick.emit();
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
+
+  ngOnInit(): void {
+    this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.course = { ... this.courseService.getCourseById(this.courseId) || this.defaultCourseData };
+  }
+
+  onSubmit(): void {
+    this.course.id ? this.updateCourse() :
+      this.newCourse()
+
+    this.router.navigate(['courses'])
   }
 
   onCancelButtonClick(): void {
-    this.cancelButtonClick.emit()
+    this.router.navigate(['/courses'])
   }
 
-  durationSubmit(duration: number): void {
-    this.duration = duration;
+  creationDateChange(creationDate: Date): void {
+    this.course.creationDate = creationDate;
+  }
+
+  durationChange(duration: number): void {
+    this.course.duration = duration;
   }
 
   authorsSubmit(authors: string): void {
     this.authors = authors;
+  }
+
+  updateCourse(): void {
+    this.course.creationDate = new Date(this.course.creationDate);
+    this.courseService.updateCourse(this.course);
+  }
+
+  newCourse(): void {
+    this.course.id = this.courseService.getCoursesList().length + 1 + ''
+    this.course.creationDate = new Date(this.course.creationDate);
+    this.courseService.addCourses(this.course);
   }
 }

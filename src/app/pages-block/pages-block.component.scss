@@ -5,6 +5,7 @@
     justify-content: flex-start
 }
 
+
 .serch-form {
     margin-bottom: 1%;
     min-height: 5%;
@@ -63,5 +64,14 @@
         background-size: 20px auto;
         padding-left: 35px;
         cursor: pointer;
+    }
+}
+
+
+@media (max-width:550px) {
+    .add-button {
+        button {
+            height: 80%;
+        }
     }
 }

@@ -7,9 +7,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CourseDurationComponent {
   @Input() duration: number;
-  @Output() durationSubmit: EventEmitter<number> = new EventEmitter()
+  @Output() durationChange: EventEmitter<number> = new EventEmitter()
 
   onDurationChange(): void {
-    this.durationSubmit.emit(this.duration)
+    this.durationChange.emit(this.duration)
   }
 }

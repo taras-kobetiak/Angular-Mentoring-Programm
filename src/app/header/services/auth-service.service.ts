@@ -6,19 +6,29 @@ import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
 })
 export class AuthServiceService {
 
+  defaultUser: ILoginForm = {
+    email: '',
+    password: ''
+  };
+
   logIn(userInfo: ILoginForm): void {
-    localStorage.setItem(userInfo.email, userInfo.password)
+    localStorage.setItem('currentUser', JSON.stringify({ email: userInfo.email, password: userInfo.password }));
   }
 
   logOut(): void {
-    localStorage.clear()
+    localStorage.removeItem('currentUser');
   }
 
-  isAuthenticated(userLogin: string): boolean {
-    return Boolean(localStorage.getItem(userLogin))
+  isAuthenticated(): boolean {
+    return Boolean(localStorage.getItem('currentUser'));
   }
 
-  getUserInfo(userInfo: ILoginForm): string {
-    return userInfo.email
+  getUserInfo(): ILoginForm {
+    let currentUser: ILoginForm;
+    let currentUserData: null | string = localStorage.getItem('currentUser');
+    if (currentUserData) {
+      return currentUser = JSON.parse(currentUserData);
+    }
+    return this.defaultUser
   }
 }

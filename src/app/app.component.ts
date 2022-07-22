@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { AuthServiceService } from './header/services/auth-service.service';
-import { ILoginForm } from './login-page/interfaces/login.form.interface';
 
 @Component({
   selector: 'app-root',
@@ -8,25 +7,15 @@ import { ILoginForm } from './login-page/interfaces/login.form.interface';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements DoCheck {
 
-  showLogIn = false;
-  showAddCourseForm = false;
-  user: string;
+  isAuth: boolean;
 
   constructor(private authService: AuthServiceService) { }
 
-  logOutFunction(): void {
-    this.showLogIn = !this.showLogIn;
-  }
-
-  submitClick(userInfo: ILoginForm): void {
-    this.authService.logIn(userInfo);
-    this.user = this.authService.getUserInfo(userInfo);
-    this.showLogIn = !this.showLogIn;
-  }
-
-  addNewCourse(): void {
-    this.showAddCourseForm = !this.showAddCourseForm
+  ngDoCheck(): void {
+    if (this.authService.getUserInfo().email) {
+      this.isAuth = this.authService.isAuthenticated();
+    }
   }
 }

@@ -20,7 +20,7 @@ export class PagesBlockComponent implements OnInit {
     this.courses = this.coursesPagesService.getCoursesList()
   }
 
-  deleteComponent(id: number): void {
+  deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       this.courses = this.coursesPagesService.deleteCourse(id)
     }
@@ -31,15 +31,15 @@ export class PagesBlockComponent implements OnInit {
   }
 
   changeRate(course: ICoursePage): void {
-    course.topRated = !course.topRated
-    this.coursesPagesService.updateCourse(course)
+    course.topRated = !course.topRated;
+    this.coursesPagesService.updateCourse(course);
   }
 
   findClick(inputData: string): void {
-    this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
-  }
-
-  onAddButtonClick() {
-    this.addButtonClicked.emit()
+    if (inputData !== '') {
+      this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
+    } else {
+      this.courses = this.coursesPagesService.getCoursesList();
+    }
   }
 }

@@ -10,7 +10,7 @@ import { ICoursePage } from 'src/app/interfaces/course.interface';
 export class CoursesPageComponent {
 
   @Input() course: ICoursePage;
-  @Output() deleteClicked: EventEmitter<number> = new EventEmitter();
+  @Output() deleteClicked: EventEmitter<string> = new EventEmitter();
   @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter()
 
   onDeleteClicked(): void {

@@ -1,8 +1,8 @@
 export interface ICoursePage {
-    id: number;
+    id: string;
     title: string;
     creationDate: Date;
-    durationInMinutes: number;
+    duration: number;
     description: string;
     topRated: boolean;
 }
