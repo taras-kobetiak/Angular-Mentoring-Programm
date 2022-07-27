@@ -21,6 +21,7 @@ import { AuthGuard } from './guards/isAuth.guard';
 import { AuthServiceService } from './header/services/auth-service.service';
 import { CoursesService } from './pages-block/services/courses.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginModule,
     AddCoursePageModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+
 
 
   ],

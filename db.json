@@ -1,0 +1,23 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "creationDate": "2022-03-23T22:00:00.000Z",
+      "title": "Ашкые",
+      "duration": "123",
+      "topRated": false,
+      "description": "ыфв"
+    },
+    {
+      "id": "lgJ0fNP",
+      "title": "123",
+      "creationDate": "2022-07-27T11:26:47.715Z",
+      "duration": "12",
+      "description": "",
+      "topRated": false
+    }
+  ],
+  "users": [
+    {}
+  ]
+}

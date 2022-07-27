@@ -17,12 +17,14 @@ export class PagesBlockComponent implements OnInit {
   constructor(private coursesPagesService: CoursesService) { }
 
   ngOnInit(): void {
-    this.courses = this.coursesPagesService.getCoursesList()
+    this.refreshCourse()
+      .then(() => this.refreshCourse())
   }
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.courses = this.coursesPagesService.deleteCourse(id)
+      this.coursesPagesService.deleteCourse(id)
+        .then(() => this.refreshCourse())
     }
   }
 
@@ -39,7 +41,17 @@ export class PagesBlockComponent implements OnInit {
     if (inputData !== '') {
       this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
     } else {
-      this.courses = this.coursesPagesService.getCoursesList();
+      // this.courses = this.coursesPagesService.getCoursesList();
     }
   }
+
+  async refreshCourse(): Promise<void> {
+    await this.coursesPagesService.getCoursesList()
+      .then((response) => {
+        return response.json();
+      }).then(coursesData => {
+        this.courses = coursesData;
+      })
+  }
+
 }

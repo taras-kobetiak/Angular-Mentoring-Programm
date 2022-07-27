@@ -23,12 +23,21 @@ export class BreadcrumbsComponent implements DoCheck {
     const res: RegExpMatchArray | null = url.match(regEx);
 
     this.courseId = res ? res[0] : '';
+    // console.log(this.courseId);
 
-    if (this.courseId) {
-      this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
-      this.breadcrumbpsTitle = ` / ${this.course.title}`;
-    } else {
-      this.breadcrumbpsTitle = ''
-    }
+
+    // if (this.courseId) {
+
+
+
+
+
+
+
+    //   this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
+    //   this.breadcrumbpsTitle = ` / ${this.course.title}`;
+    // } else {
+    //   this.breadcrumbpsTitle = ''
+    // }
   }
 }
