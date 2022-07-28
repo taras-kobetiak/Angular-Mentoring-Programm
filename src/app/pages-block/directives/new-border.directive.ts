@@ -14,13 +14,14 @@ export class NewBorderDirective implements OnChanges {
 
   ngOnChanges(): void {
 
+    let timeFromCreationDate = Number(new Date(this.course.creationDate)) - Number(new Date());
     let milisecToDay: number = 1000 * 60 * 60 * 24;
 
-    if ((+this.course.creationDate - +new Date()) / milisecToDay > -14 &&
-      +this.course.creationDate - +new Date() < 0) {
+    if (timeFromCreationDate / milisecToDay > -14 &&
+      timeFromCreationDate < 0) {
       this.element.nativeElement.style.border = '2px solid rgb(47, 255, 61)'
     }
-    else if ((+this.course.creationDate - +new Date()) > 0) {
+    else if (timeFromCreationDate > 0) {
       this.element.nativeElement.style.border = '2px solid rgb(45, 201, 218)'
     }
   }

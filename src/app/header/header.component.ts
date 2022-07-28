@@ -1,4 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
+import { IUserEntyty } from '../interfaces/user-entyty.interface';
 import { AuthServiceService } from './services/auth-service.service';
 
 @Component({
@@ -9,15 +10,17 @@ import { AuthServiceService } from './services/auth-service.service';
 export class HeaderComponent implements DoCheck {
 
   isAuth: boolean = false;
-  currentUser: string;
-  currentUserName: string;
+  currentUser: IUserEntyty;
 
   constructor(private authService: AuthServiceService) { }
 
   ngDoCheck(): void {
-    this.currentUser = this.authService.getUserInfo().email;
     this.isAuth = this.authService.isAuthenticated();
-    this.currentUserName = this.currentUser.split('@')[0];
+    let userData: string | null = localStorage.getItem('currentUser');
+    let userDataParse: any = userData ? JSON.parse(userData) : ''
+    if (userDataParse) {
+      this.currentUser = userDataParse;
+    }
   }
 
   onLogOutClick(): void {

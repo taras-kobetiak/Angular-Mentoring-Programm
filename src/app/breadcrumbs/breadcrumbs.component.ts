@@ -17,27 +17,20 @@ export class BreadcrumbsComponent implements DoCheck {
 
   constructor(private router: Router, private courseService: CoursesService) { }
 
-  ngDoCheck(): void {
+  async ngDoCheck(): Promise<void> {
     const regEx = /\d+/;
     const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
 
     this.courseId = res ? res[0] : '';
-    // console.log(this.courseId);
+    if (this.courseId) {
+      await this.courseService.getCourseById(this.courseId)
+        .then((response) => response.json())
+        .then((courseData) => this.course = courseData)
 
-
-    // if (this.courseId) {
-
-
-
-
-
-
-
-    //   this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
-    //   this.breadcrumbpsTitle = ` / ${this.course.title}`;
-    // } else {
-    //   this.breadcrumbpsTitle = ''
-    // }
+      this.breadcrumbpsTitle = ` / ${this.course.title}`;
+    } else {
+      this.breadcrumbpsTitle = ''
+    }
   }
 }

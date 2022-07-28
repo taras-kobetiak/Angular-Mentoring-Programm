@@ -18,7 +18,6 @@ export class PagesBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshCourse()
-      .then(() => this.refreshCourse())
   }
 
   deleteComponent(id: string): void {

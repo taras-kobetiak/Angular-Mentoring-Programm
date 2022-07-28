@@ -10,10 +10,12 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
-
   courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;
+  authors: string;
+  courseId: any;
+
   defaultCourseData: ICoursePage = {
     id: '',
     title: '',
@@ -22,9 +24,6 @@ export class AddCoursePageComponent implements OnInit {
     description: '',
     topRated: false
   }
-
-  authors: string;
-  courseId: any;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
@@ -40,15 +39,13 @@ export class AddCoursePageComponent implements OnInit {
           this.course.creationDate = new Date(this.course.creationDate)
         });
     } else {
-      this.course = this.defaultCourseData
+      this.course = this.defaultCourseData;
     }
   }
 
   onSubmit(): void {
     this.course.id ? this.updateCourse() :
       this.newCourse()
-
-    this.router.navigate(['courses'])
   }
 
   onCancelButtonClick(): void {
@@ -67,9 +64,10 @@ export class AddCoursePageComponent implements OnInit {
     this.authors = authors;
   }
 
-  updateCourse(): void {
-    this.course.creationDate = new Date(this.course.creationDate);
-    this.courseService.updateCourse(this.course);
+  async updateCourse(): Promise<void> {
+    await this.courseService.updateCourse(this.course);
+
+    this.router.navigate(['/courses'])
   }
 
   async newCourse(): Promise<void> {
@@ -79,37 +77,20 @@ export class AddCoursePageComponent implements OnInit {
         return response.json();
       }).then(coursesData => {
         this.courses = coursesData;
-      })
+      }).then(() => this.generateId());
 
-
-    // .then(() => this.generatetemporaryId())
-
-    // while (this.courses.filter(course => course.id = this.temporaryId + '')) {
-    //   ++this.temporaryId;
-    //   console.log(this.temporaryId);
-
-    // }
-
-
-
-    // this.course.id = this.temporaryId + 12 + ''
-    this.course.creationDate = new Date(this.course.creationDate);
+    this.course.id = this.temporaryId + ''
     this.courseService.addCourses(this.course);
+    this.router.navigate(['/courses'])
   }
 
-
-
-
-  generatetemporaryId(): void {
+  generateId(): void {
     console.log(this.temporaryId);
-
-    if (this.courses.filter(course => course.id = this.temporaryId + '')) {
+    if (!this.courses.find(course => course.id === this.temporaryId + '')) {
       return;
     } else {
-
       ++this.temporaryId;
-      console.log(this.temporaryId);
-      this.generatetemporaryId()
+      this.generateId();
     }
   }
 

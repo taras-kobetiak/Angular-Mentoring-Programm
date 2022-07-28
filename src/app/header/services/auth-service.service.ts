@@ -1,18 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
+import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
+// import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  defaultUser: ILoginForm = {
-    email: '',
-    password: ''
-  };
+  // defaultUser: ILoginForm = {
+  //   email: '',
+  //   password: ''
+  // };
+  usersData: IUserEntyty[]
 
-  logIn(userInfo: ILoginForm): void {
-    localStorage.setItem('currentUser', JSON.stringify({ email: userInfo.email, password: userInfo.password }));
+  constructor(private http: HttpClient) { }
+
+  logIn(): Promise<any> {
+    return fetch('http://localhost:3000/users');
   }
 
   logOut(): void {
@@ -20,15 +26,10 @@ export class AuthServiceService {
   }
 
   isAuthenticated(): boolean {
-    return Boolean(localStorage.getItem('currentUser'));
+    return Boolean(localStorage.getItem('currentUser'))
   }
 
-  getUserInfo(): ILoginForm {
-    let currentUser: ILoginForm;
-    let currentUserData: null | string = localStorage.getItem('currentUser');
-    if (currentUserData) {
-      return currentUser = JSON.parse(currentUserData);
-    }
-    return this.defaultUser
+  getUserInfo(email: string): Promise<any> {
+    return fetch(`http://localhost:3000/users/?email=${email}`)
   }
 }
