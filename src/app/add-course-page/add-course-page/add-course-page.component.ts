@@ -85,7 +85,6 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   generateId(): void {
-    console.log(this.temporaryId);
     if (!this.courses.find(course => course.id === this.temporaryId + '')) {
       return;
     } else {

@@ -13,22 +13,25 @@ export class PagesBlockComponent implements OnInit {
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
   courses: ICoursePage[] = [];
+  numberOfCourses: number = 3;
 
   constructor(private coursesPagesService: CoursesService) { }
 
-  ngOnInit(): void {
-    this.refreshCourse()
+  async ngOnInit(): Promise<void> {
+    await this.refreshCourse().then((courseData: ICoursePage[]) => this.courses = courseData.slice(0, 3));
   }
 
-  deleteComponent(id: string): void {
+  async deleteComponent(id: string): Promise<void> {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.coursesPagesService.deleteCourse(id)
-        .then(() => this.refreshCourse())
+      await this.coursesPagesService.deleteCourse(id)
+        .then(() => this.refreshCourse()
+          .then((courseData: ICoursePage[]) => this.courses = courseData.slice(0, this.numberOfCourses)))
     }
   }
 
-  loadNewCourses(): void {
-    console.log('here is come action');
+  async loadNewCourses(): Promise<void> {
+    this.numberOfCourses += 3;
+    await this.refreshCourse().then((courseData: ICoursePage[]) => this.courses = courseData.slice(0, this.numberOfCourses))
   }
 
   changeRate(course: ICoursePage): void {
@@ -36,21 +39,23 @@ export class PagesBlockComponent implements OnInit {
     this.coursesPagesService.updateCourse(course);
   }
 
-  findClick(inputData: string): void {
-    if (inputData !== '') {
-      this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
+  async findClick(inputData: string): Promise<void> {
+    if (inputData) {
+      let findData = inputData.toLowerCase();
+      await this.refreshCourse()
+        .then((courseData: ICoursePage[]) => {
+          this.courses = courseData.filter(course => course.title.toLowerCase().includes(findData)
+            || course.description.toLowerCase().includes(findData))
+        })
     } else {
-      // this.courses = this.coursesPagesService.getCoursesList();
+      await this.refreshCourse().then((courseData: ICoursePage[]) => this.courses = courseData.slice(0, 3));
     }
   }
 
-  async refreshCourse(): Promise<void> {
-    await this.coursesPagesService.getCoursesList()
+  refreshCourse(): Promise<ICoursePage[]> {
+    return this.coursesPagesService.getCoursesList()
       .then((response) => {
         return response.json();
-      }).then(coursesData => {
-        this.courses = coursesData;
       })
   }
-
 }
