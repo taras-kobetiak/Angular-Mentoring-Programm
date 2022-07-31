@@ -5,5 +5,5 @@ export interface IUserEntyty {
     login?: string;
     email: string;
     password: string;
-
+    token: string;
 }

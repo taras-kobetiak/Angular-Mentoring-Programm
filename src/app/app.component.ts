@@ -14,8 +14,6 @@ export class AppComponent implements DoCheck {
   constructor(private authService: AuthServiceService) { }
 
   ngDoCheck(): void {
-    // if (this.authService.getUserInfo().email) {
-    //   this.isAuth = this.authService.isAuthenticated();
-    // }
+    this.isAuth = this.authService.isAuthenticated();
   }
 }

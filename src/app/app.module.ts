@@ -21,7 +21,8 @@ import { AuthGuard } from './guards/isAuth.guard';
 import { AuthServiceService } from './header/services/auth-service.service';
 import { CoursesService } from './pages-block/services/courses.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './header/interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -47,11 +48,14 @@ import { HttpClientModule } from '@angular/common/http';
     AddCoursePageModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
-
-
   ],
-  providers: [AuthServiceService, CoursesService, AuthGuard],
+  providers: [AuthServiceService, CoursesService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

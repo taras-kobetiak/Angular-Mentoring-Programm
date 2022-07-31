@@ -18,6 +18,7 @@ export class BreadcrumbsComponent implements DoCheck {
   constructor(private router: Router, private courseService: CoursesService) { }
 
   async ngDoCheck(): Promise<void> {
+
     const regEx = /\d+/;
     const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
@@ -27,7 +28,6 @@ export class BreadcrumbsComponent implements DoCheck {
       await this.courseService.getCourseById(this.courseId)
         .then((response) => response.json())
         .then((courseData) => this.course = courseData)
-
       this.breadcrumbpsTitle = ` / ${this.course.title}`;
     } else {
       this.breadcrumbpsTitle = ''
