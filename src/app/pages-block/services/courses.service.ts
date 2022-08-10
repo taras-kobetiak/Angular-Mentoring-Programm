@@ -11,8 +11,15 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-  getCoursesList(): Promise<any> {
-    return fetch('http://localhost:3000/courses')
+  async getCoursesList(courseLimit: number): Promise<any> {
+    let serverData = await fetch(`http://localhost:3000/courses?_sort=id&_limit=${courseLimit}`);
+    return await serverData.json();
+  }
+
+
+  async getFilteredList(searchData: string): Promise<any> {
+    let serverData = await fetch(`http://localhost:3000/courses?q=${searchData}`);
+    return await serverData.json();
   }
 
   addCourses(course: CoursePage): Promise<any> {
@@ -31,8 +38,9 @@ export class CoursesService {
     })
   }
 
-  getCourseById(id: string): Promise<any> {
-    return fetch(`http://localhost:3000/courses/${id}`);
+  async getCourseById(id: string): Promise<any> {
+    let serverData = await fetch(`http://localhost:3000/courses/${id}`);
+    return await serverData.json();
   }
 
   updateCourse(course: CoursePage): Promise<any> {

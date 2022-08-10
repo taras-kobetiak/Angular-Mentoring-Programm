@@ -1,6 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { IUserEntyty } from '../interfaces/user-entyty.interface';
-import { AuthServiceService } from './services/auth-service.service';
+import { AuthServiceService } from '../authentication/services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +17,7 @@ export class HeaderComponent implements DoCheck {
   ngDoCheck(): void {
     this.isAuth = this.authService.isAuthenticated();
     let userData: string | null = localStorage.getItem('currentUser');
+
     let userDataParse: any = userData ? JSON.parse(userData) : ''
     if (userDataParse) {
       this.currentUser = userDataParse;

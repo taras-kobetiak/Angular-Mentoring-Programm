@@ -17,8 +17,9 @@ export class AuthServiceService {
 
   constructor(private http: HttpClient) { }
 
-  logIn(): Promise<any> {
-    return fetch('http://localhost:3000/users');
+  async logIn(): Promise<any> {
+    let userData = await fetch('http://localhost:3000/users');
+    return await userData.json()
   }
 
   logOut(): void {
@@ -29,7 +30,8 @@ export class AuthServiceService {
     return Boolean(localStorage.getItem('currentUser'))
   }
 
-  getUserInfo(email: string): Promise<any> {
-    return fetch(`http://localhost:3000/users/?email=${email}`)
+  async getUserInfo(email: string): Promise<any> {
+    let userData = await fetch(`http://localhost:3000/users/?email=${email}`);
+    return await userData.json();
   }
 }

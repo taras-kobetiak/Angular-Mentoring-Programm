@@ -10,6 +10,8 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
+  dataToSendInCalendar: Date | string = '';
+
   courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;
@@ -27,29 +29,21 @@ export class AddCoursePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-
     if (this.courseId) {
-      await this.courseService.getCourseById(this.courseId)
-        .then((response) => {
-          return response.json();
-        }).then(courseData => {
-          this.course = courseData;
-          this.course.creationDate = new Date(this.course.creationDate)
-        });
-    } else {
-      this.course = this.defaultCourseData;
+      this.takeCourseData();
     }
   }
 
   onSubmit(): void {
     this.course.id ? this.updateCourse() :
-      this.newCourse()
+      this.newCourse();
   }
 
   onCancelButtonClick(): void {
-    this.router.navigate(['/courses'])
+    this.router.navigate(['/courses']);
   }
 
   creationDateChange(creationDate: Date): void {
@@ -66,19 +60,14 @@ export class AddCoursePageComponent implements OnInit {
 
   async updateCourse(): Promise<void> {
     await this.courseService.updateCourse(this.course);
-
-    this.router.navigate(['/courses'])
+    this.router.navigate(['/courses']);
   }
 
   async newCourse(): Promise<void> {
+    let courseData = await this.courseService.getCoursesList(3);
+    this.courses = courseData;
 
-    await this.courseService.getCoursesList()
-      .then((response) => {
-        return response.json();
-      }).then(coursesData => {
-        this.courses = coursesData;
-      }).then(() => this.generateId());
-
+    this.generateId()
     this.course.id = this.temporaryId + ''
     this.courseService.addCourses(this.course);
     this.router.navigate(['/courses'])
@@ -91,6 +80,13 @@ export class AddCoursePageComponent implements OnInit {
       ++this.temporaryId;
       this.generateId();
     }
+  }
+
+  async takeCourseData() {
+    let courseData = await this.courseService.getCourseById(this.courseId);
+    this.course = courseData;
+    this.course.creationDate = new Date(this.course.creationDate);
+    this.dataToSendInCalendar = new Date(this.course.creationDate);
   }
 
 }

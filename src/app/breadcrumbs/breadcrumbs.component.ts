@@ -12,25 +12,33 @@ export class BreadcrumbsComponent implements DoCheck {
 
   courseId: string;
   course: ICoursePage;
-  breadcrumbpsTitle: string = '';
+  breadcrumbsTitle: string = '';
   defaultCourseData: ICoursePage;
 
   constructor(private router: Router, private courseService: CoursesService) { }
 
-  async ngDoCheck(): Promise<void> {
-
+  ngDoCheck(): void {
     const regEx = /\d+/;
     const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
 
     this.courseId = res ? res[0] : '';
+
     if (this.courseId) {
-      await this.courseService.getCourseById(this.courseId)
-        .then((response) => response.json())
-        .then((courseData) => this.course = courseData)
-      this.breadcrumbpsTitle = ` / ${this.course.title}`;
+      this.setBreadcrumbs();
     } else {
-      this.breadcrumbpsTitle = ''
+      this.breadcrumbsTitle = ''
     }
   }
+
+  async setBreadcrumbs() {
+    if (this.breadcrumbsTitle) {
+      return;
+    } else {
+      await this.courseService.getCourseById(this.courseId)
+        .then((courseData) => this.course = courseData)
+      this.breadcrumbsTitle = ` / ${this.course.title}`;
+    }
+  }
+
 }
