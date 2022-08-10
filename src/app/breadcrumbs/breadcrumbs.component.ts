@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
@@ -27,18 +27,17 @@ export class BreadcrumbsComponent implements DoCheck {
     if (this.courseId) {
       this.setBreadcrumbs();
     } else {
-      this.breadcrumbsTitle = ''
+      this.breadcrumbsTitle = '';
     }
   }
 
-  async setBreadcrumbs() {
+  async setBreadcrumbs(): Promise<void> {
     if (this.breadcrumbsTitle) {
       return;
     } else {
-      await this.courseService.getCourseById(this.courseId)
-        .then((courseData) => this.course = courseData)
+      let courseData = await this.courseService.getCourseById(this.courseId);
+      this.course = courseData;
       this.breadcrumbsTitle = ` / ${this.course.title}`;
     }
   }
-
 }

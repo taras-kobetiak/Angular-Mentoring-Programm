@@ -19,12 +19,11 @@ export class LoginPageComponent {
   constructor(private authService: AuthServiceService, private router: Router) { }
 
   async onSubmit(form: NgForm): Promise<void> {
-
     this.currentUser = form.value;
     this.createUsersData();
   }
 
-  async createUsersData() {
+  async createUsersData(): Promise<void> {
     let usersData = await this.authService.logIn();
     this.usersData = usersData;
 

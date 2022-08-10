@@ -2,10 +2,42 @@
   "courses": [
     {
       "id": "1",
-      "title": "123",
+      "title": "123іівафівафівафіва",
       "creationDate": "2026-07-22T21:00:00.000Z",
-      "duration": 0,
+      "duration": "0",
       "description": "asdasdasd",
+      "topRated": false
+    },
+    {
+      "id": "5",
+      "title": "123123",
+      "creationDate": "2022-08-10T19:28:14.323Z",
+      "duration": 0,
+      "description": "asdasd",
+      "topRated": false
+    },
+    {
+      "id": "6",
+      "title": "123",
+      "creationDate": "2022-08-10T19:28:21.968Z",
+      "duration": 0,
+      "description": "adsdfasfdasf",
+      "topRated": false
+    },
+    {
+      "id": "7",
+      "title": "23",
+      "creationDate": "2022-08-10T19:28:29.380Z",
+      "duration": 0,
+      "description": "aafrgsrgsethsthth",
+      "topRated": false
+    },
+    {
+      "id": "8",
+      "title": "123123",
+      "creationDate": "2022-08-10T19:36:19.552Z",
+      "duration": 0,
+      "description": "фіваівафіва",
       "topRated": false
     }
   ],

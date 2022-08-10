@@ -26,7 +26,8 @@ export class PagesBlockComponent implements OnInit {
   async deleteComponent(id: string): Promise<void> {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       await this.coursesPagesService.deleteCourse(id);
-      this.allCoursesLengthFunction()
+      this.allCoursesLengthFunction();
+      this.refreshCourse();
     }
   }
 
@@ -54,8 +55,8 @@ export class PagesBlockComponent implements OnInit {
     this.courses = courseData;
   }
 
-  async allCoursesLengthFunction() {
-    let coursesList = await this.coursesPagesService.getCoursesList(5);
+  async allCoursesLengthFunction(): Promise<void> {
+    let coursesList = await this.coursesPagesService.getAllCoursesList();
     this.allCoursesLength = coursesList.length;
   }
 }

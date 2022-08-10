@@ -1,18 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-// import { ILoginForm } from 'src/app/login-page/interfaces/login.form.interface';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  // defaultUser: ILoginForm = {
-  //   email: '',
-  //   password: ''
-  // };
   usersData: IUserEntyty[]
 
   constructor(private http: HttpClient) { }

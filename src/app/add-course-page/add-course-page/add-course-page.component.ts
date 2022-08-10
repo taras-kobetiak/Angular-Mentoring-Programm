@@ -64,13 +64,13 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   async newCourse(): Promise<void> {
-    let courseData = await this.courseService.getCoursesList(3);
+    let courseData = await this.courseService.getAllCoursesList();
     this.courses = courseData;
 
-    this.generateId()
-    this.course.id = this.temporaryId + ''
+    this.generateId();
+    this.course.id = this.temporaryId + '';
     this.courseService.addCourses(this.course);
-    this.router.navigate(['/courses'])
+    this.router.navigate(['/courses']);
   }
 
   generateId(): void {
@@ -82,11 +82,10 @@ export class AddCoursePageComponent implements OnInit {
     }
   }
 
-  async takeCourseData() {
+  async takeCourseData(): Promise<void> {
     let courseData = await this.courseService.getCourseById(this.courseId);
     this.course = courseData;
     this.course.creationDate = new Date(this.course.creationDate);
     this.dataToSendInCalendar = new Date(this.course.creationDate);
   }
-
 }

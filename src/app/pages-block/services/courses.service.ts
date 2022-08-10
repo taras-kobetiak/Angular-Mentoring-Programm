@@ -12,10 +12,14 @@ export class CoursesService {
   constructor(private http: HttpClient) { }
 
   async getCoursesList(courseLimit: number): Promise<any> {
-    let serverData = await fetch(`http://localhost:3000/courses?_sort=id&_limit=${courseLimit}`);
+    let serverData = await fetch(`http://localhost:3000/courses?_limit=${courseLimit}`);
     return await serverData.json();
   }
 
+  async getAllCoursesList(): Promise<any> {
+    let serverData = await fetch(`http://localhost:3000/courses`);
+    return await serverData.json();
+  }
 
   async getFilteredList(searchData: string): Promise<any> {
     let serverData = await fetch(`http://localhost:3000/courses?q=${searchData}`);
