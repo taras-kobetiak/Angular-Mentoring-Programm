@@ -13,9 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         async () => {
-            await this.authService.getUserInfo('taras@.com')
-                .then(response => response.json())
-                .then(userData => this.userData = userData)
+            let response = await this.authService.getUserInfo('taras@.com');
+            let userData = await response.json();
+            this.userData = userData;
         }
         let userToken = this.userData.token;
         console.log(userToken);
