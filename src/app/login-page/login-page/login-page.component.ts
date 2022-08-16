@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/header/services/auth-service.service';
-import { ILoginForm } from '../interfaces/login.form.interface';
+import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
+import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 
 @Component({
   selector: 'app-login-page',
@@ -11,13 +11,30 @@ import { ILoginForm } from '../interfaces/login.form.interface';
 })
 export class LoginPageComponent {
 
-  userInfo: ILoginForm;
+  usersData: IUserEntyty[];
+  currentUser: IUserEntyty;
 
   constructor(private authService: AuthServiceService, private router: Router) { }
 
-  onSubmit(form: NgForm): void {
-    this.userInfo = form.value;
-    this.authService.logIn(this.userInfo);
-    this.router.navigate(['/courses'])
+onSubmit(form: NgForm): void {
+    this.currentUser = form.value;
+    this.createUsersData();
+  }
+
+ createUsersData(): void {
+this.authService.logIn().then((usersData)=> this.usersData = usersData)
+  .then(()=>{
+    if (!this.usersData.find(user => user.email === this.currentUser.email
+      && user.password === this.currentUser.password)) {
+      alert('wrong data, please check your email and pass');
+    } else {
+      let userInfo = this.authService.getUserInfo(this.currentUser.email)
+        .then((userInfo)=>{
+          this.currentUser = userInfo[0];
+          localStorage.setItem(`currentUser`, JSON.stringify(this.currentUser));
+          this.router.navigate(['/courses']);
+        })
+    }
+  })
   }
 }

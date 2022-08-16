@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CoursePage } from 'src/app/interfaces/classes';
 
@@ -6,31 +7,52 @@ import { CoursePage } from 'src/app/interfaces/classes';
 })
 export class CoursesService {
 
-  private courses: CoursePage[] = [
-    new CoursePage('1', 'First', new Date(2021, 1, 12), 121, 'Some description Lorem ipsum dolor sit amet dolor sit amet consectetur consectetur dolor sit amet consectetur, adipisicing elit. Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-    new CoursePage('2', 'Second', new Date(2025, 5, 30), 59, 'Not good course.'),
-    new CoursePage('3', 'Third', new Date(2022, 6, 4), 96, 'Some description   elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwersit amet consectetur, adipisicing elit. lorem lowerwer sit amet consectetur, adipisicing elit. lorem lowerwer Asperiores, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, itaque.'),
-  ];
   course: CoursePage;
 
-  getCoursesList(): CoursePage[] {
-    return this.courses
+  constructor(private http: HttpClient) { }
+
+getCoursesList(courseLimit: number): Promise<CoursePage[]> {
+    return fetch(`http://localhost:3000/courses?_limit=${courseLimit}`)
+      .then((courses: Response) => courses.json());
   }
 
-  addCourses(course: CoursePage): void {
-    this.courses = this.courses.concat(course)
+ getAllCoursesList(): Promise<CoursePage[]> {
+   return  fetch(`http://localhost:3000/courses`)
+      .then((courses: Response) => courses.json());
   }
 
-  deleteCourse(id: string): CoursePage[] {
-    return this.courses = this.courses.filter(el => el.id !== id);
+ getFilteredList(searchData: string):  Promise<CoursePage[]> {
+    return   fetch(`http://localhost:3000/courses?q=${searchData}`)
+  .then((courses: Response) => courses.json());
   }
 
-  getCourseById(id: string): CoursePage | undefined {
-    return this.courses.find(course => course.id === id)
+  addCourses(course: CoursePage):  Promise<Response> {
+    return fetch('http://localhost:3000/courses', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(course)
+    })
   }
 
-  updateCourse(course: CoursePage): void {
-    let index = this.courses.findIndex(item => item.id === course.id)
-    this.courses[index] = course;
+  deleteCourse(id: string): Promise<Response> {
+    return fetch(`http://localhost:3000/courses/${id}`, {
+      method: 'DELETE',
+    })
+  }
+
+getCourseById(id: string): Promise<CoursePage> {
+   return fetch(`http://localhost:3000/courses/${id}`).then((user:Response)=> user.json());
+  }
+
+  updateCourse(course: CoursePage): Promise<Response> {
+    return fetch(`http://localhost:3000/courses/${course.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(course)
+    })
   }
 }

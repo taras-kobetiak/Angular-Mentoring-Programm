@@ -10,7 +10,14 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
+  courseCreationDate: Date | string = '';
+
+  courses: ICoursePage[];
   course: ICoursePage;
+  temporaryId: number = 1;
+  authors: string;
+  courseId: any;
+
   defaultCourseData: ICoursePage = {
     id: '',
     title: '',
@@ -20,25 +27,24 @@ export class AddCoursePageComponent implements OnInit {
     topRated: false
   }
 
-  authors: string;
-  courseId: any;
-
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
 
   ngOnInit(): void {
+    this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.course = { ... this.courseService.getCourseById(this.courseId) || this.defaultCourseData };
+    if (this.courseId) {
+
+      this.takeCourseData();
+    }
   }
 
   onSubmit(): void {
     this.course.id ? this.updateCourse() :
-      this.newCourse()
-
-    this.router.navigate(['courses'])
+      this.addNewCourse();
   }
 
   onCancelButtonClick(): void {
-    this.router.navigate(['/courses'])
+    this.router.navigate(['/courses']);
   }
 
   creationDateChange(creationDate: Date): void {
@@ -53,14 +59,31 @@ export class AddCoursePageComponent implements OnInit {
     this.authors = authors;
   }
 
-  updateCourse(): void {
-    this.course.creationDate = new Date(this.course.creationDate);
-    this.courseService.updateCourse(this.course);
+updateCourse(): void {
+ this.courseService.updateCourse(this.course)
+   .then(()=>    this.router.navigate(['/courses']))
   }
 
-  newCourse(): void {
-    this.course.id = this.courseService.getCoursesList().length + 1 + ''
-    this.course.creationDate = new Date(this.course.creationDate);
-    this.courseService.addCourses(this.course);
+addNewCourse(): void {
+    this.courseService.getAllCoursesList()
+      .then ((courseData)=>{
+        this.courses = courseData;
+        this.generateId();
+        this.course.id = this.temporaryId + '';
+        this.courseService.addCourses(this.course);
+        this.router.navigate(['/courses']);
+            })
+  }
+
+  generateId(): void {
+    while(this.courses.find(course => course.id === this.temporaryId.toString())) {
+      ++this.temporaryId;
+    }
+  }
+
+ takeCourseData(): void {
+   this.courseService.getCourseById(this.courseId).then(course=>  this.course = course);
+        this.course.creationDate = new Date(this.course.creationDate);
+        this.courseCreationDate = new Date(this.course.creationDate);
   }
 }

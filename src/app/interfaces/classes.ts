@@ -13,6 +13,7 @@ export class CoursePage implements ICoursePage {
 }
 
 export class User implements IUserEntyty {
+    token: string;
     login: string;
     email: string;
     password: string;

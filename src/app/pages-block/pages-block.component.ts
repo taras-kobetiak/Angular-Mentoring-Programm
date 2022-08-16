@@ -12,34 +12,53 @@ export class PagesBlockComponent implements OnInit {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
+  coursesArrayLength: number;
+  showLoadMore:boolean = true;
   courses: ICoursePage[] = [];
+  numberOfCourses: number = 3;
+  allCoursesLength: number;
 
   constructor(private coursesPagesService: CoursesService) { }
 
   ngOnInit(): void {
-    this.courses = this.coursesPagesService.getCoursesList()
+    this.refreshCourse();
+    this.allCoursesLength = this.courses.length;
   }
 
-  deleteComponent(id: string): void {
+deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.courses = this.coursesPagesService.deleteCourse(id)
+      this.coursesPagesService.deleteCourse(id).then(()=>{
+        this.refreshCourse();
+      })
     }
   }
 
-  loadNewCourses(): void {
-    console.log('here is come action');
+loadNewCourses(): void {
+  this.numberOfCourses += 3;
+  this.refreshCourse();
+
+  if (this.allCoursesLength === this.courses.length) {
+    this.showLoadMore = false;
+  }
+this.allCoursesLength = this.courses.length;
   }
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-    this.coursesPagesService.updateCourse(course);
+          this.coursesPagesService.updateCourse(course);
   }
 
-  findClick(inputData: string): void {
-    if (inputData !== '') {
-      this.courses = this.courses.filter(course => course.title.toLowerCase().includes(inputData.toLowerCase()))
+ findCourse(inputData: string): void {
+    if (inputData) {
+      this.coursesPagesService.getFilteredList(inputData.toLowerCase())
+        .then((courseData)=>  this.courses =courseData)
     } else {
-      this.courses = this.coursesPagesService.getCoursesList();
+      this.refreshCourse();
     }
+  }
+
+refreshCourse(): void {
+ this.coursesPagesService.getCoursesList(this.numberOfCourses)
+  .then((courseData)=>  this.courses =courseData)
   }
 }
