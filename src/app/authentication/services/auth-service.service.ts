@@ -18,6 +18,7 @@ export class AuthServiceService {
 
   logOut(): void {
     localStorage.removeItem('currentUser');
+    console.log(1)
   }
 
   isAuthenticated(): boolean {
