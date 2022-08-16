@@ -18,9 +18,12 @@ import { LoginModule } from './login-page/login-page.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 import { AddCoursePageModule } from './add-course-page/add-course-page.module';
 import { AuthGuard } from './guards/isAuth.guard';
-import { AuthServiceService } from './header/services/auth-service.service';
+import { AuthServiceService } from './authentication/services/auth-service.service';
 import { CoursesService } from './pages-block/services/courses.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
+
 
 
 @NgModule({
@@ -45,10 +48,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginModule,
     AddCoursePageModule,
     BrowserAnimationsModule,
-
-
+    HttpClientModule,
   ],
-  providers: [AuthServiceService, CoursesService, AuthGuard],
+  providers: [AuthServiceService, CoursesService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

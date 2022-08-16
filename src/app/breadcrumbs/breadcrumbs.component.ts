@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
@@ -12,8 +12,7 @@ export class BreadcrumbsComponent implements DoCheck {
 
   courseId: string;
   course: ICoursePage;
-  breadcrumbpsTitle: string = '';
-  defaultCourseData: ICoursePage;
+  breadcrumbsTitle: string = '';
 
   constructor(private router: Router, private courseService: CoursesService) { }
 
@@ -21,14 +20,20 @@ export class BreadcrumbsComponent implements DoCheck {
     const regEx = /\d+/;
     const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
-
     this.courseId = res ? res[0] : '';
-
     if (this.courseId) {
-      this.course = this.courseService.getCourseById(this.courseId) || this.defaultCourseData;
-      this.breadcrumbpsTitle = ` / ${this.course.title}`;
+      this.setBreadcrumbs();
     } else {
-      this.breadcrumbpsTitle = ''
+      this.breadcrumbsTitle = '';
+    }
+  }
+
+ setBreadcrumbs(): void {
+    if (!this.breadcrumbsTitle) {
+      this.courseService.getCourseById(this.courseId).then((course:ICoursePage)=> {
+        this.course = course;
+        this.breadcrumbsTitle = ` / ${this.course.title}`;
+      })
     }
   }
 }
