@@ -11,15 +11,10 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private authService: AuthServiceService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        async () => {
-            let response = await this.authService.getUserInfo('taras@.com');
-            let userData = await response.json();
-            this.userData = userData;
-        }
+      this.authService.getUserInfo('taras@.com')
+        .then((userData)=>  this.userData = userData[0])
         let userToken = this.userData.token;
         console.log(userToken);
-
         const clonedRequest = req.clone({
             headers: req.headers.set("AUTH_TOKEN", userToken)
         })

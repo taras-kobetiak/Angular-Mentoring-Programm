@@ -12,6 +12,8 @@ export class PagesBlockComponent implements OnInit {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
+  coursesArrayLength: number;
+  showLoadMore:boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
   allCoursesLength: number;
@@ -20,43 +22,43 @@ export class PagesBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshCourse();
-    this.allCoursesLengthFunction();
+    this.allCoursesLength = this.courses.length;
   }
 
-  async deleteComponent(id: string): Promise<void> {
+deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      await this.coursesPagesService.deleteCourse(id);
-      this.allCoursesLengthFunction();
-      this.refreshCourse();
+      this.coursesPagesService.deleteCourse(id).then(()=>{
+        this.refreshCourse();
+      })
     }
   }
 
-  async loadNewCourses(): Promise<void> {
-    this.numberOfCourses += 3;
-    await this.refreshCourse();
+loadNewCourses(): void {
+  this.numberOfCourses += 3;
+  this.refreshCourse();
+
+  if (this.allCoursesLength === this.courses.length) {
+    this.showLoadMore = false;
+  }
+this.allCoursesLength = this.courses.length;
   }
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-    this.coursesPagesService.updateCourse(course);
+          this.coursesPagesService.updateCourse(course);
   }
 
-  async findClick(inputData: string): Promise<void> {
+ findCourse(inputData: string): void {
     if (inputData) {
-      let findData = inputData.toLowerCase();
-      this.courses = await this.coursesPagesService.getFilteredList(findData);
+      this.coursesPagesService.getFilteredList(inputData.toLowerCase())
+        .then((courseData)=>  this.courses =courseData)
     } else {
       this.refreshCourse();
     }
   }
 
-  async refreshCourse(): Promise<void> {
-    let courseData = await this.coursesPagesService.getCoursesList(this.numberOfCourses);
-    this.courses = courseData;
-  }
-
-  async allCoursesLengthFunction(): Promise<void> {
-    let coursesList = await this.coursesPagesService.getAllCoursesList();
-    this.allCoursesLength = coursesList.length;
+refreshCourse(): void {
+ this.coursesPagesService.getCoursesList(this.numberOfCourses)
+  .then((courseData)=>  this.courses =courseData)
   }
 }

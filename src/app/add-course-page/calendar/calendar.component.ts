@@ -1,18 +1,18 @@
-import { Component, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements DoCheck {
+export class CalendarComponent implements  OnInit {
 
   @Input() creationDate: Date | string;
   @Output() creationDateChange: EventEmitter<Date> = new EventEmitter()
 
   placeholderData: string;
 
-  ngDoCheck(): void {
+  ngOnInit() {
     if (this.creationDate === '') {
       this.placeholderData = 'Choose a date';
     } else {
@@ -20,6 +20,7 @@ export class CalendarComponent implements DoCheck {
       this.placeholderData = `${temporaryDate.getDate()}/${temporaryDate.getMonth()}/${temporaryDate.getFullYear()}`
     }
   }
+
 
   onCreationDateChange(date: Date): void {
     this.creationDateChange.emit(date)

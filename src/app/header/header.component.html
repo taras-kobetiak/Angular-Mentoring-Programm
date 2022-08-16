@@ -10,7 +10,7 @@
     <div class="login-form" *ngIf="isAuth">
         <div class="user-login">
             <img src="https://www.neuro-cardiolab.com.ua/img/%D0%B1%D0%B5%D0%B7%D1%84%D0%BE%D1%82%D0%BE.png" alt="">
-            <p *ngIf="isAuth; else startScreen">Hello, {{currentUser.firstName}}</p>
+            <p *ngIf="isAuth; else startScreen">Hello, {{currentUser?.firstName}}</p>
             <ng-template #startScreen>
                 <p>Please, login</p>
             </ng-template>

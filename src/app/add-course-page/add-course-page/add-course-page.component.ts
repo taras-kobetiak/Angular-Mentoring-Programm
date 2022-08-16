@@ -10,7 +10,7 @@ import { CoursesService } from 'src/app/pages-block/services/courses.service';
 })
 export class AddCoursePageComponent implements OnInit {
 
-  dataToSendInCalendar: Date | string = '';
+  courseCreationDate: Date | string = '';
 
   courses: ICoursePage[];
   course: ICoursePage;
@@ -33,13 +33,14 @@ export class AddCoursePageComponent implements OnInit {
     this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
+
       this.takeCourseData();
     }
   }
 
   onSubmit(): void {
     this.course.id ? this.updateCourse() :
-      this.newCourse();
+      this.addNewCourse();
   }
 
   onCancelButtonClick(): void {
@@ -58,34 +59,31 @@ export class AddCoursePageComponent implements OnInit {
     this.authors = authors;
   }
 
-  async updateCourse(): Promise<void> {
-    await this.courseService.updateCourse(this.course);
-    this.router.navigate(['/courses']);
+updateCourse(): void {
+ this.courseService.updateCourse(this.course)
+   .then(()=>    this.router.navigate(['/courses']))
   }
 
-  async newCourse(): Promise<void> {
-    let courseData = await this.courseService.getAllCoursesList();
-    this.courses = courseData;
-
-    this.generateId();
-    this.course.id = this.temporaryId + '';
-    this.courseService.addCourses(this.course);
-    this.router.navigate(['/courses']);
+addNewCourse(): void {
+    this.courseService.getAllCoursesList()
+      .then ((courseData)=>{
+        this.courses = courseData;
+        this.generateId();
+        this.course.id = this.temporaryId + '';
+        this.courseService.addCourses(this.course);
+        this.router.navigate(['/courses']);
+            })
   }
 
   generateId(): void {
-    if (!this.courses.find(course => course.id === this.temporaryId + '')) {
-      return;
-    } else {
+    while(this.courses.find(course => course.id === this.temporaryId.toString())) {
       ++this.temporaryId;
-      this.generateId();
     }
   }
 
-  async takeCourseData(): Promise<void> {
-    let courseData = await this.courseService.getCourseById(this.courseId);
-    this.course = courseData;
-    this.course.creationDate = new Date(this.course.creationDate);
-    this.dataToSendInCalendar = new Date(this.course.creationDate);
+ takeCourseData(): void {
+   this.courseService.getCourseById(this.courseId).then(course=>  this.course = course);
+        this.course.creationDate = new Date(this.course.creationDate);
+        this.courseCreationDate = new Date(this.course.creationDate);
   }
 }

@@ -13,7 +13,6 @@ export class BreadcrumbsComponent implements DoCheck {
   courseId: string;
   course: ICoursePage;
   breadcrumbsTitle: string = '';
-  defaultCourseData: ICoursePage;
 
   constructor(private router: Router, private courseService: CoursesService) { }
 
@@ -31,13 +30,14 @@ export class BreadcrumbsComponent implements DoCheck {
     }
   }
 
-  async setBreadcrumbs(): Promise<void> {
+ setBreadcrumbs(): void {
     if (this.breadcrumbsTitle) {
       return;
     } else {
-      let courseData = await this.courseService.getCourseById(this.courseId);
-      this.course = courseData;
-      this.breadcrumbsTitle = ` / ${this.course.title}`;
+     this.courseService.getCourseById(this.courseId).then((course:ICoursePage)=> {
+       this.course = course;
+       this.breadcrumbsTitle = ` / ${this.course.title}`;
+        })
     }
   }
 }

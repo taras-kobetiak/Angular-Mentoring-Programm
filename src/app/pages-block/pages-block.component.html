@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="serch-form">
-            <app-search-form (findClick)="findClick($event)"></app-search-form>
+            <app-search-form (findClick)="findCourse($event)"></app-search-form>
         </div>
         <div class="add-course">
             <div class="button__row">
@@ -17,7 +17,7 @@
             <div *ngIf="!courses.length" class="no-data">{{'No data. Feel free to add new courses' | uppercase}} </div>
         </div>
     </div>
-    <div class="load-more" *ngIf="allCoursesLength >3 && allCoursesLength !== courses.length">
+    <div class="load-more" *ngIf="showLoadMore" >
         <app-load-more (loadClick)="loadNewCourses()"></app-load-more>
     </div>
 </div>

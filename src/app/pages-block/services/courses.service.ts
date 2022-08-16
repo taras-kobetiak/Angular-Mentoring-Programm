@@ -11,22 +11,22 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-  async getCoursesList(courseLimit: number): Promise<any> {
-    let serverData = await fetch(`http://localhost:3000/courses?_limit=${courseLimit}`);
-    return await serverData.json();
+getCoursesList(courseLimit: number): Promise<CoursePage[]> {
+    return fetch(`http://localhost:3000/courses?_limit=${courseLimit}`)
+      .then((courses: Response) => courses.json());
   }
 
-  async getAllCoursesList(): Promise<any> {
-    let serverData = await fetch(`http://localhost:3000/courses`);
-    return await serverData.json();
+ getAllCoursesList(): Promise<CoursePage[]> {
+   return  fetch(`http://localhost:3000/courses`)
+      .then((courses: Response) => courses.json());
   }
 
-  async getFilteredList(searchData: string): Promise<any> {
-    let serverData = await fetch(`http://localhost:3000/courses?q=${searchData}`);
-    return await serverData.json();
+ getFilteredList(searchData: string):  Promise<CoursePage[]> {
+    return   fetch(`http://localhost:3000/courses?q=${searchData}`)
+  .then((courses: Response) => courses.json());
   }
 
-  addCourses(course: CoursePage): Promise<any> {
+  addCourses(course: CoursePage):  Promise<Response> {
     return fetch('http://localhost:3000/courses', {
       method: 'POST',
       headers: {
@@ -36,18 +36,17 @@ export class CoursesService {
     })
   }
 
-  deleteCourse(id: string): Promise<any> {
+  deleteCourse(id: string): Promise<Response> {
     return fetch(`http://localhost:3000/courses/${id}`, {
       method: 'DELETE',
     })
   }
 
-  async getCourseById(id: string): Promise<any> {
-    let serverData = await fetch(`http://localhost:3000/courses/${id}`);
-    return await serverData.json();
+getCourseById(id: string): Promise<CoursePage> {
+   return fetch(`http://localhost:3000/courses/${id}`).then((user:Response)=> user.json());
   }
 
-  updateCourse(course: CoursePage): Promise<any> {
+  updateCourse(course: CoursePage): Promise<Response> {
     return fetch(`http://localhost:3000/courses/${course.id}`, {
       method: 'PUT',
       headers: {
