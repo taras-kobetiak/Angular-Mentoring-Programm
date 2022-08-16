@@ -1,27 +1,27 @@
 {
   "courses": [
     {
+      "id": "3",
+      "title": "vbm",
+      "creationDate": "2022-08-11T21:00:00.000Z",
+      "duration": 0,
+      "description": "dxg",
+      "topRated": false
+    },
+    {
       "id": "1",
-      "title": "123іівафівафівафіва",
-      "creationDate": "2026-07-22T21:00:00.000Z",
-      "duration": "0",
-      "description": "asdasdasd",
+      "title": "jkjbjkd",
+      "creationDate": "2022-08-16T19:52:36.293Z",
+      "duration": 0,
+      "description": "",
       "topRated": false
     },
     {
-      "id": "6",
-      "title": "123",
-      "creationDate": "2022-08-10T19:28:21.968Z",
+      "id": "2",
+      "title": "mgjvd",
+      "creationDate": "2022-08-16T19:52:40.644Z",
       "duration": 0,
-      "description": "adsdfasfdasf",
-      "topRated": false
-    },
-    {
-      "id": "8",
-      "title": "123123",
-      "creationDate": "2022-08-10T19:36:19.552Z",
-      "duration": 0,
-      "description": "фіваівафіва",
+      "description": "",
       "topRated": false
     }
   ],

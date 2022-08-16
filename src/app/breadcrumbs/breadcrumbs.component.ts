@@ -20,9 +20,7 @@ export class BreadcrumbsComponent implements DoCheck {
     const regEx = /\d+/;
     const url: string = this.router.url;
     const res: RegExpMatchArray | null = url.match(regEx);
-
     this.courseId = res ? res[0] : '';
-
     if (this.courseId) {
       this.setBreadcrumbs();
     } else {
@@ -31,13 +29,11 @@ export class BreadcrumbsComponent implements DoCheck {
   }
 
  setBreadcrumbs(): void {
-    if (this.breadcrumbsTitle) {
-      return;
-    } else {
-     this.courseService.getCourseById(this.courseId).then((course:ICoursePage)=> {
-       this.course = course;
-       this.breadcrumbsTitle = ` / ${this.course.title}`;
-        })
+    if (!this.breadcrumbsTitle) {
+      this.courseService.getCourseById(this.courseId).then((course:ICoursePage)=> {
+        this.course = course;
+        this.breadcrumbsTitle = ` / ${this.course.title}`;
+      })
     }
   }
 }

@@ -16,7 +16,7 @@ return fetch('http://localhost:3000/users').then((userData: Response)=> userData
   }
 
   logOut(): void {
-    localStorage.removeItem('currentUser')
+    localStorage.removeItem('currentUser');
   }
 
   isAuthenticated(): boolean {

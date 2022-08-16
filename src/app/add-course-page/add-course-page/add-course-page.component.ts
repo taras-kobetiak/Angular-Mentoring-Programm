@@ -33,7 +33,6 @@ export class AddCoursePageComponent implements OnInit {
     this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
-
       this.takeCourseData();
     }
   }
@@ -64,20 +63,20 @@ updateCourse(): void {
    .then(()=>    this.router.navigate(['/courses']))
   }
 
-addNewCourse(): void {
+  addNewCourse(): void {
     this.courseService.getAllCoursesList()
-      .then ((courseData)=>{
+      .then((courseData) => {
         this.courses = courseData;
         this.generateId();
         this.course.id = this.temporaryId + '';
         this.courseService.addCourses(this.course);
         this.router.navigate(['/courses']);
-            })
+    })
   }
 
   generateId(): void {
     while(this.courses.find(course => course.id === this.temporaryId.toString())) {
-      ++this.temporaryId;
+      this.temporaryId++;
     }
   }
 

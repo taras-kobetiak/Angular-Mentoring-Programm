@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
       this.authService.getUserInfo('taras@.com')
         .then((userData)=>  this.userData = userData[0])
         let userToken = this.userData.token;
-        console.log(userToken);
         const clonedRequest = req.clone({
             headers: req.headers.set("AUTH_TOKEN", userToken)
         })

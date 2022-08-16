@@ -2,28 +2,26 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
 
+const NUMBER_OF_ADD_COURSES: number = 3;
+
 @Component({
   selector: 'app-pages-block',
   templateUrl: './pages-block.component.html',
   styleUrls: ['./pages-block.component.scss'],
 })
-
 export class PagesBlockComponent implements OnInit {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
-  coursesArrayLength: number;
   showLoadMore:boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  allCoursesLength: number;
-
+  allCoursesLengthWithTimeLag: number = 0;
   constructor(private coursesPagesService: CoursesService) { }
 
   ngOnInit(): void {
     this.refreshCourse();
-    this.allCoursesLength = this.courses.length;
-  }
+     }
 
 deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
@@ -34,13 +32,17 @@ deleteComponent(id: string): void {
   }
 
 loadNewCourses(): void {
-  this.numberOfCourses += 3;
-  this.refreshCourse();
-
-  if (this.allCoursesLength === this.courses.length) {
-    this.showLoadMore = false;
-  }
-this.allCoursesLength = this.courses.length;
+  this.numberOfCourses +=  NUMBER_OF_ADD_COURSES;
+  this.coursesPagesService.getCoursesList(this.numberOfCourses)
+    .then((courseData)=> {
+      this.courses = courseData;
+    })
+    .then (()=>{
+      if (this.allCoursesLengthWithTimeLag === this.courses.length) {
+        this.showLoadMore = false;
+      }
+      this.allCoursesLengthWithTimeLag = this.courses.length;
+    })
   }
 
   changeRate(course: ICoursePage): void {
@@ -59,6 +61,9 @@ this.allCoursesLength = this.courses.length;
 
 refreshCourse(): void {
  this.coursesPagesService.getCoursesList(this.numberOfCourses)
-  .then((courseData)=>  this.courses =courseData)
+  .then((courseData)=> {
+    this.courses =courseData;
+    this.allCoursesLengthWithTimeLag = this.courses.length;
+  })
   }
 }

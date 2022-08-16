@@ -28,7 +28,7 @@ this.authService.logIn().then((usersData)=> this.usersData = usersData)
       && user.password === this.currentUser.password)) {
       alert('wrong data, please check your email and pass');
     } else {
-      let userInfo = this.authService.getUserInfo(this.currentUser.email)
+    this.authService.getUserInfo(this.currentUser.email)
         .then((userInfo)=>{
           this.currentUser = userInfo[0];
           localStorage.setItem(`currentUser`, JSON.stringify(this.currentUser));

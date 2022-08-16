@@ -22,7 +22,7 @@ getCoursesList(courseLimit: number): Promise<CoursePage[]> {
   }
 
  getFilteredList(searchData: string):  Promise<CoursePage[]> {
-    return   fetch(`http://localhost:3000/courses?q=${searchData}`)
+    return   fetch(`http://localhost:3000/courses?title_like=${searchData}`)
   .then((courses: Response) => courses.json());
   }
 
