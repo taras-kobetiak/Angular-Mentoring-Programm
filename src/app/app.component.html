@@ -1,0 +1,14 @@
+<div class="main-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="breadcrumbs" *ngIf="isAuth">
+        <app-breadcrumbs></app-breadcrumbs>
+    </div>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="footer">
+        <app-footer></app-footer>
+    </div>
+</div>

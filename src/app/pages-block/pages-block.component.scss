@@ -1,0 +1,74 @@
+.row {
+    height: 185%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+.serch-form,
+.add-course {
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    height: 40px;
+
+}
+
+
+.pages {
+    margin-bottom: 2%;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    app-courses-page {
+        height: 150px;
+    }
+}
+
+.no-data {
+    margin: 0 10%;
+    padding: 20px;
+    border: 1px solid black;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+}
+
+.button__row {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.add-button {
+    margin-right: 10%;
+    min-height: 90%;
+
+    button {
+        max-width: 120px;
+        height: 90%;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        color: white;
+        background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 10px rgb(79, 218, 79);
+        background-size: 20px auto;
+        padding-left: 35px;
+        cursor: pointer;
+    }
+}
+
+@media (max-width:550px) {
+
+    .serch-form,
+    .add-course {
+        height: 30px;
+    }
+}
+
+.load-more {
+    height: 8%;
+    margin-bottom: 20px;
+    z-index: 100;
+}
