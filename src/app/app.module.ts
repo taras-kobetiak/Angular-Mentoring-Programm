@@ -23,7 +23,8 @@ import { CoursesService } from './pages-block/services/courses.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
-
+import { LoadingBlockComponent } from './loading-block/loading-block.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
     NewBorderDirective,
     DurationPipe,
     TranslateBlockDirective,
-    OrderByPipe
+    OrderByPipe,
+    LoadingBlockComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
     AddCoursePageModule,
     BrowserAnimationsModule,
     HttpClientModule,
-  ],
+    MatProgressSpinnerModule
+      ],
   providers: [AuthServiceService, CoursesService, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

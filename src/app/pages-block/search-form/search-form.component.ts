@@ -9,6 +9,7 @@ export class SearchFormComponent {
   @Output() findClick: EventEmitter<string> = new EventEmitter()
   inputData: string;
 
+
   onFindClick(): void {
     this.findClick.emit(this.inputData)
   }

@@ -1,14 +1,23 @@
 <div class="main-container">
+  <div class="loading" *ngIf="isLoading">>
+    <div class="gif">
+      <app-loading-block></app-loading-block>
+    </div>
+  </div>
+  <div class="content" *ngIf="!isLoading">
     <div class="header">
-        <app-header></app-header>
+      <app-header></app-header>
     </div>
     <div class="breadcrumbs" *ngIf="isAuth">
-        <app-breadcrumbs></app-breadcrumbs>
+      <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="main">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
     <div class="footer">
-        <app-footer></app-footer>
+      <app-footer></app-footer>
     </div>
+  </div>
 </div>
+
+

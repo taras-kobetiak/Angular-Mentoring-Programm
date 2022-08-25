@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
+import {debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-pages-block',
@@ -18,11 +19,30 @@ export class PagesBlockComponent implements OnInit {
   numberOfCourses: number = 3;
   allCoursesLength: number;
 
+
   constructor(private coursesPagesService: CoursesService) { }
 
   ngOnInit(): void {
     this.refreshCourse();
     this.allCoursesLength = this.courses.length;
+
+    const searchBox = document.getElementById('search-box') as HTMLInputElement;
+
+    let searchData = fromEvent(searchBox, 'input').pipe(
+      map(e => (e.target as HTMLInputElement).value),
+      filter(text => text.length > 2 || text === ''),
+      debounceTime(500),
+      distinctUntilChanged(),
+    );
+
+    searchData.subscribe(inputData => {
+         if (inputData) {
+           this.coursesPagesService.getFilteredList(inputData.toLowerCase())
+             .then((courseData) =>  this.courses =courseData)
+         } else {
+           this.refreshCourse();
+         }
+    });
   }
 
 deleteComponent(id: string): void {
@@ -48,14 +68,16 @@ this.allCoursesLength = this.courses.length;
           this.coursesPagesService.updateCourse(course);
   }
 
- findCourse(inputData: string): void {
-    if (inputData) {
-      this.coursesPagesService.getFilteredList(inputData.toLowerCase())
-        .then((courseData)=>  this.courses =courseData)
-    } else {
-      this.refreshCourse();
-    }
-  }
+
+
+ // findCourse(inputData: string): void {
+ //    if (inputData) {
+ //      this.coursesPagesService.getFilteredList(inputData.toLowerCase())
+ //        .then((courseData)=>  this.courses =courseData)
+ //    } else {
+ //      this.refreshCourse();
+ //    }
+ //  }
 
 refreshCourse(): void {
  this.coursesPagesService.getCoursesList(this.numberOfCourses)
