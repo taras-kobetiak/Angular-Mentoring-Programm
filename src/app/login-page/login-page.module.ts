@@ -4,6 +4,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginPageRoutingModule } from './login-page.routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -17,6 +18,7 @@ import { LoginPageRoutingModule } from './login-page.routing.module';
     FormsModule,
     RouterModule,
     LoginPageRoutingModule,
+    SharedModule
   ],
   bootstrap: []
 })

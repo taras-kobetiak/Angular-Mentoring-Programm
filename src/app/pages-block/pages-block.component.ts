@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
 import { debounceTime, distinctUntilChanged, filter, from, fromEvent, map, Observable, Subscription, switchMap } from "rxjs";
-import { LoadingService } from '../loading-block/servises/loading.service';
+
 
 @Component({
   selector: 'app-pages-block',
@@ -23,7 +23,9 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   subscription$4: Subscription;
   subscription$5: Subscription;
 
-  constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
+  constructor(private coursesPagesService: CoursesService,
+    // private loadingService: LoadingService
+  ) { }
 
   ngOnInit(): void {
     this.refreshCourse();
@@ -67,14 +69,14 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   }
 
   refreshCourse(): void {
-    this.loadingService.setValue(true);
+    // this.loadingService.setValue(true);
     let currentNumberOfCourses = this.courses.length;
     let newNumberOfCourses;
 
     this.subscription$5 = from(this.coursesPagesService.getCoursesList(this.numberOfCourses))
       .subscribe((courseData) => {
         this.courses = courseData;
-        this.loadingService.setValue(false);
+        // this.loadingService.setValue(false);
         newNumberOfCourses = this.courses.length;
         if (currentNumberOfCourses === newNumberOfCourses) {
           this.showLoadMore = false;

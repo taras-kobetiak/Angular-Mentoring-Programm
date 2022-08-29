@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
+import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,11 +15,13 @@ export class LoginPageComponent {
   // isLoading: boolean;
   usersData: IUserEntyty[];
 
-  constructor(private authService: AuthServiceService, private router: Router) { }
+  constructor(private authService: AuthServiceService, private router: Router, private loadingService: LoadingService) { }
 
   onSubmit(form: NgForm): void {
+    this.loadingService.setValue(true);
     const currentUser: IUserEntyty = form.value;
     this.createUsersData(currentUser);
+    this.loadingService.setValue(false);
   }
 
   createUsersData(currentUser: IUserEntyty): void {

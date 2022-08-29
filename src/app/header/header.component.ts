@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserEntyty } from '../interfaces/user-entyty.interface';
 import { AuthServiceService } from '../authentication/services/auth-service.service';
-import { LoadingService } from '../loading-block/servises/loading.service';
+// import { LoadingService } from '../loading-block/servises/loading.service';
 import { Observable } from 'rxjs';
 
 
@@ -17,7 +17,9 @@ export class HeaderComponent implements OnInit {
   currentUser: IUserEntyty;
   subscribe: any;
 
-  constructor(private authService: AuthServiceService, private loadingService: LoadingService) {
+  constructor(private authService: AuthServiceService,
+    // private loadingService: LoadingService
+  ) {
   };
 
   ngOnInit(): void {
