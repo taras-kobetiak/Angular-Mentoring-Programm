@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CoursePage } from 'src/app/interfaces/classes';
 
 @Injectable({
@@ -11,48 +12,31 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-getCoursesList(courseLimit: number): Promise<CoursePage[]> {
-    return fetch(`http://localhost:3000/courses?_limit=${courseLimit}`)
-      .then((courses: Response) => courses.json());
+  getCoursesList(courseLimit: number): Observable<CoursePage[]> {
+    return this.http.get<CoursePage[]>(`http://localhost:3000/courses?_limit=${courseLimit}`)
   }
 
- getAllCoursesList(): Promise<CoursePage[]> {
-   return  fetch(`http://localhost:3000/courses`)
-      .then((courses: Response) => courses.json());
+  getAllCoursesList(): Observable<CoursePage[]> {
+    return this.http.get<CoursePage[]>(`http://localhost:3000/courses`)
   }
 
- getFilteredList(searchData: string):  Promise<CoursePage[]> {
-    return   fetch(`http://localhost:3000/courses?q=${searchData}`)
-  .then((courses: Response) => courses.json());
+  getFilteredList(searchData: string): Observable<CoursePage[]> {
+    return this.http.get<CoursePage[]>(`http://localhost:3000/courses?q=${searchData}`)
   }
 
-  addCourses(course: CoursePage):  Promise<Response> {
-    return fetch('http://localhost:3000/courses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(course)
-    })
+  addCourses(course: CoursePage): Observable<CoursePage> {
+    return this.http.post<CoursePage>('http://localhost:3000/courses', course)
   }
 
-  deleteCourse(id: string): Promise<Response> {
-    return fetch(`http://localhost:3000/courses/${id}`, {
-      method: 'DELETE',
-    })
+  deleteCourse(id: string): Observable<CoursePage> {
+    return this.http.delete<CoursePage>(`http://localhost:3000/courses/${id}`)
   }
 
-getCourseById(id: string): Promise<CoursePage> {
-   return fetch(`http://localhost:3000/courses/${id}`).then((user:Response)=> user.json());
+  getCourseById(id: string): Observable<CoursePage> {
+    return this.http.get<CoursePage>(`http://localhost:3000/courses/${id}`)
   }
 
-  updateCourse(course: CoursePage): Promise<Response> {
-    return fetch(`http://localhost:3000/courses/${course.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(course)
-    })
+  updateCourse(course: CoursePage): Observable<CoursePage> {
+    return this.http.put<CoursePage>(`http://localhost:3000/courses/${course.id}`, course)
   }
 }

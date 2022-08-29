@@ -16,6 +16,8 @@ export class BreadcrumbsComponent implements DoCheck {
 
   constructor(private router: Router, private courseService: CoursesService) { }
 
+
+
   ngDoCheck(): void {
     const regEx = /\d+/;
     const url: string = this.router.url;
@@ -30,14 +32,14 @@ export class BreadcrumbsComponent implements DoCheck {
     }
   }
 
- setBreadcrumbs(): void {
+  setBreadcrumbs(): void {
     if (this.breadcrumbsTitle) {
       return;
     } else {
-     this.courseService.getCourseById(this.courseId).then((course:ICoursePage)=> {
-       this.course = course;
-       this.breadcrumbsTitle = ` / ${this.course.title}`;
-        })
+      this.courseService.getCourseById(this.courseId).subscribe((course: ICoursePage) => {
+        this.course = course;
+        this.breadcrumbsTitle = ` / ${this.course.title}`;
+      })
     }
   }
 }

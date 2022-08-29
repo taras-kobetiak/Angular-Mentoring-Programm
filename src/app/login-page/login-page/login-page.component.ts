@@ -11,30 +11,35 @@ import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 })
 export class LoginPageComponent {
 
+  // isLoading: boolean;
   usersData: IUserEntyty[];
-  currentUser: IUserEntyty;
 
   constructor(private authService: AuthServiceService, private router: Router) { }
 
-onSubmit(form: NgForm): void {
-    this.currentUser = form.value;
-    this.createUsersData();
+  onSubmit(form: NgForm): void {
+    const currentUser: IUserEntyty = form.value;
+    this.createUsersData(currentUser);
   }
 
- createUsersData(): void {
-this.authService.logIn().then((usersData)=> this.usersData = usersData)
-  .then(()=>{
-    if (!this.usersData.find(user => user.email === this.currentUser.email
-      && user.password === this.currentUser.password)) {
-      alert('wrong data, please check your email and pass');
-    } else {
-      let userInfo = this.authService.getUserInfo(this.currentUser.email)
-        .then((userInfo)=>{
-          this.currentUser = userInfo[0];
-          localStorage.setItem(`currentUser`, JSON.stringify(this.currentUser));
+  createUsersData(currentUser: IUserEntyty): void {
+    this.authService.logIn().subscribe((usersData: IUserEntyty[]) => {
+      this.usersData = usersData;
+      if (!this.usersData.find(user => user.email === currentUser.email
+        && user.password === currentUser.password)) {
+        alert('wrong data, please check your email and pass');
+      } else {
+
+        this.authService.getUserInfo(currentUser.email).subscribe((userInfo: IUserEntyty[]) => {
+          let user = userInfo[0];
+
+          this.authService.isAuth.next(true);
+          localStorage.setItem('token', user.token);
+
+
+          localStorage.setItem(`currentUser`, JSON.stringify(user.email));
           this.router.navigate(['/courses']);
         })
-    }
-  })
+      }
+    })
   }
 }

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { LoginPageRoutingModule } from './login-page.routing.module';
 
 
+
 @NgModule({
   declarations: [
     LoginPageComponent,
@@ -15,7 +16,7 @@ import { LoginPageRoutingModule } from './login-page.routing.module';
     CommonModule,
     FormsModule,
     RouterModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
   ],
   bootstrap: []
 })

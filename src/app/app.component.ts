@@ -1,5 +1,6 @@
-import { Component, DoCheck } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck } from '@angular/core';
 import { AuthServiceService } from './authentication/services/auth-service.service';
+import { LoadingService } from './loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,28 @@ import { AuthServiceService } from './authentication/services/auth-service.servi
 export class AppComponent implements DoCheck {
 
   isAuth: boolean;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
-  constructor(private authService: AuthServiceService) { }
+  constructor(private authService: AuthServiceService, private loadingService: LoadingService,
+    private cd: ChangeDetectorRef
+  ) { }
 
-  ngOnInit (): void{
-    setTimeout(()=>this.isLoading = false,1000)
-}
+  ngOnInit(): void {
+
+
+
+    // this.loadingService.getIsLoadingValue().subscribe((value: boolean) => {
+
+    //   console.log(this.isLoading);
+
+    //   this.isLoading = value;
+
+    // })
+  }
 
   ngDoCheck(): void {
-    this.isAuth = this.authService.isAuthenticated();
+    this.authService.isAuthenticated().subscribe((value: boolean) => {
+      this.isAuth = value;
+    })
   }
 }

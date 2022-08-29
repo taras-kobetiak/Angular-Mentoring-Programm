@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { from } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 
@@ -59,31 +60,31 @@ export class AddCoursePageComponent implements OnInit {
     this.authors = authors;
   }
 
-updateCourse(): void {
- this.courseService.updateCourse(this.course)
-   .then(()=>    this.router.navigate(['/courses']))
+  updateCourse(): void {
+    this.courseService.updateCourse(this.course)
+      .subscribe(() => this.router.navigate(['/courses']))
   }
 
-addNewCourse(): void {
-    this.courseService.getAllCoursesList()
-      .then ((courseData)=>{
+  addNewCourse(): void {
+    from(this.courseService.getAllCoursesList())
+      .subscribe((courseData) => {
         this.courses = courseData;
         this.generateId();
         this.course.id = this.temporaryId + '';
-        this.courseService.addCourses(this.course);
+        this.courseService.addCourses(this.course).subscribe();
         this.router.navigate(['/courses']);
-            })
+      })
   }
 
   generateId(): void {
-    while(this.courses.find(course => course.id === this.temporaryId.toString())) {
+    while (this.courses.find(course => course.id === this.temporaryId.toString())) {
       ++this.temporaryId;
     }
   }
 
- takeCourseData(): void {
-   this.courseService.getCourseById(this.courseId).then(course=>  this.course = course);
-        this.course.creationDate = new Date(this.course.creationDate);
-        this.courseCreationDate = new Date(this.course.creationDate);
+  takeCourseData(): void {
+    this.courseService.getCourseById(this.courseId).subscribe(course => this.course = course);
+    this.course.creationDate = new Date(this.course.creationDate);
+    this.courseCreationDate = new Date(this.course.creationDate);
   }
 }

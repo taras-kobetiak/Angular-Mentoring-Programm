@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
-import {debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap} from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, from, fromEvent, map, Observable, Subscription, switchMap } from "rxjs";
+import { LoadingService } from '../loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-pages-block',
@@ -9,78 +10,94 @@ import {debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap} f
   styleUrls: ['./pages-block.component.scss'],
 })
 
-export class PagesBlockComponent implements OnInit {
+export class PagesBlockComponent implements OnInit, OnDestroy {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
-  coursesArrayLength: number;
-  showLoadMore:boolean = true;
+  showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  allCoursesLength: number;
+  subscription$1: Subscription;
+  subscription$2: Subscription;
+  subscription$3: Subscription;
+  subscription$4: Subscription;
+  subscription$5: Subscription;
 
-
-  constructor(private coursesPagesService: CoursesService) { }
+  constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.refreshCourse();
-    this.allCoursesLength = this.courses.length;
 
     const searchBox = document.getElementById('search-box') as HTMLInputElement;
+    if (searchBox) {
+      let searchData$ = fromEvent(searchBox, 'input').pipe(
+        map(elem => (elem.target as HTMLInputElement).value),
+        filter(text => text.length > 2 || text === ''),
+        debounceTime(500),
+        distinctUntilChanged(),
+      );
 
-    let searchData = fromEvent(searchBox, 'input').pipe(
-      map(e => (e.target as HTMLInputElement).value),
-      filter(text => text.length > 2 || text === ''),
-      debounceTime(500),
-      distinctUntilChanged(),
-    );
-
-    searchData.subscribe(inputData => {
-         if (inputData) {
-           this.coursesPagesService.getFilteredList(inputData.toLowerCase())
-             .then((courseData) =>  this.courses =courseData)
-         } else {
-           this.refreshCourse();
-         }
-    });
+      this.subscription$1 = searchData$.subscribe((inputData: string) => {
+        if (inputData) {
+          this.subscription$2 = from(this.coursesPagesService.getFilteredList(inputData.toLowerCase()))
+            .subscribe((courseData) => this.courses = courseData);
+        } else {
+          this.refreshCourse();
+        }
+      });
+    }
   }
 
-deleteComponent(id: string): void {
+  deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.coursesPagesService.deleteCourse(id).then(()=>{
+      this.subscription$3 = this.coursesPagesService.deleteCourse(id).subscribe(() => {
         this.refreshCourse();
       })
     }
   }
 
-loadNewCourses(): void {
-  this.numberOfCourses += 3;
-  this.refreshCourse();
-
-  if (this.allCoursesLength === this.courses.length) {
-    this.showLoadMore = false;
-  }
-this.allCoursesLength = this.courses.length;
+  loadNewCourses(): void {
+    this.numberOfCourses += 3;
+    this.refreshCourse()
   }
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-          this.coursesPagesService.updateCourse(course);
+    this.subscription$4 = this.coursesPagesService.updateCourse(course).subscribe();
   }
 
+  refreshCourse(): void {
+    this.loadingService.setValue(true);
+    let currentNumberOfCourses = this.courses.length;
+    let newNumberOfCourses;
 
+    this.subscription$5 = from(this.coursesPagesService.getCoursesList(this.numberOfCourses))
+      .subscribe((courseData) => {
+        this.courses = courseData;
+        this.loadingService.setValue(false);
+        newNumberOfCourses = this.courses.length;
+        if (currentNumberOfCourses === newNumberOfCourses) {
+          this.showLoadMore = false;
+        }
+      });
 
- // findCourse(inputData: string): void {
- //    if (inputData) {
- //      this.coursesPagesService.getFilteredList(inputData.toLowerCase())
- //        .then((courseData)=>  this.courses =courseData)
- //    } else {
- //      this.refreshCourse();
- //    }
- //  }
+  }
 
-refreshCourse(): void {
- this.coursesPagesService.getCoursesList(this.numberOfCourses)
-  .then((courseData)=>  this.courses =courseData)
+  ngOnDestroy(): void {
+    if (this.subscription$1) {
+      this.subscription$1.unsubscribe();
+    }
+    if (this.subscription$2) {
+      this.subscription$2.unsubscribe();
+    }
+    if (this.subscription$3) {
+      this.subscription$3.unsubscribe();
+    }
+    if (this.subscription$4) {
+      this.subscription$4.unsubscribe();
+    }
+    if (this.subscription$5) {
+      this.subscription$5.unsubscribe();
+    }
   }
 }
