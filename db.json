@@ -1,59 +1,19 @@
 {
   "courses": [
     {
-      "id": "3",
-      "title": "123123",
-      "creationDate": "2022-08-30T07:45:49.609Z",
-      "duration": 0,
-      "description": "asdasd",
-      "topRated": false
-    },
-    {
-      "id": "5",
-      "title": "фів",
-      "creationDate": "2022-08-30T08:18:43.674Z",
-      "duration": 0,
-      "description": "",
-      "topRated": false
-    },
-    {
       "id": "1",
-      "title": "123123",
-      "creationDate": "2022-08-30T08:19:20.877Z",
+      "title": "some new course",
+      "creationDate": "2022-08-30T14:28:47.223Z",
       "duration": 0,
-      "description": "",
+      "description": "12",
       "topRated": false
     },
     {
       "id": "2",
-      "title": "213123",
-      "creationDate": "2022-08-30T08:19:24.029Z",
+      "title": "asda",
+      "creationDate": "2022-08-30T14:28:56.466Z",
       "duration": 0,
-      "description": "",
-      "topRated": false
-    },
-    {
-      "id": "4",
-      "title": "123123",
-      "creationDate": "2022-08-30T08:21:11.912Z",
-      "duration": 0,
-      "description": "",
-      "topRated": false
-    },
-    {
-      "id": "6",
-      "title": "123123",
-      "creationDate": "2022-08-30T08:34:45.160Z",
-      "duration": 0,
-      "description": "ффівфів",
-      "topRated": false
-    },
-    {
-      "id": "7",
-      "title": "123123",
-      "creationDate": "2022-08-30T08:34:48.911Z",
-      "duration": 0,
-      "description": "фівфівфів",
+      "description": "123123",
       "topRated": false
     }
   ],

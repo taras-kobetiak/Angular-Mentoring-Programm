@@ -17,6 +17,10 @@ export class AuthServiceService {
     return Boolean(localStorage.getItem('token'));
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   logIn(): Observable<IUserEntyty[]> {
     return this.http.get<IUserEntyty[]>('http://localhost:3000/users');
   }

@@ -55,11 +55,11 @@ import { SharedModule } from './shared/shared.module';
     SharedModule
   ],
   providers: [AuthServiceService, CoursesService, AuthGuard,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true,
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

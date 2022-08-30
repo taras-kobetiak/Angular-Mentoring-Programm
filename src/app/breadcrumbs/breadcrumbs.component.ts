@@ -1,5 +1,6 @@
-import { Component, DoCheck } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from '../pages-block/services/courses.service';
 
@@ -8,38 +9,34 @@ import { CoursesService } from '../pages-block/services/courses.service';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent implements DoCheck {
+export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
-  courseId: string;
+
   course: ICoursePage;
   breadcrumbsTitle: string = '';
+  private currentSubscribes: Subject<void> = new Subject<void>();
 
-  constructor(private router: Router, private courseService: CoursesService) { }
+  constructor(private courseService: CoursesService) { }
 
-
-
-  ngDoCheck(): void {
-    const regEx = /\d+/;
-    const url: string = this.router.url;
-    const res: RegExpMatchArray | null = url.match(regEx);
-
-    this.courseId = res ? res[0] : '';
-
-    if (this.courseId) {
-      this.setBreadcrumbs();
-    } else {
-      this.breadcrumbsTitle = '';
-    }
+  ngOnInit(): void {
+    this.courseService.currentCourseId.pipe(
+      takeUntil(this.currentSubscribes)
+    ).subscribe((courseId: string) => {
+      if (courseId) {
+        this.courseService.getCourseById(courseId).pipe(
+          takeUntil(this.currentSubscribes)
+        ).subscribe((course: ICoursePage) => {
+          this.course = course;
+          this.breadcrumbsTitle = ` / ${this.course.title}`;
+        });
+      } else {
+        this.breadcrumbsTitle = '';
+      }
+    });
   }
 
-  setBreadcrumbs(): void {
-    if (this.breadcrumbsTitle) {
-      return;
-    } else {
-      this.courseService.getCourseById(this.courseId).subscribe((course: ICoursePage) => {
-        this.course = course;
-        this.breadcrumbsTitle = ` / ${this.course.title}`;
-      })
-    }
+  ngOnDestroy(): void {
+    this.currentSubscribes.next();
+    this.currentSubscribes.complete();
   }
 }

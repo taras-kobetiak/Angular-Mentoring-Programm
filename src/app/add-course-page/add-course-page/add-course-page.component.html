@@ -21,7 +21,8 @@
                 <div class="subtitle">
                     <h5>Date:</h5>
                 </div>
-                <app-calendar [creationDate]="courseCreationDate" (creationDateChange)="creationDateChange($event)">
+                <app-calendar [creationDate]="courseCalendarCreationDate"
+                    (creationDateChange)="creationDateChange($event)">
                 </app-calendar>
             </div>
             <div class="duration__element">

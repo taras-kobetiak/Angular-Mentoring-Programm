@@ -18,13 +18,17 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  private currentSubscribes: Subject<void> = new Subject<void>()
+  private currentSubscribes: Subject<void> = new Subject<void>();
 
   constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
-    this.refreshCourse();
 
+    setTimeout(() => this.refreshCourse(), 0);
+    this.searchFunction();
+  }
+
+  searchFunction(): void {
     const searchBox = document.getElementById('search-box') as HTMLInputElement;
     if (searchBox) {
       let searchData$ = fromEvent(searchBox, 'input').pipe(
@@ -60,7 +64,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   loadNewCourses(): void {
     this.numberOfCourses += 3;
-    this.refreshCourse()
+    this.refreshCourse();
   }
 
   changeRate(course: ICoursePage): void {
@@ -87,7 +91,6 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
         this.showLoadMore = false;
       }
     });
-
   }
 
   ngOnDestroy(): void {

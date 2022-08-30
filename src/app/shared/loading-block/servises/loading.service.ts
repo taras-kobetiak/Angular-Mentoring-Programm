@@ -8,7 +8,7 @@ export class LoadingService {
 
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  setValue(value: boolean) {
+  setValue(value: boolean): void {
     this.isLoading.next(value);
   }
 
