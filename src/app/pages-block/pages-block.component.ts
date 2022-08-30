@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, from, fromEvent, map, Observable, Subscription, switchMap } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, takeUntil } from "rxjs";
+import { LoadingService } from '../shared/loading-block/servises/loading.service';
 
 
 @Component({
@@ -17,15 +18,9 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  subscription$1: Subscription;
-  subscription$2: Subscription;
-  subscription$3: Subscription;
-  subscription$4: Subscription;
-  subscription$5: Subscription;
+  private currentSubscribes: Subject<void> = new Subject<void>()
 
-  constructor(private coursesPagesService: CoursesService,
-    // private loadingService: LoadingService
-  ) { }
+  constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.refreshCourse();
@@ -39,10 +34,13 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
       );
 
-      this.subscription$1 = searchData$.subscribe((inputData: string) => {
+      searchData$.pipe(
+        takeUntil(this.currentSubscribes)
+      ).subscribe((inputData: string) => {
         if (inputData) {
-          this.subscription$2 = from(this.coursesPagesService.getFilteredList(inputData.toLowerCase()))
-            .subscribe((courseData) => this.courses = courseData);
+          this.coursesPagesService.getFilteredList(inputData.toLowerCase()).pipe(
+            takeUntil(this.currentSubscribes)
+          ).subscribe((courseData) => this.courses = courseData);
         } else {
           this.refreshCourse();
         }
@@ -52,7 +50,9 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.subscription$3 = this.coursesPagesService.deleteCourse(id).subscribe(() => {
+      this.coursesPagesService.deleteCourse(id).pipe(
+        takeUntil(this.currentSubscribes)
+      ).subscribe(() => {
         this.refreshCourse();
       })
     }
@@ -65,41 +65,33 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-    this.subscription$4 = this.coursesPagesService.updateCourse(course).subscribe();
+    this.loadingService.setValue(true);
+    this.coursesPagesService.updateCourse(course).pipe(
+      takeUntil(this.currentSubscribes)
+    ).subscribe();
+    this.loadingService.setValue(false);
   }
 
   refreshCourse(): void {
-    // this.loadingService.setValue(true);
+    this.loadingService.setValue(true);
     let currentNumberOfCourses = this.courses.length;
     let newNumberOfCourses;
 
-    this.subscription$5 = from(this.coursesPagesService.getCoursesList(this.numberOfCourses))
-      .subscribe((courseData) => {
-        this.courses = courseData;
-        // this.loadingService.setValue(false);
-        newNumberOfCourses = this.courses.length;
-        if (currentNumberOfCourses === newNumberOfCourses) {
-          this.showLoadMore = false;
-        }
-      });
+    this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
+      takeUntil(this.currentSubscribes)
+    ).subscribe((courseData) => {
+      this.courses = courseData;
+      this.loadingService.setValue(false);
+      newNumberOfCourses = this.courses.length;
+      if (currentNumberOfCourses === newNumberOfCourses) {
+        this.showLoadMore = false;
+      }
+    });
 
   }
 
   ngOnDestroy(): void {
-    if (this.subscription$1) {
-      this.subscription$1.unsubscribe();
-    }
-    if (this.subscription$2) {
-      this.subscription$2.unsubscribe();
-    }
-    if (this.subscription$3) {
-      this.subscription$3.unsubscribe();
-    }
-    if (this.subscription$4) {
-      this.subscription$4.unsubscribe();
-    }
-    if (this.subscription$5) {
-      this.subscription$5.unsubscribe();
-    }
+    this.currentSubscribes.next();
+    this.currentSubscribes.complete();
   }
 }

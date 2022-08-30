@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthServiceService } from './authentication/services/auth-service.service';
 import { LoadingService } from './shared/loading-block/servises/loading.service';
 
@@ -11,27 +12,14 @@ import { LoadingService } from './shared/loading-block/servises/loading.service'
 
 export class AppComponent implements OnInit {
 
-  isAuth: boolean;
-  isLoading: boolean = false;
+  isAuth: Observable<boolean>;
+  isLoading: Observable<boolean>;
 
   constructor(private authService: AuthServiceService, private loadingService: LoadingService) { }
 
+
   ngOnInit(): void {
-    this.authService.isAuthenticated().subscribe((value: boolean) => {
-      this.isAuth = value;
-    })
-
-
-    this.loadingService.getIsLoadingValue().subscribe((value: boolean) => {
-
-      console.log(this.isLoading);
-
-      //   this.isLoading = value;
-
-    })
-  }
-
-  ngDoCheck(): void {
-
+    this.isLoading = this.loadingService.getIsLoadingValue();
+    this.isAuth = this.authService.isAuthenticated();
   }
 }

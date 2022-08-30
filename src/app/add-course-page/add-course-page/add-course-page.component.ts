@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
+import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-add-course-page',
   templateUrl: './add-course-page.component.html',
   styleUrls: ['./add-course-page.component.scss']
 })
-export class AddCoursePageComponent implements OnInit {
+export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   courseCreationDate: Date | string = '';
 
@@ -28,7 +28,11 @@ export class AddCoursePageComponent implements OnInit {
     topRated: false
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private courseService: CoursesService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private courseService: CoursesService,
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit(): void {
     this.course = this.defaultCourseData;
@@ -40,8 +44,12 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loadingService.setValue(true);
+
     this.course.id ? this.updateCourse() :
       this.addNewCourse();
+
+    this.loadingService.setValue(false);
   }
 
   onCancelButtonClick(): void {
@@ -66,7 +74,7 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   addNewCourse(): void {
-    from(this.courseService.getAllCoursesList())
+    this.courseService.getAllCoursesList()
       .subscribe((courseData) => {
         this.courses = courseData;
         this.generateId();
@@ -87,4 +95,10 @@ export class AddCoursePageComponent implements OnInit {
     this.course.creationDate = new Date(this.course.creationDate);
     this.courseCreationDate = new Date(this.course.creationDate);
   }
+
+  ngOnDestroy(): void {
+
+
+  }
+
 }
