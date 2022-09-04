@@ -1,8 +1,8 @@
-import { TranslateBlockDirective } from './translate-block.directive';
+import { ScaleBlockDirective } from './translate-block.directive';
 
-describe('TranslateBlockDirective', () => {
+describe('ScaleBlockDirective', () => {
   it('should create an instance', () => {
-    const directive = new TranslateBlockDirective();
+    const directive = new ScaleBlockDirective();
     expect(directive).toBeTruthy();
   });
 });

@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { ICoursePage } from '../interfaces/course.interface';
+import { Subject, takeUntil } from 'rxjs';
 import { CoursesService } from '../pages-block/services/courses.service';
 
 @Component({
@@ -11,32 +9,25 @@ import { CoursesService } from '../pages-block/services/courses.service';
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
-
-  course: ICoursePage;
   breadcrumbsTitle: string = '';
-  private unsubscribingData: Subject<void> = new Subject<void>();
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(private courseService: CoursesService) { }
 
   ngOnInit(): void {
-    this.courseService.currentCourseId.pipe(
-      takeUntil(this.unsubscribingData)
-    ).subscribe((courseId: string) => {
-      if (courseId) {
-        this.courseService.getCourseById(courseId).pipe(
-          takeUntil(this.unsubscribingData)
-        ).subscribe((course: ICoursePage) => {
-          this.course = course;
-          this.breadcrumbsTitle = ` / ${this.course.title}`;
-        });
+    this.courseService.currentCourseTitle$.pipe(
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((courseTitle: string) => {
+      if (courseTitle) {
+        this.breadcrumbsTitle = ` / ${courseTitle}`;
       } else {
         this.breadcrumbsTitle = '';
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {
-    this.unsubscribingData.next();
-    this.unsubscribingData.complete();
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
   }
 }

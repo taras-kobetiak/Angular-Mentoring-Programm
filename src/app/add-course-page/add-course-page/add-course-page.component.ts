@@ -27,7 +27,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     topRated: false
   };
 
-  private unsubscribingData: Subject<void> = new Subject<void>();
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,7 +53,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   updateCourse(): void {
     this.courseService.updateCourse(this.course).pipe(
-      takeUntil(this.unsubscribingData)
+      takeUntil(this.unsubscribingData$)
     ).subscribe(() => {
       this.loadingService.setValue(false);
       this.backToCoursesList();
@@ -63,7 +63,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   addNewCourse(): void {
     this.course.id = uuidv4();
     this.courseService.addCourses(this.course).pipe(
-      takeUntil(this.unsubscribingData))
+      takeUntil(this.unsubscribingData$))
       .subscribe(() => {
         this.loadingService.setValue(false);
         this.backToCoursesList();
@@ -74,11 +74,11 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.loadingService.setValue(true);
 
     this.courseService.getCourseById(this.courseId).pipe(
-      takeUntil(this.unsubscribingData)
+      takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
       this.course = course;
       this.loadingService.setValue(false);
-      this.courseService.currentCourseId.next(this.course.id);
+      this.courseService.currentCourseTitle$.next(this.course.title);
     });
   }
 
@@ -99,8 +99,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribingData.next();
-    this.unsubscribingData.complete();
-    this.courseService.currentCourseId.next('')
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
+    this.courseService.currentCourseTitle$.next('')
   }
 }

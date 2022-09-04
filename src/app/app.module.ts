@@ -13,7 +13,7 @@ import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './pages-block/directives/new-border.directive';
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
-import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
+import { ScaleBlockDirective } from './pages-block/directives/translate-block.directive';
 import { LoginModule } from './login-page/login-page.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 import { AddCoursePageModule } from './add-course-page/add-course-page.module';
@@ -40,7 +40,7 @@ import { SharedModule } from './shared/shared.module';
     PagesBlockComponent,
     NewBorderDirective,
     DurationPipe,
-    TranslateBlockDirective,
+    ScaleBlockDirective,
     OrderByPipe,
 
   ],
@@ -54,13 +54,17 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule
   ],
-  providers: [AuthServiceService, CoursesService, AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    }
-  ],
+  providers:
+    [
+      AuthServiceService,
+      CoursesService,
+      AuthGuard,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+      }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

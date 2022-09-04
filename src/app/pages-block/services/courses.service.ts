@@ -9,7 +9,7 @@ import { CoursePage } from 'src/app/interfaces/classes';
 export class CoursesService {
 
   course: CoursePage;
-  currentCourseId: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  currentCourseTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
 

@@ -8,14 +8,10 @@ import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 })
 export class AuthServiceService {
 
-  isAuth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
   usersData: IUserEntyty[];
+  isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private http: HttpClient) { }
-
-  private hasToken(): boolean {
-    return Boolean(localStorage.getItem('token'));
-  }
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -28,14 +24,18 @@ export class AuthServiceService {
   logOut(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
-    this.isAuth.next(false);
+    this.isAuth$.next(false);
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.isAuth.asObservable();
+    return this.isAuth$.asObservable();
   }
 
   getUserInfo(email: string): Observable<IUserEntyty[]> {
     return this.http.get<IUserEntyty[]>(`http://localhost:3000/users/?email=${email}`)
+  }
+
+  private hasToken(): boolean {
+    return Boolean(localStorage.getItem('token'));
   }
 }

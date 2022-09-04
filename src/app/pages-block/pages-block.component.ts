@@ -78,18 +78,22 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   refreshCourse(): void {
     this.loadingService.setValue(true);
+
+
     let currentNumberOfCourses = this.courses.length;
     let newNumberOfCourses;
-
     this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
       takeUntil(this.unsubscribingData)
     ).subscribe((courseData) => {
+
+      console.log(1);
+
       this.courses = courseData;
-      this.loadingService.setValue(false);
       newNumberOfCourses = this.courses.length;
       if (currentNumberOfCourses === newNumberOfCourses) {
         this.showLoadMore = false;
       }
+      this.loadingService.setValue(false);
     });
   }
 

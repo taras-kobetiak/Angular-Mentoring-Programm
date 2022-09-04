@@ -14,7 +14,7 @@ import { LoadingService } from 'src/app/shared/loading-block/servises/loading.se
 export class LoginPageComponent implements OnDestroy {
 
   usersData: IUserEntyty[];
-  private unsubscribingData: Subject<void> = new Subject<void>();
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
     private authService: AuthServiceService,
@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnDestroy {
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.logIn().pipe(
-      takeUntil(this.unsubscribingData)
+      takeUntil(this.unsubscribingData$)
     ).subscribe((usersData: IUserEntyty[]) => {
       this.usersData = usersData;
       if (!this.usersData.find(user => user.email === currentUser.email
@@ -40,11 +40,11 @@ export class LoginPageComponent implements OnDestroy {
       } else {
 
         this.authService.getUserInfo(currentUser.email).pipe(
-          takeUntil(this.unsubscribingData)
+          takeUntil(this.unsubscribingData$)
         ).subscribe((userInfo: IUserEntyty[]) => {
           let user = userInfo[0];
 
-          this.authService.isAuth.next(true);
+          this.authService.isAuth$.next(true);
           localStorage.setItem('token', user.token);
 
 
@@ -56,8 +56,8 @@ export class LoginPageComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribingData.next();
-    this.unsubscribingData.complete();
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
   }
 
 }

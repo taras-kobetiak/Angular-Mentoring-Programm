@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoadingService {
 
-  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   setValue(value: boolean): void {
-    this.isLoading.next(value);
+    this.isLoading$.next(value);
   }
 
   getIsLoadingValue(): BehaviorSubject<boolean> {
-    return this.isLoading;
+    return this.isLoading$;
   }
 }
