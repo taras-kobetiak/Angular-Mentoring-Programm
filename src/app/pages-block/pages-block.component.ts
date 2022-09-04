@@ -18,7 +18,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  private currentSubscribes: Subject<void> = new Subject<void>();
+  private unsubscribingData: Subject<void> = new Subject<void>();
 
   constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
 
@@ -39,11 +39,11 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
       );
 
       searchData$.pipe(
-        takeUntil(this.currentSubscribes)
+        takeUntil(this.unsubscribingData)
       ).subscribe((inputData: string) => {
         if (inputData) {
           this.coursesPagesService.getFilteredList(inputData.toLowerCase()).pipe(
-            takeUntil(this.currentSubscribes)
+            takeUntil(this.unsubscribingData)
           ).subscribe((courseData) => this.courses = courseData);
         } else {
           this.refreshCourse();
@@ -55,7 +55,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       this.coursesPagesService.deleteCourse(id).pipe(
-        takeUntil(this.currentSubscribes)
+        takeUntil(this.unsubscribingData)
       ).subscribe(() => {
         this.refreshCourse();
       })
@@ -71,7 +71,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
     course.topRated = !course.topRated;
     this.loadingService.setValue(true);
     this.coursesPagesService.updateCourse(course).pipe(
-      takeUntil(this.currentSubscribes)
+      takeUntil(this.unsubscribingData)
     ).subscribe();
     this.loadingService.setValue(false);
   }
@@ -82,7 +82,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
     let newNumberOfCourses;
 
     this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
-      takeUntil(this.currentSubscribes)
+      takeUntil(this.unsubscribingData)
     ).subscribe((courseData) => {
       this.courses = courseData;
       this.loadingService.setValue(false);
@@ -94,7 +94,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentSubscribes.next();
-    this.currentSubscribes.complete();
+    this.unsubscribingData.next();
+    this.unsubscribingData.complete();
   }
 }

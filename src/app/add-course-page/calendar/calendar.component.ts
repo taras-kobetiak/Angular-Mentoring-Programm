@@ -1,29 +1,32 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements  OnInit {
+export class CalendarComponent implements OnInit {
 
-  @Input() creationDate: Date | string;
-  @Output() creationDateChange: EventEmitter<Date> = new EventEmitter()
+
+  @Input() creationDate: string;
+  @Output() creationDateChange: EventEmitter<string> = new EventEmitter()
 
   placeholderData: string;
+  pickerDate: Date;
 
   ngOnInit() {
     if (this.creationDate === '') {
       this.placeholderData = 'Choose a date';
+      this.pickerDate = new Date();
     } else {
-      let temporaryDate: Date = new Date(this.creationDate);
-      this.placeholderData = `${temporaryDate.getDate()}/${temporaryDate.getMonth()}/${temporaryDate.getFullYear()}`
+      this.pickerDate = new Date(this.creationDate);
+      this.placeholderData = `${this.pickerDate.getDate()}/${this.pickerDate.getMonth()}/${this.pickerDate.getFullYear()}`
     }
   }
 
-
-  onCreationDateChange(date: Date): void {
-    this.creationDateChange.emit(date)
+  onCreationDateChange(date: string): void {
+    this.creationDateChange.emit(date);
   }
 
 }

@@ -1,19 +1,35 @@
 {
   "courses": [
     {
-      "id": "1",
-      "title": "some new course",
-      "creationDate": "2022-08-30T14:28:47.223Z",
+      "id": "310dada1-ddd4-44c3-a796-7d159a7fb016",
+      "title": "123",
+      "creationDate": "2022-09-03T15:34:45.523Z",
       "duration": 0,
-      "description": "12",
+      "description": "фывфыв",
       "topRated": false
     },
     {
-      "id": "2",
-      "title": "asda",
-      "creationDate": "2022-08-30T14:28:56.466Z",
+      "id": "ea9efb14-e7e0-4d57-94e2-56c5ecf4eb98",
+      "title": "туц",
+      "creationDate": "2022-09-09T21:00:00.000Z",
       "duration": 0,
-      "description": "123123",
+      "description": "",
+      "topRated": false
+    },
+    {
+      "id": "9d3394d7-12f0-4ea5-8f10-1ab906365c51",
+      "title": "new",
+      "creationDate": "2022-09-05T21:00:00.000Z",
+      "duration": 0,
+      "description": "",
+      "topRated": false
+    },
+    {
+      "id": "b67ac197-99bb-4764-b469-dca58ca9a696",
+      "title": "123123",
+      "creationDate": "2022-09-28T21:00:00.000Z",
+      "duration": "123",
+      "description": "",
       "topRated": false
     }
   ],

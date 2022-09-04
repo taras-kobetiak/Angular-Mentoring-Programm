@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-add-course-page',
@@ -12,9 +13,6 @@ import { LoadingService } from 'src/app/shared/loading-block/servises/loading.se
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  courseCalendarCreationDate: Date | string = '';
-
-  courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;
   authors: string;
@@ -23,15 +21,16 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   defaultCourseData: ICoursePage = {
     id: '',
     title: '',
-    creationDate: new Date(),
+    creationDate: '',
     duration: 0,
     description: '',
     topRated: false
   };
 
-  private currentSubscribes: Subject<void> = new Subject<void>()
+  private unsubscribingData: Subject<void> = new Subject<void>();
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private courseService: CoursesService,
     private loadingService: LoadingService
@@ -39,13 +38,10 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.course = this.defaultCourseData;
-    this.courseId = this.activatedRoute.snapshot.paramMap.get('id')
-
+    this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
-      this.loadingService.setValue(true);
-      this.takeCourseData();
+      setTimeout(() => this.takeCourseData());
     }
-    this.loadingService.setValue(false);
   }
 
   onSubmit(): void {
@@ -53,15 +49,44 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
     this.course.id ? this.updateCourse() :
       this.addNewCourse();
-
-    this.loadingService.setValue(false);
   }
 
-  onCancelButtonClick(): void {
+  updateCourse(): void {
+    this.courseService.updateCourse(this.course).pipe(
+      takeUntil(this.unsubscribingData)
+    ).subscribe(() => {
+      this.loadingService.setValue(false);
+      this.backToCoursesList();
+    })
+  }
+
+  addNewCourse(): void {
+    this.course.id = uuidv4();
+    this.courseService.addCourses(this.course).pipe(
+      takeUntil(this.unsubscribingData))
+      .subscribe(() => {
+        this.loadingService.setValue(false);
+        this.backToCoursesList();
+      })
+  }
+
+  takeCourseData(): void {
+    this.loadingService.setValue(true);
+
+    this.courseService.getCourseById(this.courseId).pipe(
+      takeUntil(this.unsubscribingData)
+    ).subscribe(course => {
+      this.course = course;
+      this.loadingService.setValue(false);
+      this.courseService.currentCourseId.next(this.course.id);
+    });
+  }
+
+  backToCoursesList(): void {
     this.router.navigate(['/courses']);
   }
 
-  creationDateChange(creationDate: Date): void {
+  creationDateChange(creationDate: string): void {
     this.course.creationDate = creationDate;
   }
 
@@ -73,47 +98,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.authors = authors;
   }
 
-  updateCourse(): void {
-    this.courseService.updateCourse(this.course).pipe(
-      takeUntil(this.currentSubscribes)
-    ).subscribe(() => this.router.navigate(['/courses']))
-  }
-
-  addNewCourse(): void {
-    this.courseService.getAllCoursesList().pipe(
-      takeUntil(this.currentSubscribes)
-    ).subscribe((courseData) => {
-      this.courses = courseData;
-      this.generateId();
-      this.course.id = this.temporaryId + '';
-      this.courseService.addCourses(this.course).pipe(
-        takeUntil(this.currentSubscribes)
-      ).subscribe();
-      this.router.navigate(['/courses']);
-    })
-  }
-
-  generateId(): void {
-    while (this.courses.find(course => course.id === this.temporaryId.toString())) {
-      ++this.temporaryId;
-    }
-  }
-
-  takeCourseData(): void {
-    this.courseService.getCourseById(this.courseId).pipe(
-      takeUntil(this.currentSubscribes)
-    ).subscribe(course => {
-      this.course = course;
-      this.courseService.currentCourseId.next(this.course.id);
-    });
-    this.course.creationDate = new Date(this.course.creationDate);
-    this.courseCalendarCreationDate = new Date(this.course.creationDate);
-
-  }
-
   ngOnDestroy(): void {
-    this.currentSubscribes.next();
-    this.currentSubscribes.complete();
+    this.unsubscribingData.next();
+    this.unsubscribingData.complete();
     this.courseService.currentCourseId.next('')
   }
 }

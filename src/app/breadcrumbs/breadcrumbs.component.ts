@@ -14,17 +14,17 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
   course: ICoursePage;
   breadcrumbsTitle: string = '';
-  private currentSubscribes: Subject<void> = new Subject<void>();
+  private unsubscribingData: Subject<void> = new Subject<void>();
 
   constructor(private courseService: CoursesService) { }
 
   ngOnInit(): void {
     this.courseService.currentCourseId.pipe(
-      takeUntil(this.currentSubscribes)
+      takeUntil(this.unsubscribingData)
     ).subscribe((courseId: string) => {
       if (courseId) {
         this.courseService.getCourseById(courseId).pipe(
-          takeUntil(this.currentSubscribes)
+          takeUntil(this.unsubscribingData)
         ).subscribe((course: ICoursePage) => {
           this.course = course;
           this.breadcrumbsTitle = ` / ${this.course.title}`;
@@ -36,7 +36,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentSubscribes.next();
-    this.currentSubscribes.complete();
+    this.unsubscribingData.next();
+    this.unsubscribingData.complete();
   }
 }

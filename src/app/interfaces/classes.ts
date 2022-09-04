@@ -5,7 +5,7 @@ export class CoursePage implements ICoursePage {
 
     constructor(public id: string,
         public title: string,
-        public creationDate: Date,
+        public creationDate: string,
         public duration: number,
         public description: string,
         public topRated: boolean = false) {

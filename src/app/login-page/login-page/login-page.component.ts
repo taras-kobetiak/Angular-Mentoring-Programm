@@ -14,9 +14,13 @@ import { LoadingService } from 'src/app/shared/loading-block/servises/loading.se
 export class LoginPageComponent implements OnDestroy {
 
   usersData: IUserEntyty[];
-  private currentSubsribes: Subject<void> = new Subject<void>();
+  private unsubscribingData: Subject<void> = new Subject<void>();
 
-  constructor(private authService: AuthServiceService, private router: Router, private loadingService: LoadingService) { }
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router,
+    private loadingService: LoadingService
+  ) { }
 
   onSubmit(form: NgForm): void {
     this.loadingService.setValue(true);
@@ -27,7 +31,7 @@ export class LoginPageComponent implements OnDestroy {
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.logIn().pipe(
-      takeUntil(this.currentSubsribes)
+      takeUntil(this.unsubscribingData)
     ).subscribe((usersData: IUserEntyty[]) => {
       this.usersData = usersData;
       if (!this.usersData.find(user => user.email === currentUser.email
@@ -36,7 +40,7 @@ export class LoginPageComponent implements OnDestroy {
       } else {
 
         this.authService.getUserInfo(currentUser.email).pipe(
-          takeUntil(this.currentSubsribes)
+          takeUntil(this.unsubscribingData)
         ).subscribe((userInfo: IUserEntyty[]) => {
           let user = userInfo[0];
 
@@ -52,8 +56,8 @@ export class LoginPageComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentSubsribes.next();
-    this.currentSubsribes.complete();
+    this.unsubscribingData.next();
+    this.unsubscribingData.complete();
   }
 
 }

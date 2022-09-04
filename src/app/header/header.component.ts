@@ -14,14 +14,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isAuth: boolean;
   currentUser: IUserEntyty;
-  private currentSubscribes: Subject<void> = new Subject<void>();
+  private unsubscribingData: Subject<void> = new Subject<void>();
 
   constructor(private authService: AuthServiceService) { };
 
   ngOnInit(): void {
 
     this.authService.isAuthenticated().pipe(
-      takeUntil(this.currentSubscribes)
+      takeUntil(this.unsubscribingData)
     ).subscribe(val => {
       this.isAuth = val;
       if (this.isAuth) {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           let userDataParse: any = userData ? JSON.parse(userData) : ''
           let user: string = userDataParse;
           this.authService.getUserInfo(user).pipe(
-            takeUntil(this.currentSubscribes)
+            takeUntil(this.unsubscribingData)
           ).subscribe((val: IUserEntyty[]) => {
             this.currentUser = val[0];
           })
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentSubscribes.next();
-    this.currentSubscribes.complete();
+    this.unsubscribingData.next();
+    this.unsubscribingData.complete();
   }
 }
