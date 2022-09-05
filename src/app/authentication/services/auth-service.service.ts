@@ -18,7 +18,7 @@ export class AuthServiceService {
   }
 
   logIn(): Observable<IUserEntyty[]> {
-    return this.http.get<IUserEntyty[]>('http://localhost:3000/users');
+    return this.http.get<IUserEntyty[]>('users');
   }
 
   logOut(): void {
@@ -32,7 +32,7 @@ export class AuthServiceService {
   }
 
   getUserInfo(email: string): Observable<IUserEntyty[]> {
-    return this.http.get<IUserEntyty[]>(`http://localhost:3000/users/?email=${email}`)
+    return this.http.get<IUserEntyty[]>(`users/?email=${email}`)
   }
 
   private hasToken(): boolean {

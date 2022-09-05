@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interceptor';
 
 
 
@@ -62,6 +63,11 @@ import { SharedModule } from './shared/shared.module';
       {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
+        multi: true,
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UrlInterceptorInterceptor,
         multi: true,
       }
     ],

@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((val: IUserEntyty[]) => {
 
         this.currentUser = val[0];
-        console.log(this.currentUser);
+        // console.log(this.currentUser);
       })
   }
 
