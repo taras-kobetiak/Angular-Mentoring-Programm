@@ -9,35 +9,36 @@ import { CoursePage } from 'src/app/interfaces/classes';
 export class CoursesService {
 
   course: CoursePage;
+  serverPath: string = 'http://localhost:3000'
   currentCourseTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
 
   getCoursesList(courseLimit: number): Observable<CoursePage[]> {
-    return this.http.get<CoursePage[]>(`http://localhost:3000/courses?_limit=${courseLimit}`);
+    return this.http.get<CoursePage[]>(`${this.serverPath}/courses?_limit=${courseLimit}`);
   }
 
   getAllCoursesList(): Observable<CoursePage[]> {
-    return this.http.get<CoursePage[]>(`http://localhost:3000/courses`);
+    return this.http.get<CoursePage[]>(`${this.serverPath}/courses`);
   }
 
   getFilteredList(searchData: string): Observable<CoursePage[]> {
-    return this.http.get<CoursePage[]>(`http://localhost:3000/courses?q=${searchData}`);
+    return this.http.get<CoursePage[]>(`${this.serverPath}/courses?q=${searchData}`);
   }
 
   addCourses(course: CoursePage): Observable<CoursePage> {
-    return this.http.post<CoursePage>('http://localhost:3000/courses', course);
+    return this.http.post<CoursePage>(`${this.serverPath}/courses`, course);
   }
 
   deleteCourse(id: string): Observable<CoursePage> {
-    return this.http.delete<CoursePage>(`http://localhost:3000/courses/${id}`);
+    return this.http.delete<CoursePage>(`${this.serverPath}/courses/${id}`);
   }
 
   getCourseById(id: string): Observable<CoursePage> {
-    return this.http.get<CoursePage>(`http://localhost:3000/courses/${id}`);
+    return this.http.get<CoursePage>(`${this.serverPath}/courses/${id}`);
   }
 
   updateCourse(course: CoursePage): Observable<CoursePage> {
-    return this.http.put<CoursePage>(`http://localhost:3000/courses/${course.id}`, course);
+    return this.http.put<CoursePage>(`${this.serverPath}/courses/${course.id}`, course);
   }
 }

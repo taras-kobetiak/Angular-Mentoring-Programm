@@ -1,5 +1,5 @@
 <div class="container">
     <div class="breadcrumbs">
-        <a routerLink="/courses"> Courses</a><span>{{breadcrumbsTitle}}</span>
+        <a routerLink="/courses"> Courses</a><span>{{ courseService.currentCourseTitle$ | async }}</span>
     </div>
 </div>

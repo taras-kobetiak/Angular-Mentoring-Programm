@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, filter, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
@@ -26,32 +26,35 @@ export class LoginPageComponent implements OnDestroy {
     this.loadingService.setValue(true);
     const currentUser: IUserEntyty = form.value;
     this.createUsersData(currentUser);
-    this.loadingService.setValue(false);
+
   }
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.logIn().pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe((usersData: IUserEntyty[]) => {
-      this.usersData = usersData;
-      if (!this.usersData.find(user => user.email === currentUser.email
-        && user.password === currentUser.password)) {
-        alert('wrong data, please check your email and pass');
-      } else {
+      takeUntil(this.unsubscribingData$),
+      tap((usersData) => {
+        if (!usersData.find(user => user.email === currentUser.email
+          && user.password === currentUser.password)) {
+          throw new Error('wrong data, please check your email and pass')
+        }
+      }),
+      catchError((error) => {
+        alert(error);
+        return of(false);
+      }),
+      filter(val => {
+        this.loadingService.setValue(false);
+        return val !== false;
+      }),
+      switchMap(() => this.authService.getUserInfo(currentUser.email)),
+    ).subscribe((userInfo: IUserEntyty[]) => {
+      let user = userInfo[0];
 
-        this.authService.getUserInfo(currentUser.email).pipe(
-          takeUntil(this.unsubscribingData$)
-        ).subscribe((userInfo: IUserEntyty[]) => {
-          let user = userInfo[0];
-
-          this.authService.isAuth$.next(true);
-          localStorage.setItem('token', user.token);
-
-
-          localStorage.setItem(`currentUser`, JSON.stringify(user.email));
-          this.router.navigate(['/courses']);
-        })
-      }
+      this.authService.isAuth$.next(true);
+      localStorage.setItem('token', user.token);
+      localStorage.setItem(`currentUser`, JSON.stringify(user.email));
+      this.router.navigate(['/courses']);
+      this.loadingService.setValue(false);
     })
   }
 
@@ -59,5 +62,4 @@ export class LoginPageComponent implements OnDestroy {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
   }
-
 }

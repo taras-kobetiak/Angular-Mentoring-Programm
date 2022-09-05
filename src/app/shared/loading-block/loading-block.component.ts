@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './loading-block.component.html',
   styleUrls: ['./loading-block.component.scss']
 })
-export class LoadingBlockComponent {
-  constructor() { }
-}
+export class LoadingBlockComponent { }

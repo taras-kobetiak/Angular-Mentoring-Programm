@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { map, Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { AuthServiceService } from "../authentication/services/auth-service.service";
 
 @Injectable({
@@ -13,12 +13,12 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-        this.authService.isAuthenticated().subscribe(isAuth => {
-            if (!isAuth) {
-                this.router.navigate(['/login']);
-            }
-            // i dont know why I can`t return all this statement and here return true and false in if/else
-        })
-        return this.authService.isAuthenticated();
+        return this.authService.isAuthenticated().pipe(
+            tap((isAuth: boolean) => {
+                if (!isAuth) {
+                    this.router.navigate(['/login']);
+                }
+            })
+        )
     }
 }

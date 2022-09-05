@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUserEntyty } from '../interfaces/user-entyty.interface';
 import { AuthServiceService } from '../authentication/services/auth-service.service';
-// import { LoadingService } from '../loading-block/servises/loading.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
-
 
 @Component({
   selector: 'app-header',
@@ -12,32 +10,25 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  isAuth: boolean;
   currentUser: IUserEntyty;
-  private unsubscribingData: Subject<void> = new Subject<void>();
+  isAuth$: Observable<boolean>;
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(private authService: AuthServiceService) { };
+  constructor(public authService: AuthServiceService) { };
 
   ngOnInit(): void {
+    this.isAuth$ = this.authService.isAuthenticated();
 
-    this.authService.isAuthenticated().pipe(
-      takeUntil(this.unsubscribingData)
-    ).subscribe(val => {
-      this.isAuth = val;
-      if (this.isAuth) {
+    let currentUserData: string | null = localStorage.getItem('currentUser');
+    let currentUserEmail: string = currentUserData ? JSON.parse(currentUserData) : '';
 
-        setTimeout(() => {
-          let userData: string | null = localStorage.getItem('currentUser');
-          let userDataParse: any = userData ? JSON.parse(userData) : ''
-          let user: string = userDataParse;
-          this.authService.getUserInfo(user).pipe(
-            takeUntil(this.unsubscribingData)
-          ).subscribe((val: IUserEntyty[]) => {
-            this.currentUser = val[0];
-          })
-        }, 0)
-      }
-    });
+    this.authService.getUserInfo(currentUserEmail).pipe(
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((val: IUserEntyty[]) => {
+      this.currentUser = val[0];
+
+      console.log(this.currentUser);
+    })
   }
 
   onLogOutClick(): void {
@@ -45,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribingData.next();
-    this.unsubscribingData.complete();
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
   }
 }

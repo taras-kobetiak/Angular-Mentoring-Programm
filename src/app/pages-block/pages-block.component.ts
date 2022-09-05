@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, switchMap, takeUntil } from "rxjs";
 import { LoadingService } from '../shared/loading-block/servises/loading.service';
 
 
@@ -18,44 +18,34 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
   numberOfCourses: number = 3;
-  private unsubscribingData: Subject<void> = new Subject<void>();
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
-
     setTimeout(() => this.refreshCourse(), 0);
     this.searchFunction();
   }
 
   searchFunction(): void {
     const searchBox = document.getElementById('search-box') as HTMLInputElement;
-    if (searchBox) {
-      let searchData$ = fromEvent(searchBox, 'input').pipe(
-        map(elem => (elem.target as HTMLInputElement).value),
-        filter(text => text.length > 2 || text === ''),
-        debounceTime(500),
-        distinctUntilChanged(),
-      );
 
-      searchData$.pipe(
-        takeUntil(this.unsubscribingData)
-      ).subscribe((inputData: string) => {
-        if (inputData) {
-          this.coursesPagesService.getFilteredList(inputData.toLowerCase()).pipe(
-            takeUntil(this.unsubscribingData)
-          ).subscribe((courseData) => this.courses = courseData);
-        } else {
-          this.refreshCourse();
-        }
-      });
-    }
+    fromEvent(searchBox, 'input').pipe(
+      takeUntil(this.unsubscribingData$),
+      map(elem => (elem.target as HTMLInputElement).value),
+      filter(text => text.length > 2 || text === ''),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase()))
+    ).subscribe((courseData) => {
+      this.courses = courseData;
+    })
   }
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
       this.coursesPagesService.deleteCourse(id).pipe(
-        takeUntil(this.unsubscribingData)
+        takeUntil(this.unsubscribingData$)
       ).subscribe(() => {
         this.refreshCourse();
       })
@@ -71,34 +61,29 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
     course.topRated = !course.topRated;
     this.loadingService.setValue(true);
     this.coursesPagesService.updateCourse(course).pipe(
-      takeUntil(this.unsubscribingData)
-    ).subscribe();
-    this.loadingService.setValue(false);
+      takeUntil(this.unsubscribingData$)
+    ).subscribe(() => this.loadingService.setValue(false));
   }
 
   refreshCourse(): void {
     this.loadingService.setValue(true);
 
-
     let currentNumberOfCourses = this.courses.length;
-    let newNumberOfCourses;
+
     this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
-      takeUntil(this.unsubscribingData)
-    ).subscribe((courseData) => {
-
-      console.log(1);
-
-      this.courses = courseData;
-      newNumberOfCourses = this.courses.length;
-      if (currentNumberOfCourses === newNumberOfCourses) {
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((coursesData) => {
+      if (currentNumberOfCourses === coursesData.length) {
         this.showLoadMore = false;
       }
+      this.courses = coursesData;
+
       this.loadingService.setValue(false);
     });
   }
 
   ngOnDestroy(): void {
-    this.unsubscribingData.next();
-    this.unsubscribingData.complete();
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
   }
 }

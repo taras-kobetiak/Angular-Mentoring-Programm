@@ -20,13 +20,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthServiceService, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
-    this.isLoading$ = this.loadingService.getIsLoadingValue();
-    this.isLoading$.subscribe(a => {
-      this.test = a
-      console.log(a);
-
-    })
-
+    this.isLoading$ = this.loadingService.getIsLoadingValue()
     this.isAuth$ = this.authService.isAuthenticated();
   }
 }
