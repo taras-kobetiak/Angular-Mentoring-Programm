@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { CoursesService } from '../pages-block/services/courses.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   constructor(public courseService: CoursesService) { }
 
   ngOnInit(): void {
-
     this.courseService.currentCourseTitle$.pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe((currentTitle) => {

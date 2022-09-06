@@ -9,7 +9,6 @@ import { CoursePage } from 'src/app/interfaces/classes';
 export class CoursesService {
 
   course: CoursePage;
-  // serverPath: string = 'http://localhost:3000'
   currentCourseTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
