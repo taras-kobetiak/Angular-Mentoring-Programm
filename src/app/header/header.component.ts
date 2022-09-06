@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUserEntyty } from '../interfaces/user-entyty.interface';
 import { AuthServiceService } from '../authentication/services/auth-service.service';
-import { filter, Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -19,26 +19,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.isAuthenticated().pipe(
       takeUntil(this.unsubscribingData$),
-      filter((value: boolean) => {
-        this.isAuth = value;
-        return value !== false;
-      }),
-      switchMap(() => {
-        let currentUserData: string | null = localStorage.getItem('currentUser');
-        let currentUserEmail: string = currentUserData ? JSON.parse(currentUserData) : '';
-        return this.authService.getUserInfo(currentUserEmail);
-      }),
-
     )
-      .subscribe((val: IUserEntyty[]) => {
-
-        this.currentUser = val[0];
-        // console.log(this.currentUser);
+      .subscribe((isAuth$: boolean) => {
+        this.isAuth = isAuth$;
+        let currentUserData: string | null = localStorage.getItem('currentUser');
+        this.currentUser = currentUserData ? JSON.parse(currentUserData) : '';
       })
   }
-
-
-
 
   onLogOutClick(): void {
     this.authService.logOut();

@@ -26,12 +26,10 @@ export class LoginPageComponent implements OnDestroy {
     this.loadingService.setValue(true);
     const currentUser: IUserEntyty = form.value;
     this.createUsersData(currentUser);
-
   }
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.logIn().pipe(
-      takeUntil(this.unsubscribingData$),
       tap((usersData) => {
         if (!usersData.find(user => user.email === currentUser.email
           && user.password === currentUser.password)) {
@@ -47,12 +45,13 @@ export class LoginPageComponent implements OnDestroy {
         return val !== false;
       }),
       switchMap(() => this.authService.getUserInfo(currentUser.email)),
+      takeUntil(this.unsubscribingData$),
     ).subscribe((userInfo: IUserEntyty[]) => {
       let user = userInfo[0];
 
-      this.authService.isAuth$.next(true);
       localStorage.setItem('token', user.token);
-      localStorage.setItem(`currentUser`, JSON.stringify(user.email));
+      localStorage.setItem(`currentUser`, JSON.stringify(user));
+      this.authService.isAuth$.next(true);
       this.router.navigate(['/courses']);
       this.loadingService.setValue(false);
     })

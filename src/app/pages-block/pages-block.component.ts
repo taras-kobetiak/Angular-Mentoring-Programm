@@ -31,12 +31,12 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
     const searchBox = document.getElementById('search-box') as HTMLInputElement;
 
     fromEvent(searchBox, 'input').pipe(
-      takeUntil(this.unsubscribingData$),
       map(elem => (elem.target as HTMLInputElement).value),
       filter(text => text.length > 2 || text === ''),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase()))
+      switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase())),
+      takeUntil(this.unsubscribingData$)
     ).subscribe((courseData) => {
       this.courses = courseData;
     })
