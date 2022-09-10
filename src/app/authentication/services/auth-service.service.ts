@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 
 @Injectable({

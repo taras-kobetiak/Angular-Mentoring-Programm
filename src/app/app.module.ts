@@ -53,6 +53,7 @@ import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interce
     AddCoursePageModule,
     BrowserAnimationsModule,
     HttpClientModule,
+<<<<<<< HEAD
     SharedModule
   ],
   providers:

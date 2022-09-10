@@ -5,6 +5,8 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, sw
 import { LoadingService } from '../shared/loading-block/servises/loading.service';
 
 
+const NUMBER_OF_ADD_COURSES: number = 3;
+
 @Component({
   selector: 'app-pages-block',
   templateUrl: './pages-block.component.html',
@@ -85,5 +87,6 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
+
   }
 }

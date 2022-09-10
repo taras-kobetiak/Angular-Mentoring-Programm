@@ -13,6 +13,9 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
+  courseCreationDate: Date | string = '';
+
+  courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;
   authors: string;
@@ -50,6 +53,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.course.id ? this.updateCourse() :
       this.addNewCourse();
   }
+
 
   updateCourse(): void {
     this.courseService.updateCourse(this.course).pipe(
