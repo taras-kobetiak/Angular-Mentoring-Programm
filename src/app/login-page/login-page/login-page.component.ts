@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, filter, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { filter, map, Subject, switchMap, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
@@ -22,7 +22,6 @@ export class LoginPageComponent implements OnDestroy {
     private loadingService: LoadingService
   ) { }
 
-
   onSubmit(form: NgForm): void {
     this.loadingService.setValue(true);
     const currentUser: IUserEntyty = form.value;
@@ -31,19 +30,14 @@ export class LoginPageComponent implements OnDestroy {
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.logIn().pipe(
-      tap((usersData) => {
-        if (!usersData.find(user => user.email === currentUser.email
-          && user.password === currentUser.password)) {
-          throw new Error('wrong data, please check your email and pass')
+      map((usersData: IUserEntyty[]) => usersData.find(user => user.email === currentUser.email
+        && user.password === currentUser.password)),
+      filter((user: IUserEntyty | undefined) => {
+        if (!user) {
+          alert('wrong data, please check your email and pass');
+          this.loadingService.setValue(false);
         }
-      }),
-      catchError((error) => {
-        alert(error);
-        return of(false);
-      }),
-      filter(val => {
-        this.loadingService.setValue(false);
-        return val !== false;
+        return Boolean(user);
       }),
       switchMap(() => this.authService.getUserInfo(currentUser.email)),
       takeUntil(this.unsubscribingData$),
