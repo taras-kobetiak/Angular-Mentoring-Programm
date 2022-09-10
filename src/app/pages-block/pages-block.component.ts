@@ -4,7 +4,6 @@ import { CoursesService } from './services/courses.service';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, switchMap, takeUntil } from "rxjs";
 import { LoadingService } from '../shared/loading-block/servises/loading.service';
 
-
 const NUMBER_OF_ADD_COURSES: number = 3;
 
 @Component({
@@ -19,7 +18,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   showLoadMore: boolean = true;
   courses: ICoursePage[] = [];
-  numberOfCourses: number = 3;
+  numberOfCourses: number = NUMBER_OF_ADD_COURSES;
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
@@ -55,7 +54,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   }
 
   loadNewCourses(): void {
-    this.numberOfCourses += 3;
+    this.numberOfCourses += NUMBER_OF_ADD_COURSES;
     this.refreshCourse();
   }
 

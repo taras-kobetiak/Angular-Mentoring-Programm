@@ -9,7 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class CalendarComponent {
 
   @Input() creationDate: string;
-  @Output() creationDateChange: EventEmitter<string> = new EventEmitter()
+  @Output() creationDateChange: EventEmitter<string> = new EventEmitter();
 
   onCreationDateChange(date: string): void {
     this.creationDateChange.emit(date);

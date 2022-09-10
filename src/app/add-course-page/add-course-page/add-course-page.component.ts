@@ -13,8 +13,6 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  courseCreationDate: Date | string = '';
-
   courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;

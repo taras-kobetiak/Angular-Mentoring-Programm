@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,13 +5,6 @@ import { catchError, filter, of, Subject, switchMap, takeUntil, tap } from 'rxjs
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
-=======
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
-import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
->>>>>>> main
 
 @Component({
   selector: 'app-login-page',
@@ -23,7 +15,6 @@ export class LoginPageComponent implements OnDestroy {
 
   usersData: IUserEntyty[];
   private unsubscribingData$: Subject<void> = new Subject<void>();
-
 
   constructor(
     private authService: AuthServiceService,

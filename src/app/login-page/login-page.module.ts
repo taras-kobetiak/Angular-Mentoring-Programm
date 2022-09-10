@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 import { LoginPageRoutingModule } from './login-page.routing.module';
 import { SharedModule } from '../shared/shared.module';
 
-
-
 @NgModule({
   declarations: [
     LoginPageComponent,

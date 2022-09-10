@@ -13,7 +13,6 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   breadcrumbsTitle: string = '';
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
-
   constructor(public courseService: CoursesService) { }
 
   ngOnInit(): void {

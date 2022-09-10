@@ -13,7 +13,6 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-<<<<<<< HEAD
   getCoursesList(courseLimit: number): Observable<CoursePage[]> {
     return this.http.get<CoursePage[]>(`courses?_limit=${courseLimit}`);
   }
