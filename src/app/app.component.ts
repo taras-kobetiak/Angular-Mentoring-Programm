@@ -11,8 +11,6 @@ import { LoadingService } from './shared/loading-block/servises/loading.service'
 
 export class AppComponent implements OnInit {
 
-  test: boolean;
-
   isAuth$: Observable<boolean>;
   isLoading$: Observable<boolean>;
 

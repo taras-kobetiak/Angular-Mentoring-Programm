@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { filter, map, Subject, switchMap, takeUntil, } from 'rxjs';
+import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
@@ -13,7 +13,6 @@ import { LoadingService } from 'src/app/shared/loading-block/servises/loading.se
 })
 export class LoginPageComponent implements OnDestroy {
 
-  usersData: IUserEntyty[];
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -29,27 +28,34 @@ export class LoginPageComponent implements OnDestroy {
   }
 
   createUsersData(currentUser: IUserEntyty): void {
-    this.authService.logIn().pipe(
-      map((usersData: IUserEntyty[]) => usersData.find(user => user.email === currentUser.email
-        && user.password === currentUser.password)),
-      filter((user: IUserEntyty | undefined) => {
-        if (!user) {
-          alert('wrong data, please check your email and pass');
-          this.loadingService.setValue(false);
+    this.authService.getUserInfo(currentUser.email).pipe(
+      filter((user: IUserEntyty[]) => {
+        if (user.length === 0) {
+          this.wrongData()
         }
-        return Boolean(user);
+        return user.length > 0
       }),
-      switchMap(() => this.authService.getUserInfo(currentUser.email)),
-      takeUntil(this.unsubscribingData$),
-    ).subscribe((userInfo: IUserEntyty[]) => {
-      let user = userInfo[0];
-
+      map((user: IUserEntyty[]) => user[0]),
+      filter((user: IUserEntyty) => {
+        if (user.password !== currentUser.password) {
+          this.wrongData();
+        }
+        return user.password === currentUser.password;
+      }),
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((user: IUserEntyty) => {
       localStorage.setItem('token', user.token);
       localStorage.setItem(`currentUser`, JSON.stringify(user));
       this.authService.isAuth$.next(true);
       this.router.navigate(['/courses']);
       this.loadingService.setValue(false);
     })
+  }
+
+
+  wrongData(): void {
+    alert('wrong data, please check your email and pass');
+    this.loadingService.setValue(false);
   }
 
   ngOnDestroy(): void {

@@ -20,10 +20,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.isAuthenticated().pipe(
       takeUntil(this.unsubscribingData$),
     )
-      .subscribe((isAuth$: boolean) => {
-        this.isAuth = isAuth$;
-        let currentUserData: string | null = localStorage.getItem('currentUser');
-        this.currentUser = currentUserData ? JSON.parse(currentUserData) : '';
+      .subscribe((isAuth: boolean) => {
+        this.isAuth = isAuth;
+        let userData = localStorage.getItem('currentUser') || '';
+        if (userData) {
+          this.currentUser = JSON.parse(userData)
+        }
       })
   }
 

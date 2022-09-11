@@ -34,7 +34,7 @@ export class AuthServiceService {
   }
 
   getUserInfo(email: string): Observable<IUserEntyty[]> {
-    return this.http.get<IUserEntyty[]>(`users/?email=${email}`)
+    return this.http.get<IUserEntyty[]>(`users/?email=${email}`);
   }
 
   private hasToken(): boolean {
