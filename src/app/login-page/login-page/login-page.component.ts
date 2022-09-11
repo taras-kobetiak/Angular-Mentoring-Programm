@@ -29,16 +29,11 @@ export class LoginPageComponent implements OnDestroy {
 
   createUsersData(currentUser: IUserEntyty): void {
     this.authService.getUserInfo(currentUser.email).pipe(
-      filter((user: IUserEntyty[]) => {
-        if (user.length === 0) {
-          this.wrongData()
-        }
-        return user.length > 0
-      }),
       map((user: IUserEntyty[]) => user[0]),
       filter((user: IUserEntyty) => {
-        if (user.password !== currentUser.password) {
-          this.wrongData();
+        if (!user || user.password !== currentUser.password) {
+          this.onWrongData();
+          return false;
         }
         return user.password === currentUser.password;
       }),
@@ -52,8 +47,7 @@ export class LoginPageComponent implements OnDestroy {
     })
   }
 
-
-  wrongData(): void {
+  onWrongData(): void {
     alert('wrong data, please check your email and pass');
     this.loadingService.setValue(false);
   }
