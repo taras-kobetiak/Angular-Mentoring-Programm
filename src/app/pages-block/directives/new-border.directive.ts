@@ -1,18 +1,18 @@
 
-import { Directive, DoCheck, ElementRef, Input, OnChanges, OnInit, } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, } from '@angular/core';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 
 @Directive({
   selector: '[appNewBorder]',
 })
 
-export class NewBorderDirective implements OnChanges {
+export class NewBorderDirective implements OnInit {
 
   @Input('appNewBorder') course: ICoursePage;
 
   constructor(private element: ElementRef) { }
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
 
     let timeFromCreationDate = Number(new Date(this.course.creationDate)) - Number(new Date());
     let milisecToDay: number = 1000 * 60 * 60 * 24;

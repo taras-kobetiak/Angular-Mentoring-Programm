@@ -7,6 +7,9 @@ import { ICoursePage } from 'src/app/interfaces/course.interface';
 export class OrderByPipe implements PipeTransform {
 
   transform(courses: ICoursePage[]): ICoursePage[] {
-    return courses.sort((a, b) => Number(new Date(b.creationDate)) - Number(new Date(a.creationDate)))
+    return courses.sort((a, b): number => {
+      return new Date(b.creationDate) > new Date(a.creationDate) ? 1 :
+        -1;
+    })
   }
 }

@@ -14,11 +14,11 @@ export class CoursesPageComponent {
   @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter()
 
   onDeleteClicked(): void {
-    this.deleteClicked.emit(this.course.id)
+    this.deleteClicked.emit(this.course.id);
   }
 
   onStarClicked(): void {
-    this.starClicked.emit(this.course)
+    this.starClicked.emit(this.course);
   }
 }
 

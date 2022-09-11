@@ -4,7 +4,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginPageRoutingModule } from './login-page.routing.module';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { LoginPageRoutingModule } from './login-page.routing.module';
     CommonModule,
     FormsModule,
     RouterModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    SharedModule
   ],
   bootstrap: []
 })

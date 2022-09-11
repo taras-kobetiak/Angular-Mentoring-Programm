@@ -1,40 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
+import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnDestroy {
 
-  usersData: IUserEntyty[];
-  currentUser: IUserEntyty;
+  private unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(private authService: AuthServiceService, private router: Router) { }
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router,
+    private loadingService: LoadingService
+  ) { }
 
-onSubmit(form: NgForm): void {
-    this.currentUser = form.value;
-    this.createUsersData();
+  onSubmit(form: NgForm): void {
+    this.loadingService.setValue(true);
+    const currentUser: IUserEntyty = form.value;
+    this.createUsersData(currentUser);
   }
 
- createUsersData(): void {
-this.authService.logIn().then((usersData)=> this.usersData = usersData)
-  .then(()=>{
-    if (!this.usersData.find(user => user.email === this.currentUser.email
-      && user.password === this.currentUser.password)) {
-      alert('wrong data, please check your email and pass');
-    } else {
-    this.authService.getUserInfo(this.currentUser.email)
-        .then((userInfo)=>{
-          this.currentUser = userInfo[0];
-          localStorage.setItem(`currentUser`, JSON.stringify(this.currentUser));
-          this.router.navigate(['/courses']);
-        })
-    }
-  })
+  createUsersData(currentUser: IUserEntyty): void {
+    this.authService.getUserInfo(currentUser.email).pipe(
+      map((user: IUserEntyty[]) => user[0]),
+      filter((user: IUserEntyty) => {
+        if (!user || user.password !== currentUser.password) {
+          this.onWrongData();
+          return false;
+        }
+        return user.password === currentUser.password;
+      }),
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((user: IUserEntyty) => {
+      localStorage.setItem('token', user.token);
+      localStorage.setItem(`currentUser`, JSON.stringify(user));
+      this.authService.isAuth$.next(true);
+      this.router.navigate(['/courses']);
+      this.loadingService.setValue(false);
+    })
+  }
+
+  onWrongData(): void {
+    alert('wrong data, please check your email and pass');
+    this.loadingService.setValue(false);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribingData$.next();
+    this.unsubscribingData$.complete();
   }
 }

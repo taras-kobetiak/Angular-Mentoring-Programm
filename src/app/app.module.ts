@@ -13,7 +13,7 @@ import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './pages-block/directives/new-border.directive';
 import { DurationPipe } from './pages-block/pipes/duration.pipe';
-import { TranslateBlockDirective } from './pages-block/directives/translate-block.directive';
+import { ScaleBlockDirective } from './pages-block/directives/translate-block.directive';
 import { LoginModule } from './login-page/login-page.module';
 import { OrderByPipe } from './pages-block/pipes/order-by.pipe';
 import { AddCoursePageModule } from './add-course-page/add-course-page.module';
@@ -23,6 +23,9 @@ import { CoursesService } from './pages-block/services/courses.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
+import { SharedModule } from './shared/shared.module';
+import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interceptor';
+
 
 
 
@@ -38,8 +41,9 @@ import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
     PagesBlockComponent,
     NewBorderDirective,
     DurationPipe,
-    TranslateBlockDirective,
-    OrderByPipe
+    ScaleBlockDirective,
+    OrderByPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -49,14 +53,24 @@ import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
     AddCoursePageModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    SharedModule
   ],
-  providers: [AuthServiceService, CoursesService, AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    }
-  ],
+  providers:
+    [
+      AuthServiceService,
+      CoursesService,
+      AuthGuard,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UrlInterceptorInterceptor,
+        multi: true,
+      }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

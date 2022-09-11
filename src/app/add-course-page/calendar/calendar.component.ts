@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
@@ -7,10 +7,10 @@ import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 })
 export class CalendarComponent {
 
-  @Input() creationDate: Date | string;
-  @Output() creationDateChange: EventEmitter<Date> = new EventEmitter()
+  @Input() creationDate: string;
+  @Output() creationDateChange: EventEmitter<string> = new EventEmitter();
 
-  onCreationDateChange(date: Date): void {
-    this.creationDateChange.emit(date)
+  onCreationDateChange(): void {
+    this.creationDateChange.emit(this.creationDate);
   }
 }

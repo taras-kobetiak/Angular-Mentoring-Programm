@@ -1,7 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="serch-form">
-            <app-search-form (findClick)="findCourse($event)"></app-search-form>
+
+            <div class="input-form">
+                <input id="search-box" type="text" placeholder="Text to search">
+            </div>
         </div>
         <div class="add-course">
             <div class="button__row">
@@ -10,6 +13,7 @@
                 </div>
             </div>
         </div>
+
         <div class="pages">
             <app-courses-page *ngFor="let course of courses |orderBy" [course]="course"
                 (starClicked)="changeRate(course)" (deleteClicked)="deleteComponent($event)">
@@ -17,7 +21,7 @@
             <div *ngIf="!courses.length" class="no-data">{{'No data. Feel free to add new courses' | uppercase}} </div>
         </div>
     </div>
-    <div class="load-more" *ngIf="showLoadMore" >
+    <div class="load-more" *ngIf="showLoadMore">
         <app-load-more (loadClick)="loadNewCourses()"></app-load-more>
     </div>
 </div>

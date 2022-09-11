@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill" class="calendar">
-    <input matInput [matDatepicker]="picker" placeholder="{{(creationDate | date: 'dd/MM/yyyy') || 'Choose a date'}}"
-        (dateChange)="onCreationDateChange($event.value)">
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="creationDate"
+        (dateChange)="onCreationDateChange()">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker [startAt]="creationDate"></mat-datepicker>
+    <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
