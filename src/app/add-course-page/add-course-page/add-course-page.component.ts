@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { from, of, Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
@@ -21,7 +21,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   authors: string;
 
-  courseFormControl: FormGroup;
+  courseFormControl: UntypedFormGroup;
 
   defaultCourseData: ICoursePage = {
     id: '',
@@ -39,7 +39,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private router: Router,
     private courseService: CoursesService,
     private loadingService: LoadingService,
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) { }
 
 
@@ -63,6 +63,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+
+
     this.loadingService.setValue(true);
 
     this.course.id ? this.updateCourse() :
@@ -103,12 +105,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         courseTitle: this.course.title,
         courseDescription: this.course.description
       })
-
-
     });
-
-
-
   }
 
   backToCoursesList(): void {

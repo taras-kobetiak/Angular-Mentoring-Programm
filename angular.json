@@ -109,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "Angular-Mentoring-Programm"
+  "cli": {
+    "analytics": false
+  }
 }

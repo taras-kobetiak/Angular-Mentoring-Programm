@@ -6,14 +6,12 @@ export const DateFormat = {
     dateInput: 'input',
   },
   display: {
-    dateInput: 'MM/DD/YYYY',
+    dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'MMMM YYYY',
     dateA11yLabel: 'MM/DD/YYYY',
     monthYearA11yLabel: 'MMMM YYYY',
   }
 };
-
-
 
 
 @Component({
@@ -22,10 +20,6 @@ export const DateFormat = {
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent {
-
-
-
-
   @Input() creationDate: string;
   @Output() creationDateChange: EventEmitter<string> = new EventEmitter();
 
