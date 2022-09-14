@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddCoursePageComponent } from './add-course-page/add-course-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseAuthorsComponent } from './add-course-page/course-authors/course-authors.component';
 import { CourseDurationComponent } from './add-course-page/course-duration/course-duration.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent, DateFormat } from './calendar/calendar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatMomentDateModule } from '@angular/material-moment-adapter'
 
 @NgModule({
   declarations: [
@@ -20,11 +22,17 @@ import { MatInputModule } from '@angular/material/input';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
 
+
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: DateFormat }
   ],
   exports: [AddCoursePageComponent]
 })

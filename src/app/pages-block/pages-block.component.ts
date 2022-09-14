@@ -21,7 +21,10 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   numberOfCourses: number = NUMBER_OF_ADD_COURSES;
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(private coursesPagesService: CoursesService, private loadingService: LoadingService) { }
+  constructor(
+    private coursesPagesService: CoursesService,
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit(): void {
     setTimeout(() => this.refreshCourse(), 0);

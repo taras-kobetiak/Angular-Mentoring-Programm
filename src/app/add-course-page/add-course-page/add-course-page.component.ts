@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { from, of, Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
@@ -16,8 +17,11 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   courses: ICoursePage[];
   course: ICoursePage;
   temporaryId: number = 1;
-  authors: string;
   courseId: any;
+
+  authors: string;
+
+  courseFormControl: FormGroup;
 
   defaultCourseData: ICoursePage = {
     id: '',
@@ -34,8 +38,11 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private courseService: CoursesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private formBuilder: FormBuilder
   ) { }
+
+
 
   ngOnInit(): void {
     this.course = this.defaultCourseData;
@@ -43,6 +50,16 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
     }
+
+    this.courseFormControl = this.formBuilder.group({
+      courseTitle: [Validators.required, Validators.maxLength(50)],
+      courseDescription: [Validators.required, Validators.maxLength(500)]
+    })
+
+
+
+    this.courseFormControl.valueChanges.subscribe(val => console.log(val))
+
   }
 
   onSubmit(): void {
@@ -81,7 +98,17 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.course = course;
       this.loadingService.setValue(false);
       this.courseService.currentCourseTitle$.next(this.course.title);
+
+      this.courseFormControl.setValue({
+        courseTitle: this.course.title,
+        courseDescription: this.course.description
+      })
+
+
     });
+
+
+
   }
 
   backToCoursesList(): void {
