@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
@@ -11,19 +11,29 @@ import { LoadingService } from 'src/app/shared/loading-block/servises/loading.se
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnDestroy {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
+  loginForm: FormGroup;
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
     private authService: AuthServiceService,
     private router: Router,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private formBuilder: FormBuilder,
   ) { }
 
-  onSubmit(form: NgForm): void {
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    })
+  }
+
+  onSubmit(): void {
     this.loadingService.setValue(true);
-    const currentUser: IUserEntyty = form.value;
+    const currentUser: IUserEntyty = this.loginForm.value;
     this.createUsersData(currentUser);
   }
 
@@ -56,4 +66,13 @@ export class LoginPageComponent implements OnDestroy {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
   }
+
+
+  test() {
+    console.log(this.loginForm.valid);
+
+  }
+
 }
+
+

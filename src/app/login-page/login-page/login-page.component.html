@@ -1,4 +1,4 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -7,28 +7,36 @@
             <div class="e-mail">
                 <div class="email__top top">
                     <div class="email__subtitle  subtitle">
-                        <h3>E-mail:</h3>
+                        <label for="email">E-mail:</label>
+                    </div>
+                    <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                        class="email__invalid invalid">
+                        <label for="email"> Please enter login</label>
                     </div>
                 </div>
                 <div class="email__input input">
-                    <input ngModel name="email" type="text" placeholder="Enter email">
+                    <input formControlName="email" type="text" id="email" placeholder="Enter email">
                 </div>
             </div>
             <div class="password">
                 <div class="password__top top">
-                    <div class="password__subtitle subtitle">
-                        <h3>Password:</h3>
+                    <div class="email__subtitle  subtitle">
+                        <label for="pass">Password:</label>
+                    </div>
+                    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                        class="email__invalid invalid">
+                        <label for="pass"> Please enter a password</label>
                     </div>
                 </div>
                 <div class="email-input input">
-                    <input name="password" ngModel type="password" placeholder="Enter a password">
+                    <input formControlName="password" type="password" id="pass" placeholder="Enter a password">
                 </div>
             </div>
             <div class="form__footer">
                 <div class="forgot-pass">
                     <a>Forget password?</a>
                 </div>
-                <button type="submit" class="button">Login</button>
+                <button [disabled]="!loginForm.valid" type="submit" class="button">Login</button>
             </div>
         </div>
     </div>

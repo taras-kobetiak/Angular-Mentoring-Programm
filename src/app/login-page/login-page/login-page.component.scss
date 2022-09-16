@@ -1,3 +1,4 @@
+h2,
 h3,
 h4,
 h5 {
@@ -9,7 +10,7 @@ form {
     width: 25%;
     height: 40%;
     min-width: 200px;
-    min-height: 150px;
+    min-height: 180px;
 }
 
 .container {
@@ -28,23 +29,34 @@ form {
     justify-content: space-between;
 }
 
-h4 {
-    font-size: 14px;
-}
-
-h5 {
-    font-size: 12px;
-    font-weight: normal;
-    color: grey;
-}
-
-.subtitle {
-    padding-bottom: 2%;
-}
-
 .top {
+    margin-bottom: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+
+
+    .subtitle {
+        flex: 0 1 35%;
+    }
+
+    .invalid {
+        display: flex;
+        align-items: center;
+        color: red;
+
+        p {
+            margin: 0;
+            margin-block: 0;
+        }
+
+        .mat-body p,
+        .mat-body-1 p,
+        .mat-typography .mat-body p,
+        .mat-typography .mat-body-1 p,
+        .mat-typography p {
+            margin: 0;
+        }
+    }
 }
 
 input {

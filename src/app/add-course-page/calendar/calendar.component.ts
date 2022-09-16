@@ -2,9 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 
 export const DateFormat = {
-  parse: {
-    dateInput: 'input',
-  },
   display: {
     dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'MMMM YYYY',
