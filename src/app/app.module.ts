@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CoursesPageComponent } from './pages-block/courses-page/courses-page.component';
 import { SearchFormComponent } from './pages-block/search-form/search-form.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadMoreComponent } from './pages-block/load-more/load-more.component';
 import { PagesBlockComponent } from './pages-block/pages-block.component';
 import { NewBorderDirective } from './pages-block/directives/new-border.directive';
@@ -54,6 +54,7 @@ import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interce
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    ReactiveFormsModule
   ],
   providers:
     [

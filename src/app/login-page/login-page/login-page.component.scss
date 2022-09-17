@@ -37,6 +37,10 @@ form {
 
     .subtitle {
         flex: 0 1 35%;
+
+        .main-label {
+            font-size: 18px;
+        }
     }
 
     .invalid {

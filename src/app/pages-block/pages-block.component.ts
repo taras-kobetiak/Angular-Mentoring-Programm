@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, switchMap, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from "rxjs";
 import { LoadingService } from '../shared/loading-block/servises/loading.service';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { CoursePage } from '../interfaces/classes';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -16,14 +18,16 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   @Output() addButtonClicked: EventEmitter<void> = new EventEmitter()
 
+  searchBox$: FormControl;
   showLoadMore: boolean = true;
-  courses: ICoursePage[] = [];
+  courses: CoursePage[] = [];
   numberOfCourses: number = NUMBER_OF_ADD_COURSES;
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
     private coursesPagesService: CoursesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -32,11 +36,10 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   }
 
   searchFunction(): void {
-    const searchBox = document.getElementById('search-box') as HTMLInputElement;
+    this.searchBox$ = this.formBuilder.control('');
 
-    fromEvent(searchBox, 'input').pipe(
-      map(elem => (elem.target as HTMLInputElement).value),
-      filter(text => text.length > 2 || text === ''),
+    this.searchBox$.valueChanges.pipe(
+      filter(text => text !== null && text.length > 2 || text === ''),
       debounceTime(500),
       distinctUntilChanged(),
       switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase())),

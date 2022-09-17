@@ -1,9 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="serch-form">
-
             <div class="input-form">
-                <input id="search-box" type="text" placeholder="Text to search">
+                <input [formControl]="searchBox$" id="search-box" type="text" placeholder="Text to search">
             </div>
         </div>
         <div class="add-course">

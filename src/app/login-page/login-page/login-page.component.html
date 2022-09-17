@@ -7,7 +7,7 @@
             <div class="e-mail">
                 <div class="email__top top">
                     <div class="email__subtitle  subtitle">
-                        <label for="email">E-mail:</label>
+                        <label for="email" class="email__label main-label">E-mail:</label>
                     </div>
                     <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
                         class="email__invalid invalid">
@@ -21,7 +21,7 @@
             <div class="password">
                 <div class="password__top top">
                     <div class="email__subtitle  subtitle">
-                        <label for="pass">Password:</label>
+                        <label for="pass" class="email__label main-label">Password:</label>
                     </div>
                     <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
                         class="email__invalid invalid">
