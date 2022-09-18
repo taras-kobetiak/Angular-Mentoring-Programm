@@ -2,5 +2,5 @@
     <h5>Duration:</h5>
 </div>
 <div class="input">
-    <input [(ngModel)]="duration" name="duration" type="text" (ngModelChange)="onDurationChange()">
+    <input [formControl]="durationControl$" name="duration" type="text" value="durationControl$">
 </div>

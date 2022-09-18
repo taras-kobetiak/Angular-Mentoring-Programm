@@ -1,4 +1,4 @@
-<form [formGroup]="courseFormControl">
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <div class="row">
             <div class="title__element">
@@ -6,7 +6,12 @@
                     <h5>Title:</h5>
                 </div>
                 <div class="input">
-                    <input formControlName="courseTitle" type="text">
+                    <label for="courseTitle"
+                        *ngIf="course.title.length > 50 && courseForm.get('courseTitle')?.touched">The
+                        maximum title length is 50 symbols</label>
+                    <label for="courseTitle" *ngIf="!course.title && courseForm.get('courseTitle')?.touched">Please
+                        enter a title</label>
+                    <input id="courseTitle" formControlName="courseTitle" type="text">
                 </div>
             </div>
             <div class="descriotion__element">
@@ -14,22 +19,29 @@
                     <h5>Description:</h5>
                 </div>
                 <div class="input">
-                    <textarea formControlName="courseDescription" cols="30" rows="10"></textarea>
+                    <label for="courseDescription"
+                        *ngIf="course.description.length > 300 && courseForm.get('courseDescription')?.touched">The
+                        maximum description length is 300 symbols</label>
+                    <label for="courseDescription"
+                        *ngIf="!course.description && courseForm.get('courseDescription')?.touched">Please
+                        enter a description</label>
+                    <textarea id="courseDescription" formControlName="courseDescription" cols="30" rows="10"></textarea>
                 </div>
             </div>
-
-
-
-
             <div class="date__element">
                 <div class="subtitle">
                     <h5>Date:</h5>
                 </div>
-                <app-calendar [creationDate]="course.creationDate" (creationDateChange)="creationDateChange($event)">
+
+
+                <label for="courseCreationDate"> </label>
+
+                <app-calendar id="courseCreationDate" formControlName="courseCreationDate">
                 </app-calendar>
             </div>
+
             <div class="duration__element">
-                <app-course-duration [duration]="course.duration" (durationChange)="durationChange($event)">
+                <app-course-duration formControlName="courseDuration">
                 </app-course-duration>
             </div>
             <div class="authors__element">
@@ -37,7 +49,7 @@
             </div>
             <div class="management__block">
                 <div class="submit__button">
-                    <button type="submit" (click)="onSubmit()">Save</button>
+                    <button type="submit" [disabled]="!courseForm.valid">Save</button>
                 </div>
                 <div class="cancel__button">
                     <button type="reset" (click)="backToCoursesList()">Cancel</button>

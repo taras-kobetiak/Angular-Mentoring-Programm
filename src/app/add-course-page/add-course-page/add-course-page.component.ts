@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from, of, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
@@ -21,7 +21,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   authors: string;
 
-  courseFormControl: UntypedFormGroup;
+  courseForm: FormGroup;
 
   defaultCourseData: ICoursePage = {
     id: '',
@@ -42,29 +42,37 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private formBuilder: UntypedFormBuilder
   ) { }
 
-
-
   ngOnInit(): void {
     this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
     }
-
-    this.courseFormControl = this.formBuilder.group({
-      courseTitle: [Validators.required, Validators.maxLength(50)],
-      courseDescription: [Validators.required, Validators.maxLength(500)]
+    this.courseForm = this.formBuilder.group({
+      courseTitle: ['', [Validators.required, Validators.maxLength(50)]],
+      courseDescription: ['', [Validators.required, Validators.maxLength(500)]],
+      courseDuration: [0, [Validators.required,]],
+      courseCreationDate: ['', [Validators.required]]
     })
 
+    this.courseForm.controls['courseTitle'].valueChanges.subscribe(title => {
+      this.course.title = title;
+    });
 
+    this.courseForm.controls['courseDescription'].valueChanges.subscribe(description => {
+      this.course.description = description;
+    });
 
-    this.courseFormControl.valueChanges.subscribe(val => console.log(val))
+    this.courseForm.controls['courseDuration'].valueChanges.subscribe(duration => {
+      this.course.duration = duration;
+    })
 
+    this.courseForm.controls['courseCreationDate'].valueChanges.subscribe(creationDate => {
+      this.course.creationDate = creationDate;
+    })
   }
 
   onSubmit(): void {
-
-
     this.loadingService.setValue(true);
 
     this.course.id ? this.updateCourse() :
@@ -101,9 +109,11 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.loadingService.setValue(false);
       this.courseService.currentCourseTitle$.next(this.course.title);
 
-      this.courseFormControl.setValue({
+      this.courseForm.setValue({
         courseTitle: this.course.title,
-        courseDescription: this.course.description
+        courseDescription: this.course.description,
+        courseDuration: this.course.duration,
+        courseCreationDate: this.course.creationDate
       })
     });
   }
@@ -112,17 +122,11 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/courses']);
   }
 
-  creationDateChange(creationDate: string): void {
-    this.course.creationDate = creationDate;
-  }
-
-  durationChange(duration: number): void {
-    this.course.duration = duration;
-  }
-
   authorsSubmit(authors: string): void {
     this.authors = authors;
   }
+
+
 
   ngOnDestroy(): void {
     this.unsubscribingData$.next();

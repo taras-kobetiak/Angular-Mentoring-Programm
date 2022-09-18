@@ -1,7 +1,6 @@
 <mat-form-field appearance="fill" class="calendar">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="creationDate"
-        (dateChange)="onCreationDateChange()">
-
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="creationDate$"
+        value="creationDateControl$">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-datepicker #picker startView="multi-year" (monthSelected)="setMonthAndYear($event, picker)"></mat-datepicker>
 </mat-form-field>

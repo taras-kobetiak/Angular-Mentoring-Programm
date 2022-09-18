@@ -9,8 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-// import { MatMomentDateModule } from '@angular/material-moment-adapter'
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -27,10 +26,9 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    // MatMomentDateModule
   ],
   providers: [
-    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
     { provide: MAT_DATE_FORMATS, useValue: DateFormat }
   ],
   exports: [AddCoursePageComponent]
