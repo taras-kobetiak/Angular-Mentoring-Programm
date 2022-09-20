@@ -8,8 +8,10 @@ export class CoursePage implements ICoursePage {
         public creationDate: string,
         public duration: number,
         public description: string,
-        public topRated: boolean = false) {
+        public topRated: boolean = false,
+        public authors: string[]) {
     }
+
 }
 
 export class User implements IUserEntyty {

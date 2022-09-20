@@ -36,16 +36,19 @@ export const DateFormat = {
 })
 export class CalendarComponent implements OnInit, ControlValueAccessor {
 
-  creationDate$ = new FormControl();
+
   onChange: any;
   onTouched: any;
+  creationDate$ = new FormControl();
 
 
   ngOnInit(): void {
-
     this.creationDate$.valueChanges.subscribe(creationDate => {
       if (this.onChange) {
         this.onChange(creationDate);
+      }
+      if (this.onTouched) {
+        this.onTouched(creationDate)
       }
     })
   }
@@ -58,6 +61,10 @@ export class CalendarComponent implements OnInit, ControlValueAccessor {
   }
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  touched() {
+    this.onTouched();
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {

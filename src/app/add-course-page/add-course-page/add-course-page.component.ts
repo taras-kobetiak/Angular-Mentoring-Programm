@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
@@ -29,7 +29,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     creationDate: '',
     duration: 0,
     description: '',
-    topRated: false
+    topRated: false,
+    authors: ['']
   };
 
   private unsubscribingData$: Subject<void> = new Subject<void>();
@@ -50,9 +51,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     }
     this.courseForm = this.formBuilder.group({
       courseTitle: ['', [Validators.required, Validators.maxLength(50)]],
-      courseDescription: ['', [Validators.required, Validators.maxLength(500)]],
-      courseDuration: [0, [Validators.required,]],
-      courseCreationDate: ['', [Validators.required]]
+      courseDescription: '',
+      courseDuration: 0,
+      courseCreationDate: ['']
     })
 
     this.courseForm.controls['courseTitle'].valueChanges.subscribe(title => {
@@ -78,7 +79,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.course.id ? this.updateCourse() :
       this.addNewCourse();
   }
-
 
   updateCourse(): void {
     this.courseService.updateCourse(this.course).pipe(
@@ -109,11 +109,12 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.loadingService.setValue(false);
       this.courseService.currentCourseTitle$.next(this.course.title);
 
-      this.courseForm.setValue({
+      this.courseForm.patchValue({
         courseTitle: this.course.title,
         courseDescription: this.course.description,
         courseDuration: this.course.duration,
-        courseCreationDate: this.course.creationDate
+        courseCreationDate: this.course.creationDate,
+
       })
     });
   }
@@ -121,11 +122,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   backToCoursesList(): void {
     this.router.navigate(['/courses']);
   }
-
-  authorsSubmit(authors: string): void {
-    this.authors = authors;
-  }
-
 
 
   ngOnDestroy(): void {

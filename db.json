@@ -1,20 +1,34 @@
 {
   "courses": [
     {
-      "id": "b45b331a-3e50-4ac8-8b72-7620b4bc12e8",
-      "title": "123",
-      "creationDate": "2001-04-02T21:00:00.000Z",
-      "duration": "23",
-      "description": "123",
+      "id": "400b11c6-a9de-4346-8116-b3f538f37c2c",
+      "title": "1123123",
+      "creationDate": "2021-03-12T22:00:00.000Z",
+      "duration": "1212",
+      "description": "1123",
       "topRated": false
     },
     {
-      "id": "400b11c6-a9de-4346-8116-b3f538f37c2c",
-      "title": "1123123",
-      "creationDate": "2211-01-19T22:00:00.000Z",
+      "id": "e9de7863-edf9-4710-8ba3-ad850fca427e",
+      "title": "ыв",
+      "creationDate": "2022-09-18T21:00:00.000Z",
+      "duration": "12",
+      "description": "ф",
+      "topRated": false,
+      "authors": [
+        ""
+      ]
+    },
+    {
+      "id": "44b6fe0f-4c08-47b7-99e0-d904496fe1c3",
+      "title": "lk;",
+      "creationDate": "2026-02-07T22:00:00.000Z",
       "duration": 0,
-      "description": "1123",
-      "topRated": false
+      "description": "j",
+      "topRated": false,
+      "authors": [
+        ""
+      ]
     }
   ],
   "users": [

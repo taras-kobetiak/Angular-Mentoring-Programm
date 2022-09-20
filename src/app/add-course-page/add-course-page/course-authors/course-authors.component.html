@@ -1,6 +1,3 @@
-<div class="subtitle">
-    <h5>Authors:</h5>
-</div>
 <div class="input">
-    <input [(ngModel)]="authors" name="authors" type="text" (ngModelChange)="onAuthorsSubmit()">
+    <input [formControl]="authors$" name="authors" type="text">
 </div>

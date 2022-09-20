@@ -1,15 +1,32 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-course-authors',
   templateUrl: './course-authors.component.html',
   styleUrls: ['./course-authors.component.scss']
 })
-export class CourseAuthorsComponent {
-  @Input() authors: string;
-  @Output() authorsSubmit: EventEmitter<string> = new EventEmitter()
+export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
-  onAuthorsSubmit(): void {
-    this.authorsSubmit.emit(this.authors)
+  onChange: any;
+  onTouched: any;
+  authors$ = new FormControl();
+
+  ngOnInit(): void {
+
   }
+
+  writeValue(obj: any): void {
+    this.authors$.setValue(obj);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+
 }

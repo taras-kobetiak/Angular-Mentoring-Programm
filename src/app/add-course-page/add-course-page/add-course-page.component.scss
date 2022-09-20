@@ -29,6 +29,12 @@ h5 {
 
 .subtitle {
     padding-bottom: 2%;
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        color: red;
+    }
 }
 
 input {
