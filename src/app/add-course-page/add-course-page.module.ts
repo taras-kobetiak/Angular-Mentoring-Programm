@@ -4,7 +4,7 @@ import { AddCoursePageComponent } from './add-course-page/add-course-page.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseAuthorsComponent } from './add-course-page/course-authors/course-authors.component';
 import { CourseDurationComponent } from './add-course-page/course-duration/course-duration.component';
-import { CalendarComponent, DateFormat } from './calendar/calendar.component';
+import { CalendarComponent, DateFormat } from './add-course-page/calendar/calendar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';

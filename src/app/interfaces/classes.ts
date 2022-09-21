@@ -11,7 +11,6 @@ export class CoursePage implements ICoursePage {
         public topRated: boolean = false,
         public authors: string[]) {
     }
-
 }
 
 export class User implements IUserEntyty {

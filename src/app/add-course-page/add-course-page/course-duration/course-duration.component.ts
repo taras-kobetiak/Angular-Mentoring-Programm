@@ -29,14 +29,12 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor, Va
     this.duration$.valueChanges.subscribe(duration => {
       if (this.onChange) {
         this.onChange(duration);
-
       }
     })
   }
 
   writeValue(obj: any): void {
     this.duration$.setValue(obj);
-
   }
 
   registerOnChange(fn: any): void {
@@ -49,10 +47,9 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor, Va
 
   validate(control: AbstractControl<any, any>): ValidationErrors | null {
     const regex = /^\d+$/;
-    return !regex.test(control.value) ? { durationInvalid: true } :
+    return !regex.test(control.value) || control.value === 0 ? { durationInvalid: true } :
       null;
   }
-
 
   touched() {
     this.onTouched();

@@ -10,7 +10,7 @@
                         enter a title</p>
                 </div>
                 <div class="input">
-                    <input id="courseTitle" formControlName="courseTitle" type="text">
+                    <input formControlName="courseTitle" type="text">
                 </div>
             </div>
             <div class="descriotion__element">
@@ -24,27 +24,27 @@
                         enter a description</p>
                 </div>
                 <div class="input">
-                    <textarea id="courseDescription" formControlName="courseDescription" cols="30" rows="10"></textarea>
+                    <textarea formControlName="courseDescription" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="date__element">
                 <div class="subtitle">
                     <h5>Date:</h5>
                     <p *ngIf="courseForm.get('courseCreationDate')?.invalid && courseForm.get('courseCreationDate')?.touched"
-                        class="invalid">wrong123213</p>
+                        class="invalid">Please enter or pick the date</p>
                 </div>
-                <app-calendar id="courseCreationDate" formControlName="courseCreationDate">
+                <app-calendar formControlName="courseCreationDate">
                 </app-calendar>
             </div>
             <div class="duration__element">
                 <div class="subtitle">
                     <h5>Duration:</h5>
-                    <p *ngIf="courseForm.get('courseDuration')?.invalid && courseForm.get('courseDuration')?.touched"
-                        class="invalid">Please, enter the duration
-                        in
-                        minutes</p>
+                    <p *ngIf="courseForm.get('courseDuration')?.value !== 0 && courseForm.get('courseDuration')?.invalid && courseForm.get('courseDuration')?.touched"
+                        class="invalid">Please, enter the duration in minutes</p>
+                    <p *ngIf="courseForm.get('courseDuration')?.value === 0 && courseForm.get('courseDuration')?.touched"
+                        class="invalid">Duration should be more than 0 min</p>
                 </div>
-                <app-course-duration id="courseDuration" formControlName="courseDuration">
+                <app-course-duration formControlName="courseDuration">
                 </app-course-duration>
             </div>
             <div class="authors__element">
@@ -53,7 +53,7 @@
                     <!-- <p *ngIf="courseForm.get('courseDuration')?.invalid" class="invalid">Please, enter the duration in
                         minutes</p> -->
                 </div>
-                <app-course-authors></app-course-authors>
+                <app-course-authors formControlName="courseAuthors"></app-course-authors>
             </div>
             <div class="management__block">
                 <div class="submit__button">

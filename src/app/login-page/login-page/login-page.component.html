@@ -9,7 +9,7 @@
                     <div class="email__subtitle  subtitle">
                         <label for="email" class="email__label main-label">E-mail:</label>
                     </div>
-                    <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
                         class="email__invalid invalid">
                         <label for="email"> Please enter login</label>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="email__subtitle  subtitle">
                         <label for="pass" class="email__label main-label">Password:</label>
                     </div>
-                    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
                         class="email__invalid invalid">
                         <label for="pass"> Please enter a password</label>
                     </div>

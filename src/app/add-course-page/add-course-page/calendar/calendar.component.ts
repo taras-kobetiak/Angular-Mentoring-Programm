@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 
@@ -31,11 +31,15 @@ export const DateFormat = {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CalendarComponent),
       multi: true
-    }
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => CalendarComponent),
+      multi: true
+    },
   ]
 })
-export class CalendarComponent implements OnInit, ControlValueAccessor {
-
+export class CalendarComponent implements OnInit, ControlValueAccessor, Validator {
 
   onChange: any;
   onTouched: any;
@@ -46,9 +50,6 @@ export class CalendarComponent implements OnInit, ControlValueAccessor {
     this.creationDate$.valueChanges.subscribe(creationDate => {
       if (this.onChange) {
         this.onChange(creationDate);
-      }
-      if (this.onTouched) {
-        this.onTouched(creationDate)
       }
     })
   }
@@ -67,11 +68,15 @@ export class CalendarComponent implements OnInit, ControlValueAccessor {
     this.onTouched();
   }
 
+  validate(control: AbstractControl<any, any>): ValidationErrors | null {
+    return !control.value ? { dateInvalid: true } :
+      null;
+  }
+
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-
     const ctrlValue = this.creationDate$.value;
-    if (ctrlValue.date) {
 
+    if (ctrlValue && ctrlValue.date) {
       ctrlValue.date(normalizedMonthAndYear.date());
       ctrlValue.month(normalizedMonthAndYear.month());
       ctrlValue.year(normalizedMonthAndYear.year());

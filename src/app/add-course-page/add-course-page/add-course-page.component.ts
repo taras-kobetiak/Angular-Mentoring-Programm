@@ -19,8 +19,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   temporaryId: number = 1;
   courseId: any;
 
-  authors: string;
-
   courseForm: FormGroup;
 
   defaultCourseData: ICoursePage = {
@@ -53,24 +51,32 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       courseTitle: ['', [Validators.required, Validators.maxLength(50)]],
       courseDescription: '',
       courseDuration: 0,
-      courseCreationDate: ['']
+      courseCreationDate: [''],
+      courseAuthors: [['']]
     })
 
-    this.courseForm.controls['courseTitle'].valueChanges.subscribe(title => {
+    this.courseForm.get('courseTitle')?.valueChanges.subscribe(title => {
       this.course.title = title;
     });
 
-    this.courseForm.controls['courseDescription'].valueChanges.subscribe(description => {
+    this.courseForm.get('courseDescription')?.valueChanges.subscribe(description => {
       this.course.description = description;
     });
 
-    this.courseForm.controls['courseDuration'].valueChanges.subscribe(duration => {
+    this.courseForm.get('courseCreationDate')?.valueChanges.subscribe(creationDate => {
+      this.course.creationDate = creationDate;
+    });
+
+    this.courseForm.get('courseDuration')?.valueChanges.subscribe(duration => {
       this.course.duration = duration;
+    });
+
+    this.courseForm.get('courseAuthors')?.valueChanges.subscribe(authors => {
+      this.course.authors = authors.split(',');
     })
 
-    this.courseForm.controls['courseCreationDate'].valueChanges.subscribe(creationDate => {
-      this.course.creationDate = creationDate;
-    })
+
+
   }
 
   onSubmit(): void {
@@ -112,10 +118,14 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.courseForm.patchValue({
         courseTitle: this.course.title,
         courseDescription: this.course.description,
-        courseDuration: this.course.duration,
         courseCreationDate: this.course.creationDate,
-
+        courseDuration: this.course.duration,
+        courseAuthors: this.course.authors
       })
+
+      console.log(typeof (course.authors));
+
+
     });
   }
 
