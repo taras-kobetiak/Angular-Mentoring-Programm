@@ -1,3 +1,27 @@
 <div class="input">
-    <input [formControl]="authors$" name="authors" type="text" (blur)="touched()">
+    <div class="input__wrapper">
+        <input [formControl]="authors$" name="authors" type="text" (blur)="touched()">
+    </div>
+    <div class="authors-in-input__wrapper">
+        <div class="authors-in-input__list">
+            <div class="authors-in-input__item" *ngFor="let author of currentAuthorsList">
+                <div class="authors-in-input__author author">
+                    <div class="author__wrapper">
+                        <div class="author__item">
+                            <div class="author__name">{{author}}</div>
+                            <div (click)="onAuthorDeleteClick(author)" class="author__button" *ngIf="author">x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="authors__wrapper">
+    <div class="authors__list" *ngFor="let author of authorsFilteredList">
+        <p (click)="onAuthorNameClick(author)">{{author.fullName}}</p>
+    </div>
 </div>

@@ -8,7 +8,114 @@ h5 {
     padding-bottom: 2%;
 }
 
-input {
-    box-sizing: border-box;
-    width: 100%;
+
+.input {
+    border: 1px solid black;
+    background-color: #fff;
+    min-height: 42px;
+    min-width: 50px;
+    display: flex;
+}
+
+.input__wrapper {
+
+    flex: 0 1 1%;
+
+    input {
+        border: none;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+
+        &:hover {
+            min-width: 10px
+        }
+
+        &:focus {
+            min-width: 100px;
+            border: #fff;
+        }
+    }
+
+}
+
+
+.authors-in-input__wrapper {
+    flex: 1 0 80%;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.authors-in-input__list {
+    display: flex;
+    column-gap: 10px;
+}
+
+.authors-in-input__item {
+    border: 1px solid rgb(232, 229, 229);
+    min-height: 25px;
+    height: 75%;
+    background-color: #fff;
+    display: flex;
+    column-gap: 10px;
+}
+
+.authors-in-input__author {}
+
+.author {}
+
+
+
+.author__item {
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+}
+
+.author__name {
+    flex: 1 0 auto;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.author__button {
+    margin: -5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.authors__wrapper {
+    max-height: 100px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-size: 16px;
+    background-color: #fff;
+
+    p {
+        padding: 5px;
+        border: 1px solid black;
+    }
+
+    p:hover {
+        cursor: pointer;
+        transform: scale(101%);
+    }
 }

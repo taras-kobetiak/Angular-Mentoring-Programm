@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
+import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthorsService } from '../services/authors.service';
 
 @Component({
   selector: 'app-add-course-page',
@@ -14,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  courses: ICoursePage[];
+  authorsFilteredList: IAuthors[];
   course: ICoursePage;
   temporaryId: number = 1;
   courseId: any;
@@ -38,7 +40,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private router: Router,
     private courseService: CoursesService,
     private loadingService: LoadingService,
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: FormBuilder,
+    private authorsService: AuthorsService
   ) { }
 
   ngOnInit(): void {
@@ -71,12 +74,13 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.course.duration = duration;
     });
 
-    this.courseForm.get('courseAuthors')?.valueChanges.subscribe(authors => {
-      this.course.authors = authors.split(',');
+    this.courseForm.get('courseAuthors')?.valueChanges.pipe(
+      debounceTime(300),
+      switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
+      takeUntil(this.unsubscribingData$)
+    ).subscribe((authorsList: any) => {
+      this.authorsFilteredList = authorsList;
     })
-
-
-
   }
 
   onSubmit(): void {
@@ -120,12 +124,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         courseDescription: this.course.description,
         courseCreationDate: this.course.creationDate,
         courseDuration: this.course.duration,
-        courseAuthors: this.course.authors
+
       })
-
-      console.log(typeof (course.authors));
-
-
     });
   }
 
@@ -133,6 +133,23 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/courses']);
   }
 
+  addNewAuthor(author: IAuthors) {
+    if (this.course.authors[0] === '') {
+      this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
+      this.courseForm.get('courseAuthors')?.setValue('');
+    } else {
+      if (!this.course.authors.find(c => c === author.fullName)) {
+        this.course.authors = this.course.authors.concat(author.fullName);
+        this.courseForm.get('courseAuthors')?.setValue('');
+      }
+    }
+  }
+
+  deleteAuthor(authorName: string) {
+    console.log(authorName);
+
+    this.course.authors = this.course.authors.filter(author => author !== authorName);
+  }
 
   ngOnDestroy(): void {
     this.unsubscribingData$.next();

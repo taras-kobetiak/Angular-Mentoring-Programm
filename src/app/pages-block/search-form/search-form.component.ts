@@ -10,6 +10,6 @@ export class SearchFormComponent {
   inputData: string;
 
   onFindClick(): void {
-    this.findClick.emit(this.inputData)
+    this.findClick.emit(this.inputData);
   }
 }

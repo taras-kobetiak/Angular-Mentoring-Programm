@@ -53,9 +53,12 @@
                     <!-- <p *ngIf="courseForm.get('courseDuration')?.invalid" class="invalid">Please, enter the duration in
                         minutes</p> -->
                 </div>
-                <app-course-authors formControlName="courseAuthors"></app-course-authors>
+                <app-course-authors formControlName="courseAuthors" [authorsFilteredList]="authorsFilteredList"
+                    [currentAuthorsList]="course.authors" (authorNameClick)="addNewAuthor($event)"
+                    (authorDeleteClick)="deleteAuthor($event)">
+                </app-course-authors>
             </div>
-            <div class="management__block">
+            <div class=" management__block">
                 <div class="submit__button">
                     <button type="submit" [disabled]="!courseForm.valid">Save</button>
                 </div>

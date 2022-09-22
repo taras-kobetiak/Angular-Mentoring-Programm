@@ -1,5 +1,7 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IAuthors } from 'src/app/interfaces/authors.interface';
+
 
 @Component({
   selector: 'app-course-authors',
@@ -15,6 +17,11 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 })
 export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
+  @Input() currentAuthorsList: string[];
+  @Input() authorsFilteredList: IAuthors[];
+  @Output() authorNameClick: EventEmitter<IAuthors> = new EventEmitter();
+  @Output() authorDeleteClick: EventEmitter<string> = new EventEmitter();
+
   onChange: any;
   onTouched: any;
   authors$ = new FormControl();
@@ -24,7 +31,7 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
       if (this.onChange) {
         this.onChange(authors);
       }
-    })
+    });
   }
 
   writeValue(obj: any): void {
@@ -40,6 +47,15 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   }
 
   touched() {
-    this.onTouched()
+    this.onTouched();
+  }
+
+  onAuthorNameClick(author: IAuthors): void {
+    this.authorNameClick.emit(author);
+  }
+
+
+  onAuthorDeleteClick(authorName: string): void {
+    this.authorDeleteClick.emit(authorName)
   }
 }

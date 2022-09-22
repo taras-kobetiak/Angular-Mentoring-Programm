@@ -1,13 +1,26 @@
 {
   "courses": [
     {
-      "id": "c66d5fc6-725c-4cbf-be1d-7b962238422c",
-      "title": "123123",
-      "creationDate": "2021-02-02T22:00:00.000Z",
-      "duration": 123,
-      "description": "aw",
+      "id": "f44c64bb-0cac-443e-8668-7ba6656bf914",
+      "title": "123",
+      "creationDate": "2022-03-09T22:00:00.000Z",
+      "duration": 12,
+      "description": "123",
       "topRated": false,
-      "authors": "sdfg, dfagfdsg, sdfgsdfg"
+      "authors": [
+        "Taras"
+      ]
+    },
+    {
+      "id": "ef9cd5fb-0dd6-4096-81f9-9dbd14e65ede",
+      "title": "2",
+      "creationDate": "2022-03-14T22:00:00.000Z",
+      "duration": 2,
+      "description": "2",
+      "topRated": false,
+      "authors": [
+        "Taras"
+      ]
     }
   ],
   "users": [
@@ -24,6 +37,28 @@
       "email": "vika@mail.com",
       "password": "bus",
       "token": "2"
+    }
+  ],
+  "authors": [
+    {
+      "id": "1qwe",
+      "fullName": "Taras"
+    },
+    {
+      "id": "1qweasd",
+      "fullName": "Vika s. Busya"
+    },
+    {
+      "id": "1qwe",
+      "fullName": "Dorosh Artemiy-Artur"
+    },
+    {
+      "id": "122",
+      "fullName": "Dorosh Maryna"
+    },
+    {
+      "id": "1qwesfsdh",
+      "fullName": "Rjbetiak Andrii"
     }
   ]
 }
