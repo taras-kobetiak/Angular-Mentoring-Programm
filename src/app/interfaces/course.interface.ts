@@ -1,4 +1,4 @@
-export interface ICoursePage extends ICoursePageRender {
+export interface ICoursePage extends IAddCourseData {
     id: string;
     title: string;
     creationDate: string;
@@ -9,7 +9,7 @@ export interface ICoursePage extends ICoursePageRender {
 }
 
 
-export interface ICoursePageRender {
+export interface IAddCourseData {
     title: string;
     creationDate: string;
     duration: number;

@@ -1,4 +1,3 @@
-import { HtmlTagDefinition } from '@angular/compiler';
 import { Component, forwardRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IAuthors } from 'src/app/interfaces/authors.interface';

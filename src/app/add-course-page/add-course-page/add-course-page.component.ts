@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
+import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { ICoursePage, ICoursePageRender } from 'src/app/interfaces/course.interface';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -60,7 +60,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
 
     // combineLatest(this.courseForm.valueChanges).subscribe((courseData: any) => {
-    //   let course1: ICoursePageRender = courseData;
+    //   let course1: IAddCourseData = courseData;
     //   console.log(course1);
 
     //   this.course.title = courseData.title;
@@ -83,7 +83,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     });
 
     this.courseForm.get('authors')?.valueChanges.pipe(
-      // debounceTime(300),
+      debounceTime(300),
       switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
       takeUntil(this.unsubscribingData$)
     ).subscribe((authorsList: any) => {
