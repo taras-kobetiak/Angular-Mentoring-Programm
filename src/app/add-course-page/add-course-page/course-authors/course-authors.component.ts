@@ -33,7 +33,6 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
     this.authors$.valueChanges.subscribe(authors => {
 
       if (this.onChange) {
-        this.showAuthorsList = true;
         this.onChange(authors);
       }
     });
@@ -50,23 +49,23 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
+  onFocus(): void {
+    this.showAuthorsList = true;
+  }
 
-  touched() {
+  onBlur(): void {
     this.onTouched();
   }
 
   onAuthorNameClick(author: IAuthors): void {
     this.authorNameClick.emit(author);
+
+    this.showAuthorsList = false;
+    this.authors$.setValue('');
   }
 
   onAuthorDeleteClick(authorName: string): void {
     this.authorDeleteClick.emit(authorName);
-
-    this.showAuthorsList = false;
-
-
-    // I need this statemen but with them  onAuthorDeleteClick() didnt emit value
-    // this.authors$.setValue('');
   }
 
   onInputDivClick(): void {

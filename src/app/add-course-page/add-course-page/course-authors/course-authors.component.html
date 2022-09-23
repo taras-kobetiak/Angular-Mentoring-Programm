@@ -1,6 +1,7 @@
 <div class="input" (click)="onInputDivClick()">
     <div class="input__wrapper">
-        <input #input id="input" [formControl]="authors$" name="authors" type="text" (blur)="touched()">
+        <input #input id="input" [formControl]="authors$" name="authors" type="text" (focus)="onFocus()"
+            (blur)="onBlur()">
     </div>
     <div class="authors-in-input__wrapper">
         <div class="authors-in-input__list" (click)="stopPropagation($event)">

@@ -142,7 +142,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   addNewAuthor(author: IAuthors) {
-    console.log(1);
 
     if (this.course.authors[0] === '') {
       this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
