@@ -1,3 +1,4 @@
+import { HtmlTagDefinition } from '@angular/compiler';
 import { Component, forwardRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
@@ -24,11 +25,15 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
   onChange: any;
   onTouched: any;
+  showAuthorsList: boolean;
+  input: HTMLElement | null = document.getElementById('input');
   authors$ = new FormControl();
 
   ngOnInit(): void {
     this.authors$.valueChanges.subscribe(authors => {
+
       if (this.onChange) {
+        this.showAuthorsList = true;
         this.onChange(authors);
       }
     });
@@ -54,8 +59,23 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
     this.authorNameClick.emit(author);
   }
 
-
   onAuthorDeleteClick(authorName: string): void {
-    this.authorDeleteClick.emit(authorName)
+    this.authorDeleteClick.emit(authorName);
+
+    this.showAuthorsList = false;
+
+
+    // I need this statemen but with them  onAuthorDeleteClick() didnt emit value
+    // this.authors$.setValue('');
+  }
+
+  onInputDivClick(): void {
+    const input = document.getElementById('input');
+    if (input) {
+      input.focus();
+    }
+  }
+  stopPropagation(event: MouseEvent): void {
+    event.stopPropagation()
   }
 }

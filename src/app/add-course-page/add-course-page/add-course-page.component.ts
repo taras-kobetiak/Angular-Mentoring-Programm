@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
+import { combineLatest, debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { ICoursePage } from 'src/app/interfaces/course.interface';
+import { ICoursePage, ICoursePageRender } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -51,31 +51,39 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       setTimeout(() => this.takeCourseData());
     }
     this.courseForm = this.formBuilder.group({
-      courseTitle: ['', [Validators.required, Validators.maxLength(50)]],
-      courseDescription: '',
-      courseDuration: 0,
-      courseCreationDate: [''],
-      courseAuthors: [['']]
+      title: ['', [Validators.required, Validators.maxLength(50)]],
+      description: '',
+      duration: 0,
+      creationDate: [''],
+      authors: [[], this.authorValidator]
     })
 
-    this.courseForm.get('courseTitle')?.valueChanges.subscribe(title => {
+
+    // combineLatest(this.courseForm.valueChanges).subscribe((courseData: any) => {
+    //   let course1: ICoursePageRender = courseData;
+    //   console.log(course1);
+
+    //   this.course.title = courseData.title;
+    // })
+
+    this.courseForm.get('title')?.valueChanges.subscribe(title => {
       this.course.title = title;
     });
 
-    this.courseForm.get('courseDescription')?.valueChanges.subscribe(description => {
+    this.courseForm.get('description')?.valueChanges.subscribe(description => {
       this.course.description = description;
     });
 
-    this.courseForm.get('courseCreationDate')?.valueChanges.subscribe(creationDate => {
+    this.courseForm.get('creationDate')?.valueChanges.subscribe(creationDate => {
       this.course.creationDate = creationDate;
     });
 
-    this.courseForm.get('courseDuration')?.valueChanges.subscribe(duration => {
+    this.courseForm.get('duration')?.valueChanges.subscribe(duration => {
       this.course.duration = duration;
     });
 
-    this.courseForm.get('courseAuthors')?.valueChanges.pipe(
-      debounceTime(300),
+    this.courseForm.get('authors')?.valueChanges.pipe(
+      // debounceTime(300),
       switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
       takeUntil(this.unsubscribingData$)
     ).subscribe((authorsList: any) => {
@@ -120,10 +128,10 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.courseService.currentCourseTitle$.next(this.course.title);
 
       this.courseForm.patchValue({
-        courseTitle: this.course.title,
-        courseDescription: this.course.description,
-        courseCreationDate: this.course.creationDate,
-        courseDuration: this.course.duration,
+        title: this.course.title,
+        description: this.course.description,
+        creationDate: this.course.creationDate,
+        duration: this.course.duration,
 
       })
     });
@@ -134,6 +142,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   addNewAuthor(author: IAuthors) {
+    console.log(1);
+
     if (this.course.authors[0] === '') {
       this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
       this.courseForm.get('courseAuthors')?.setValue('');
@@ -146,9 +156,13 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   deleteAuthor(authorName: string) {
-    console.log(authorName);
-
     this.course.authors = this.course.authors.filter(author => author !== authorName);
+  }
+
+  authorValidator(control: AbstractControl): { [key: string]: boolean } | null {
+
+    return control.value === '' ? { authorsInvalid: true } :
+      null
   }
 
   ngOnDestroy(): void {

@@ -4,56 +4,55 @@
             <div class="title__element">
                 <div class="subtitle">
                     <h5>Title:</h5>
-                    <p *ngIf="course.title.length > 50 && courseForm.get('courseTitle')?.touched" class="invalid">The
+                    <p *ngIf="course.title.length > 50 && courseForm.get('title')?.touched" class="invalid">The
                         maximum title length is 50 symbols</p>
-                    <p *ngIf="!course.title && courseForm.get('courseTitle')?.touched" class="invalid">Please
+                    <p *ngIf="!course.title && courseForm.get('title')?.touched" class="invalid">Please
                         enter a title</p>
                 </div>
                 <div class="input">
-                    <input formControlName="courseTitle" type="text">
+                    <input formControlName="title" type="text">
                 </div>
             </div>
             <div class="descriotion__element">
                 <div class="subtitle">
                     <h5>Description:</h5>
-                    <p *ngIf="course.description.length > 300 && courseForm.get('courseDescription')?.touched"
+                    <p *ngIf="course.description.length > 300 && courseForm.get('description')?.touched"
                         class="invalid">The
                         maximum description length is 300 symbols</p>
-                    <p *ngIf="!course.description && courseForm.get('courseDescription')?.touched" class="invalid">
+                    <p *ngIf="!course.description && courseForm.get('description')?.touched" class="invalid">
                         Please
                         enter a description</p>
                 </div>
                 <div class="input">
-                    <textarea formControlName="courseDescription" cols="30" rows="10"></textarea>
+                    <textarea formControlName="description" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="date__element">
                 <div class="subtitle">
                     <h5>Date:</h5>
-                    <p *ngIf="courseForm.get('courseCreationDate')?.invalid && courseForm.get('courseCreationDate')?.touched"
+                    <p *ngIf="courseForm.get('creationDate')?.invalid && courseForm.get('creationDate')?.touched"
                         class="invalid">Please enter or pick the date</p>
                 </div>
-                <app-calendar formControlName="courseCreationDate">
+                <app-calendar formControlName="creationDate">
                 </app-calendar>
             </div>
             <div class="duration__element">
                 <div class="subtitle">
                     <h5>Duration:</h5>
-                    <p *ngIf="courseForm.get('courseDuration')?.value !== 0 && courseForm.get('courseDuration')?.invalid && courseForm.get('courseDuration')?.touched"
+                    <p *ngIf="courseForm.get('duration')?.value !== 0 && courseForm.get('duration')?.invalid && courseForm.get('courseDuration')?.touched"
                         class="invalid">Please, enter the duration in minutes</p>
-                    <p *ngIf="courseForm.get('courseDuration')?.value === 0 && courseForm.get('courseDuration')?.touched"
+                    <p *ngIf="courseForm.get('duration')?.value === 0 && courseForm.get('duration')?.touched"
                         class="invalid">Duration should be more than 0 min</p>
                 </div>
-                <app-course-duration formControlName="courseDuration">
+                <app-course-duration formControlName="duration">
                 </app-course-duration>
             </div>
             <div class="authors__element">
                 <div class="subtitle">
                     <h5>Authors:</h5>
-                    <!-- <p *ngIf="courseForm.get('courseDuration')?.invalid" class="invalid">Please, enter the duration in
-                        minutes</p> -->
+                    <p *ngIf="courseForm.get('authors')?.invalid" class="invalid">Should be at least one author</p>
                 </div>
-                <app-course-authors formControlName="courseAuthors" [authorsFilteredList]="authorsFilteredList"
+                <app-course-authors formControlName="authors" [authorsFilteredList]="authorsFilteredList"
                     [currentAuthorsList]="course.authors" (authorNameClick)="addNewAuthor($event)"
                     (authorDeleteClick)="deleteAuthor($event)">
                 </app-course-authors>

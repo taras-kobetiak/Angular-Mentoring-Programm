@@ -26,9 +26,6 @@ import { AuthInterceptor } from './authentication/interceptor/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interceptor';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +40,6 @@ import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interce
     DurationPipe,
     ScaleBlockDirective,
     OrderByPipe,
-
   ],
   imports: [
     BrowserModule,
