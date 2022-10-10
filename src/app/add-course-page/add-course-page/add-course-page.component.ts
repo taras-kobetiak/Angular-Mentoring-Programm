@@ -45,6 +45,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
     this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
@@ -57,7 +58,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       creationDate: [''],
       authors: [[], this.authorValidator]
     })
-
 
     // combineLatest(this.courseForm.valueChanges).subscribe((courseData: any) => {
     //   let course1: IAddCourseData = courseData;

@@ -9,13 +9,13 @@
                     <div class="email__subtitle  subtitle">
                         <label for="email" class="email__label main-label">E-mail:</label>
                     </div>
-                    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-                        class="email__invalid invalid">
-                        <label for="email"> Please enter login</label>
-                    </div>
                 </div>
                 <div class="email__input input">
                     <input formControlName="email" type="text" id="email" placeholder="Enter email">
+                </div>
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+                    class="email__invalid invalid">
+                    <p for="email"> Please enter login</p>
                 </div>
             </div>
             <div class="password">
@@ -23,13 +23,13 @@
                     <div class="email__subtitle  subtitle">
                         <label for="pass" class="email__label main-label">Password:</label>
                     </div>
-                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-                        class="email__invalid invalid">
-                        <label for="pass"> Please enter a password</label>
-                    </div>
                 </div>
                 <div class="email-input input">
                     <input formControlName="password" type="password" id="pass" placeholder="Enter a password">
+                </div>
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                    class="email__invalid invalid">
+                    <p for="pass"> Please enter a password</p>
                 </div>
             </div>
             <div class="form__footer">

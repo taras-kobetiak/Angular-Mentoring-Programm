@@ -41,12 +41,12 @@ form {
             font-size: 18px;
         }
     }
+}
 
-    .invalid {
-        display: flex;
-        align-items: center;
-        color: red;
-    }
+.invalid {
+    display: flex;
+    align-items: center;
+    color: red;
 }
 
 input {

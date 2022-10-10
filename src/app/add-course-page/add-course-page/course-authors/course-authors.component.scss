@@ -19,7 +19,6 @@ h5 {
 }
 
 .input__wrapper {
-
     flex: 0 1 1%;
 
     input {
@@ -44,7 +43,6 @@ h5 {
 
 
 .authors-in-input__wrapper {
-    flex: 1 0 80%;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -58,7 +56,6 @@ h5 {
 
 .authors-in-input__item {
     margin: 3px;
-    border: 1px solid rgb(227, 224, 226);
     min-height: 25px;
     height: 75%;
     background-color: #fff;
@@ -67,6 +64,7 @@ h5 {
 }
 
 .author__item {
+    border: 1px solid rgb(227, 224, 226);
     min-width: 50px;
     height: 80%;
     cursor: auto;
