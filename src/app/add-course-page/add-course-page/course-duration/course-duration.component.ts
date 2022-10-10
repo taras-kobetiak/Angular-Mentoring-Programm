@@ -21,20 +21,20 @@ import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_V
 export class CourseDurationComponent implements OnInit, ControlValueAccessor, Validator {
 
 
-  duration$: FormControl = new FormControl();
+  duration: FormControl = new FormControl();
   onChange = (value: any) => { };
   onTouched = () => { };
 
   ngOnInit(): void {
-    this.duration$.valueChanges.subscribe(duration => {
+    this.duration.valueChanges.subscribe(duration => {
       if (this.onChange) {
         this.onChange(duration);
       }
     })
   }
 
-  writeValue(obj: any): void {
-    this.duration$.setValue(obj);
+  writeValue(obj: number): void {
+    this.duration.setValue(obj);
   }
 
   registerOnChange(fn: any): void {

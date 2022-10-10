@@ -23,7 +23,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
   ) { }
 
-
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -65,12 +64,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
-  }
-
-
-  test() {
-    console.log(this.loginForm.valid);
-
   }
 
 }

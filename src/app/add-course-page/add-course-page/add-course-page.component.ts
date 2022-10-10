@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
+import { combineLatest, debounceTime, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { ICoursePage } from 'src/app/interfaces/course.interface';
+import { IAddCourseData, ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,34 +59,27 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       authors: [[], this.authorValidator]
     })
 
-    // combineLatest(this.courseForm.valueChanges).subscribe((courseData: any) => {
-    //   let course1: IAddCourseData = courseData;
-    //   console.log(course1);
+    combineLatest(this.courseForm.valueChanges).subscribe((courseData: ICoursePage[]) => {
 
-    //   this.course.title = courseData.title;
-    // })
 
-    this.courseForm.get('title')?.valueChanges.subscribe(title => {
-      this.course.title = title;
-    });
 
-    this.courseForm.get('description')?.valueChanges.subscribe(description => {
-      this.course.description = description;
-    });
+      this.course = courseData[0];
+      console.log(this.course);
 
-    this.courseForm.get('creationDate')?.valueChanges.subscribe(creationDate => {
-      this.course.creationDate = creationDate;
-    });
 
-    this.courseForm.get('duration')?.valueChanges.subscribe(duration => {
-      this.course.duration = duration;
-    });
+      // this.course.title = courseData[0].title;
+      // this.course.description = courseData[0].description;
+      // this.course.creationDate = courseData[0].creationDate;
+      // this.course.duration = courseData[0].duration;
+    })
 
     this.courseForm.get('authors')?.valueChanges.pipe(
       debounceTime(300),
       switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
       takeUntil(this.unsubscribingData$)
     ).subscribe((authorsList: any) => {
+
+
       this.authorsFilteredList = authorsList;
     })
   }
@@ -127,13 +120,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       this.loadingService.setValue(false);
       this.courseService.currentCourseTitle$.next(this.course.title);
 
-      this.courseForm.patchValue({
-        title: this.course.title,
-        description: this.course.description,
-        creationDate: this.course.creationDate,
-        duration: this.course.duration,
-
-      })
+      this.courseForm.patchValue(this.course);
     });
   }
 

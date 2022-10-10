@@ -43,11 +43,11 @@ export class CalendarComponent implements OnInit, ControlValueAccessor, Validato
 
   onChange: any;
   onTouched: any;
-  creationDate$ = new FormControl();
+  creationDate = new FormControl();
 
 
   ngOnInit(): void {
-    this.creationDate$.valueChanges.subscribe(creationDate => {
+    this.creationDate.valueChanges.subscribe(creationDate => {
       if (this.onChange) {
         this.onChange(creationDate);
       }
@@ -55,7 +55,7 @@ export class CalendarComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   writeValue(obj: any): void {
-    this.creationDate$.setValue(obj);
+    this.creationDate.setValue(obj);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -74,13 +74,13 @@ export class CalendarComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.creationDate$.value;
+    const ctrlValue = this.creationDate.value;
 
     if (ctrlValue && ctrlValue.date) {
       ctrlValue.date(normalizedMonthAndYear.date());
       ctrlValue.month(normalizedMonthAndYear.month());
       ctrlValue.year(normalizedMonthAndYear.year());
-      this.creationDate$.setValue(ctrlValue);
+      this.creationDate.setValue(ctrlValue);
       datepicker.close();
     }
   }

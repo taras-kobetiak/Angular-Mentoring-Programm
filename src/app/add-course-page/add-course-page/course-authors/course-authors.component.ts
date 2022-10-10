@@ -26,19 +26,18 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   onTouched: any;
   showAuthorsList: boolean;
   input: HTMLElement | null = document.getElementById('input');
-  authors$ = new FormControl();
+  authors = new FormControl();
 
   ngOnInit(): void {
-    this.authors$.valueChanges.subscribe(authors => {
-
+    this.authors.valueChanges.subscribe(authors => {
       if (this.onChange) {
         this.onChange(authors);
       }
     });
   }
 
-  writeValue(obj: any): void {
-    this.authors$.setValue(obj);
+  writeValue(obj: string): void {
+    this.authors.setValue(obj);
   }
 
   registerOnChange(fn: any): void {
@@ -60,20 +59,20 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
     this.authorNameClick.emit(author);
 
     this.showAuthorsList = false;
-    this.authors$.setValue('');
+    this.authors.setValue('');
   }
 
   onAuthorDeleteClick(authorName: string): void {
     this.authorDeleteClick.emit(authorName);
   }
 
-  onInputDivClick(): void {
+  focusOnInput(): void {
     const input = document.getElementById('input');
     if (input) {
       input.focus();
     }
   }
-  stopPropagation(event: MouseEvent): void {
+  stopPropagationAuthorsClick(event: MouseEvent): void {
     event.stopPropagation()
   }
 }

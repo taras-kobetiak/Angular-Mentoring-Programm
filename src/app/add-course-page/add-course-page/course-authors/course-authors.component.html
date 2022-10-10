@@ -1,6 +1,6 @@
-<div class="input" (click)="onInputDivClick()">
+<div class="input" (click)="focusOnInput()">
     <div class="authors-in-input__wrapper">
-        <div class="authors-in-input__list" (click)="stopPropagation($event)">
+        <div class="authors-in-input__list" (click)="stopPropagationAuthorsClick($event)">
             <div class="authors-in-input__item" *ngFor="let author of currentAuthorsList">
                 <div class="authors-in-input__author author" *ngIf="author">
                     <div class="author__wrapper">
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="input__wrapper">
-        <input #input id="input" [formControl]="authors$" name="authors" type="text" (focus)="onFocus()"
+        <input #input id="input" [formControl]="authors" name="authors" type="text" (focus)="onFocus()"
             (blur)="onBlur()">
     </div>
 </div>
