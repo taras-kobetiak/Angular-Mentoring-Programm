@@ -9,9 +9,9 @@
                     <input formControlName="title" type="text">
                 </div>
                 <div class="errors">
-                    <p *ngIf="this.courseForm.get('title')?.value.length > 50 && courseForm.get('title')?.touched"
+                    <p *ngIf="courseForm.get('title')?.value.length > 50 && courseForm.get('title')?.touched"
                         class="invalid">The maximum title length is 50 symbols</p>
-                    <p *ngIf="!course.title && courseForm.get('title')?.touched" class="invalid">Please
+                    <p *ngIf="!courseForm.get('title') && courseForm.get('title')?.touched" class="invalid">Please
                         enter a title</p>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="errors">
                     <p *ngIf="courseForm.get('description')?.value.length > 300 && courseForm.get('description')?.touched"
                         class="invalid">The maximum description length is 300 symbols</p>
-                    <p *ngIf="!course.description && courseForm.get('description')?.touched" class="invalid">
+                    <p *ngIf="!courseForm.get('description') && courseForm.get('description')?.touched" class="invalid">
                         Please enter a description</p>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     <h5>Authors:</h5>
                 </div>
                 <app-course-authors formControlName="authors" [authorsFilteredList]="authorsFilteredList"
-                    [currentAuthorsList]="course.authors" (authorNameClick)="addNewAuthor($event)"
+                    [currentAuthorsList]="courseForm.get('author')?.value" (authorNameClick)="addNewAuthor($event)"
                     (authorDeleteClick)="deleteAuthor($event)">
                 </app-course-authors>
                 <div class="errors">

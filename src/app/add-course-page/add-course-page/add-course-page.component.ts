@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, debounceTime, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { IAddCourseData, ICoursePage } from 'src/app/interfaces/course.interface';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,21 +17,10 @@ import { AuthorsService } from '../services/authors.service';
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   authorsFilteredList: IAuthors[];
-  course: ICoursePage;
   temporaryId: number = 1;
   courseId: any;
 
   courseForm: FormGroup;
-
-  defaultCourseData: ICoursePage = {
-    id: '',
-    title: '',
-    creationDate: '',
-    duration: 0,
-    description: '',
-    topRated: false,
-    authors: ['']
-  };
 
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
@@ -46,7 +35,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.course = this.defaultCourseData;
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
@@ -56,21 +44,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       description: '',
       duration: 0,
       creationDate: [''],
-      authors: [[], this.authorValidator]
-    })
-
-    combineLatest(this.courseForm.valueChanges).subscribe((courseData: ICoursePage[]) => {
-
-
-
-      this.course = courseData[0];
-      console.log(this.course);
-
-
-      // this.course.title = courseData[0].title;
-      // this.course.description = courseData[0].description;
-      // this.course.creationDate = courseData[0].creationDate;
-      // this.course.duration = courseData[0].duration;
+      authors: [[], this.authorValidator],
+      id: '',
+      topRated: false,
     })
 
     this.courseForm.get('authors')?.valueChanges.pipe(
@@ -87,12 +63,12 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.loadingService.setValue(true);
 
-    this.course.id ? this.updateCourse() :
+    this.courseForm.get('id')?.value ? this.updateCourse() :
       this.addNewCourse();
   }
 
   updateCourse(): void {
-    this.courseService.updateCourse(this.course).pipe(
+    this.courseService.updateCourse(this.courseForm.value).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(() => {
       this.loadingService.setValue(false);
@@ -101,8 +77,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   addNewCourse(): void {
-    this.course.id = uuidv4();
-    this.courseService.addCourses(this.course).pipe(
+    this.courseForm.get('id')?.setValue(uuidv4());
+
+    this.courseService.addCourses(this.courseForm.value).pipe(
       takeUntil(this.unsubscribingData$))
       .subscribe(() => {
         this.loadingService.setValue(false);
@@ -116,11 +93,10 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-      this.course = course;
       this.loadingService.setValue(false);
-      this.courseService.currentCourseTitle$.next(this.course.title);
+      this.courseForm.setValue(course);
 
-      this.courseForm.patchValue(this.course);
+      this.courseService.currentCourseTitle$.next(this.courseForm.get('title')?.value);
     });
   }
 
@@ -129,24 +105,22 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   addNewAuthor(author: IAuthors) {
-
-    if (this.course.authors[0] === '') {
-      this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
-      this.courseForm.get('courseAuthors')?.setValue('');
-    } else {
-      if (!this.course.authors.find(c => c === author.fullName)) {
-        this.course.authors = this.course.authors.concat(author.fullName);
-        this.courseForm.get('courseAuthors')?.setValue('');
-      }
-    }
+    // if (this.course.authors[0] === '') {
+    //   this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
+    //   this.courseForm.get('courseAuthors')?.setValue('');
+    // } else {
+    //   if (!this.course.authors.find(c => c === author.fullName)) {
+    //     this.course.authors = this.course.authors.concat(author.fullName);
+    //     this.courseForm.get('courseAuthors')?.setValue('');
+    //   }
+    // }
   }
 
   deleteAuthor(authorName: string) {
-    this.course.authors = this.course.authors.filter(author => author !== authorName);
+    // this.course.authors = this.course.authors.filter(author => author !== authorName);
   }
 
   authorValidator(control: AbstractControl): { [key: string]: boolean } | null {
-
     return control.value === '' ? { authorsInvalid: true } :
       null
   }
