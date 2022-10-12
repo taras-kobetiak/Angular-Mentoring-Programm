@@ -30,7 +30,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private courseService: CoursesService,
     private loadingService: LoadingService,
     private formBuilder: FormBuilder,
-    private authorsService: AuthorsService
   ) { }
 
   ngOnInit(): void {
@@ -47,17 +46,19 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       authors: [[], this.authorValidator],
       id: '',
       topRated: false,
+
+
+      // authors: this.formBuilder.array([[], this.authorValidator],),
+
     })
 
-    this.courseForm.get('authors')?.valueChanges.pipe(
-      debounceTime(300),
-      switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
-      takeUntil(this.unsubscribingData$)
-    ).subscribe((authorsList: any) => {
-
-
-      this.authorsFilteredList = authorsList;
-    })
+    // this.courseForm.get('authors')?.valueChanges.pipe(
+    //   debounceTime(300),
+    //   switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
+    //   takeUntil(this.unsubscribingData$)
+    // ).subscribe((authorsList: any) => {
+    //   this.authorsFilteredList = authorsList;
+    // })
   }
 
   onSubmit(): void {

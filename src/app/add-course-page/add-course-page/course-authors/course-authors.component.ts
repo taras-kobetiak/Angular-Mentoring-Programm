@@ -1,6 +1,8 @@
-import { Component, forwardRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, OnInit, } from '@angular/core';
+import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { Observable, } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
+import { AuthorsService } from '../../services/authors.service';
 
 
 @Component({
@@ -17,27 +19,47 @@ import { IAuthors } from 'src/app/interfaces/authors.interface';
 })
 export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
-  @Input() currentAuthorsList: string[];
-  @Input() authorsFilteredList: IAuthors[];
-  @Output() authorNameClick: EventEmitter<IAuthors> = new EventEmitter();
-  @Output() authorDeleteClick: EventEmitter<string> = new EventEmitter();
-
   onChange: any;
   onTouched: any;
   showAuthorsList: boolean;
-  input: HTMLElement | null = document.getElementById('input');
-  authors = new FormControl();
+
+  authorsInput: FormControl = new FormControl();
+  pickedAuthors: FormArray = new FormArray([], Validators.required);
+
+
+
+  authorsList$: Observable<IAuthors[]>;
+
+
+  constructor(private authorService: AuthorsService) { }
 
   ngOnInit(): void {
-    this.authors.valueChanges.subscribe(authors => {
+    console.log(this.pickedAuthors);
+
+
+    this.authorsList$ = this.authorService.getAuthorsList()
+
+
+    this.authorsInput.valueChanges.subscribe(authors => {
       if (this.onChange) {
         this.onChange(authors);
       }
     });
   }
 
+  // this.courseForm.get('authors')?.valueChanges.pipe(
+  //   debounceTime(300),
+  //   switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
+  //   takeUntil(this.unsubscribingData$)
+  // ).subscribe((authorsList: any) => {
+  //   this.authorsFilteredList = authorsList;
+  // })
+
+
+
+
   writeValue(obj: string): void {
-    this.authors.setValue(obj);
+    this.authorsInput.setValue(obj);
   }
 
   registerOnChange(fn: any): void {
@@ -53,17 +75,23 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.onTouched();
+    // this.showAuthorsList = false;
   }
 
   onAuthorNameClick(author: IAuthors): void {
-    this.authorNameClick.emit(author);
+
+    this.pickedAuthors.push(new FormControl(author));
+
+
 
     this.showAuthorsList = false;
-    this.authors.setValue('');
+    this.authorsInput.setValue('');
   }
 
-  onAuthorDeleteClick(authorName: string): void {
-    this.authorDeleteClick.emit(authorName);
+  onAuthorDeleteClick(): void {
+
+
+    // this.authorDeleteClick.emit(authorName);
   }
 
   focusOnInput(): void {
@@ -75,4 +103,5 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   stopPropagationAuthorsClick(event: MouseEvent): void {
     event.stopPropagation()
   }
+
 }
