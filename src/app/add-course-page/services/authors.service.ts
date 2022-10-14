@@ -13,5 +13,4 @@ export class AuthorsService {
   getFilteredAuthorsList(inputData: string): Observable<IAuthors[]> {
     return this.http.get<IAuthors[]>(`authors/?q=${inputData}`);
   }
-
 }

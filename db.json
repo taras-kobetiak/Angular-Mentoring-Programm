@@ -31,20 +31,6 @@
       "topRated": false
     },
     {
-      "title": "1",
-      "description": "1asd",
-      "duration": 12,
-      "creationDate": "2022-07-12T21:00:00.000Z",
-      "authors": [
-        {
-          "id": "1qwe",
-          "fullName": "Taras"
-        }
-      ],
-      "id": "153bd78e-563c-4b49-8faf-dd9f3143e6b1",
-      "topRated": false
-    },
-    {
       "title": "123",
       "description": "asdasd",
       "duration": 12,
@@ -56,6 +42,28 @@
         }
       ],
       "id": "476f71de-f35a-4f54-9a52-874122fa2e89",
+      "topRated": false
+    },
+    {
+      "title": "фівафів",
+      "description": "аіфваіфвафіваіфваіфва",
+      "duration": 12,
+      "creationDate": "2022-07-12T21:00:00.000Z",
+      "authors": [
+        {
+          "id": "1qweasd",
+          "fullName": "Vika s. Busya"
+        },
+        {
+          "id": "1qwe",
+          "fullName": "Taras"
+        },
+        {
+          "id": "1qweadf",
+          "fullName": "Dorosh Artemiy-Artur"
+        }
+      ],
+      "id": "20d87e57-bbb8-481d-9499-edb2ed1387b9",
       "topRated": false
     }
   ],

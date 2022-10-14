@@ -5,8 +5,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingBlockComponent } from './loading-block/loading-block.component';
 
 
-
-
 @NgModule({
   declarations: [
     LoadingBlockComponent

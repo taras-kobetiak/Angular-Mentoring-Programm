@@ -4,7 +4,6 @@ import { debounceTime, Observable, Subject, takeUntil, } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { AuthorsService } from '../../services/authors.service';
 
-
 @Component({
   selector: 'app-course-authors',
   templateUrl: './course-authors.component.html',
@@ -95,20 +94,17 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
       return;
     }
 
-
     this.pickedAuthors.push(new FormControl(author));
     this.showAuthorsList = false;
     this.authorsInput.setValue('');
   }
 
   onAuthorDeleteClick(author: any): void {
-
     this.pickedAuthors.value.forEach((pickedAuthor: IAuthors, index: number) => {
       if (pickedAuthor.id === author.id) {
         this.pickedAuthors.removeAt(index);
       }
     });
-
   }
 
   focusOnInput(): void {
