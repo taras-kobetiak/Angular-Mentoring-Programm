@@ -40,7 +40,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: '',
       duration: 0,
-      creationDate: [''],
+      creationDate: ['', Validators.required],
       authors: [[], Validators.required],
       id: '',
       topRated: false,

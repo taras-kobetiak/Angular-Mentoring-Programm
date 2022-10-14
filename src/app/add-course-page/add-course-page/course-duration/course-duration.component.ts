@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, } from '@angular/forms';
 
 @Component({
   selector: 'app-course-duration',
@@ -10,16 +10,10 @@ import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_V
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CourseDurationComponent),
       multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => CourseDurationComponent),
-      multi: true
-    },
+    }
   ]
 })
-export class CourseDurationComponent implements OnInit, ControlValueAccessor, Validator {
-
+export class CourseDurationComponent implements OnInit, ControlValueAccessor {
 
   duration: FormControl = new FormControl();
   onChange = (value: any) => { };
@@ -43,12 +37,6 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor, Va
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    const regex = /^\d+$/;
-    return !regex.test(control.value) || control.value === 0 ? { durationInvalid: true } :
-      null;
   }
 
   touched() {

@@ -1,14 +1,9 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 
 import { Moment } from 'moment';
-
-// I don`t understand whe angular material tell me to create this const
-
-// import { default as _rollupMoment, } from 'moment';
-// const moment = _rollupMoment || _moment;
 
 export const DateFormat = {
   parse: {
@@ -31,15 +26,10 @@ export const DateFormat = {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CalendarComponent),
       multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => CalendarComponent),
-      multi: true
-    },
+    }
   ]
 })
-export class CalendarComponent implements OnInit, ControlValueAccessor, Validator {
+export class CalendarComponent implements OnInit, ControlValueAccessor {
 
   onChange: any;
   onTouched: any;
@@ -66,11 +56,6 @@ export class CalendarComponent implements OnInit, ControlValueAccessor, Validato
 
   touched() {
     this.onTouched();
-  }
-
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    return !control.value ? { dateInvalid: true } :
-      null;
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
