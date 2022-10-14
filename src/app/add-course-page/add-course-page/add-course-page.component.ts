@@ -41,7 +41,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       description: '',
       duration: 0,
       creationDate: [''],
-      authors: [[]],
+      authors: [[], Validators.required],
       id: '',
       topRated: false,
     })
@@ -90,11 +90,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   backToCoursesList(): void {
     this.router.navigate(['/courses']);
   }
-
-  // authorValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  //   return control.value === '' ? { authorsInvalid: true } :
-  //     null
-  // }
 
   ngOnDestroy(): void {
     this.unsubscribingData$.next();

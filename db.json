@@ -6,31 +6,28 @@
       "duration": 1,
       "creationDate": "2023-08-14T21:00:00.000Z",
       "authors": [
-        null,
+        {
+          "id": "1qweasd",
+          "fullName": "Vika s. Busya"
+        },
+        {
+          "id": "1qwe",
+          "fullName": "Taras"
+        },
         {
           "id": "1qwesfsdhsdf",
           "fullName": "Dr. M. Jaxon"
         },
         {
-          "id": "1qweasd",
-          "fullName": "Vika s. Busya"
+          "id": "122",
+          "fullName": "Dorosh Maryna"
+        },
+        {
+          "id": "1qweadf",
+          "fullName": "Dorosh Artemiy-Artur"
         }
       ],
       "id": "5aa5e8a8-08b5-4099-a0ff-0f4e9765939d",
-      "topRated": false
-    },
-    {
-      "title": "123",
-      "description": "as",
-      "duration": 12,
-      "creationDate": "2022-07-12T21:00:00.000Z",
-      "authors": [
-        {
-          "id": "1qweasd",
-          "fullName": "Vika s. Busya"
-        }
-      ],
-      "id": "8f683d96-4511-4b3d-96bc-ddd0d97fb734",
       "topRated": false
     },
     {
@@ -45,6 +42,20 @@
         }
       ],
       "id": "153bd78e-563c-4b49-8faf-dd9f3143e6b1",
+      "topRated": false
+    },
+    {
+      "title": "123",
+      "description": "asdasd",
+      "duration": 12,
+      "creationDate": "2022-07-12T21:00:00.000Z",
+      "authors": [
+        {
+          "id": "1qwe",
+          "fullName": "Taras"
+        }
+      ],
+      "id": "476f71de-f35a-4f54-9a52-874122fa2e89",
       "topRated": false
     }
   ],
@@ -74,7 +85,7 @@
       "fullName": "Vika s. Busya"
     },
     {
-      "id": "1qwe",
+      "id": "1qweadf",
       "fullName": "Dorosh Artemiy-Artur"
     },
     {
