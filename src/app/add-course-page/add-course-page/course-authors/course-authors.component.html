@@ -1,12 +1,13 @@
 <div class="input" (click)="focusOnInput()">
     <div class="authors-in-input__wrapper">
-        <div class="authors-in-input__list" (click)="stopPropagationAuthorsClick($event)">
-            <div class="authors-in-input__item" *ngFor="let pickedAuthor of pickedAuthors.value ">
-                <div class="authors-in-input__author author" *ngIf="pickedAuthor">
+        <div class="authors-in-input__list">
+            <div class="authors-in-input__item" *ngFor="let pickedAuthor of pickedAuthors.value"
+                (click)="stopPropagationAuthorsClick($event)">
+                <div class="authors-in-input__author author" *ngIf="!!pickedAuthor">
                     <div class="author__wrapper">
                         <div class="author__item">
-                            <div class="author__name">{{pickedAuthor}}</div>
-                            <div (click)="onAuthorDeleteClick()" class="author__button">x</div>
+                            <div class="author__name">{{pickedAuthor.fullName}}</div>
+                            <div (click)="onAuthorDeleteClick(pickedAuthor)" class="author__button">x</div>
                         </div>
                     </div>
                 </div>

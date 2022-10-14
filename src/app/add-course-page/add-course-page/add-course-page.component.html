@@ -57,12 +57,7 @@
                 <div class="subtitle">
                     <h5>Authors:</h5>
                 </div>
-                <app-course-authors formControlName="authors">
-                    <!-- (authorDeleteClick)="deleteAuthor($event)" -->
-                    <!-- (authorNameClick)="addNewAuthor($event)" -->
-
-
-                </app-course-authors>
+                <app-course-authors formControlName="authors"></app-course-authors>
                 <div class="errors">
                     <p *ngIf="courseForm.get('authors')?.invalid" class="invalid">Should be at least one author</p>
                 </div>

@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, debounceTime, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { ICoursePage } from 'src/app/interfaces/course.interface';
 import { CoursesService } from 'src/app/pages-block/services/courses.service';
 import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
-import { AuthorsService } from '../services/authors.service';
 
 @Component({
   selector: 'app-add-course-page',
@@ -43,22 +41,10 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       description: '',
       duration: 0,
       creationDate: [''],
-      authors: [[], this.authorValidator],
+      authors: [[]],
       id: '',
       topRated: false,
-
-
-      // authors: this.formBuilder.array([[], this.authorValidator],),
-
     })
-
-    // this.courseForm.get('authors')?.valueChanges.pipe(
-    //   debounceTime(300),
-    //   switchMap((inputData: string) => this.authorsService.getFilteredAuthorsList(inputData)),
-    //   takeUntil(this.unsubscribingData$)
-    // ).subscribe((authorsList: any) => {
-    //   this.authorsFilteredList = authorsList;
-    // })
   }
 
   onSubmit(): void {
@@ -105,26 +91,10 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/courses']);
   }
 
-  addNewAuthor(author: IAuthors) {
-    // if (this.course.authors[0] === '') {
-    //   this.course.authors = this.course.authors.slice(0, -1).concat(author.fullName);
-    //   this.courseForm.get('courseAuthors')?.setValue('');
-    // } else {
-    //   if (!this.course.authors.find(c => c === author.fullName)) {
-    //     this.course.authors = this.course.authors.concat(author.fullName);
-    //     this.courseForm.get('courseAuthors')?.setValue('');
-    //   }
-    // }
-  }
-
-  deleteAuthor(authorName: string) {
-    // this.course.authors = this.course.authors.filter(author => author !== authorName);
-  }
-
-  authorValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    return control.value === '' ? { authorsInvalid: true } :
-      null
-  }
+  // authorValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  //   return control.value === '' ? { authorsInvalid: true } :
+  //     null
+  // }
 
   ngOnDestroy(): void {
     this.unsubscribingData$.next();

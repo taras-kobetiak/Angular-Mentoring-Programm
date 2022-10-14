@@ -54,7 +54,4 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor, Va
   touched() {
     this.onTouched();
   }
-
-
-
 }

@@ -10,15 +10,8 @@ export class AuthorsService {
 
   constructor(private http: HttpClient) { }
 
-
-  getAuthorsList(): Observable<IAuthors[]> {
-    return this.http.get<IAuthors[]>(`authors`);
+  getFilteredAuthorsList(inputData: string): Observable<IAuthors[]> {
+    return this.http.get<IAuthors[]>(`authors/?q=${inputData}`);
   }
-
-
-
-  // getFilteredAuthorsList(name: string) {
-  //   return this.http.get<IAuthors>(`authors/?q=${name}`);
-  // }
 
 }
