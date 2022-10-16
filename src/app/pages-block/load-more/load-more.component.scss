@@ -12,10 +12,13 @@
         font-size: 16px;
         cursor: pointer;
         text-decoration: underline;
-        color: blue;
 
         &:active {
             color: red;
+        }
+
+        &:hover {
+            transform: scale(105%);
         }
     }
 }

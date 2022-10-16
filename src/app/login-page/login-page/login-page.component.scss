@@ -68,4 +68,10 @@ input {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
+    &:valid {
+        &:hover {
+            background-color: rgb(198, 187, 187);
+        }
+    }
 }

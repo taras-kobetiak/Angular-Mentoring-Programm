@@ -37,7 +37,6 @@ input {
     height: 40px;
 }
 
-
 .pages {
     margin-bottom: 2%;
     flex: 1 0 auto;
@@ -75,10 +74,14 @@ input {
         border-radius: 5px;
         font-size: 14px;
         color: white;
-        background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 10px rgb(79, 218, 79);
+        background: url('https://atlantic-freight.com/s/i/plus-button.png') no-repeat 10px rgb(87, 84, 87);
         background-size: 20px auto;
         padding-left: 35px;
         cursor: pointer;
+
+        &:hover {
+            background-color: rgb(70, 67, 70);
+        }
     }
 }
 

@@ -3,16 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingBlockComponent } from './loading-block/loading-block.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
   declarations: [
-    LoadingBlockComponent
+    LoadingBlockComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
   ],
-  exports: [LoadingBlockComponent]
+  exports: [
+    LoadingBlockComponent,
+    NotFoundComponent
+  ]
 })
 export class SharedModule { }
