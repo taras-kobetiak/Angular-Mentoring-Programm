@@ -1,8 +1,7 @@
 <div class="container">
     <div class="left-box" routerLink="/courses">
         <div class="img">
-            <img src="https://spng.pinpng.com/pngs/s/77-776348_white-pencil-icon-png-johns-hopkins-logo-white.png"
-                alt="Video icon">
+            <img src="../../assets/img/header/logo.png" alt="Video icon">
         </div>
         <div class="title">
             <h1>VIDEO COURSE</h1>
@@ -10,14 +9,12 @@
     </div>
     <div class="login-form" *ngIf="isAuth">
         <div class="user-login">
-            <img src="https://sibtsk.ru/wp-content/uploads/2021/02/user.png" alt="User=">
+            <img src="../../assets/img/header/user.png" alt="User=">
             <p>Hello, {{currentUser?.firstName}}</p>
             <img src="" alt="">
         </div>
         <div class="user-log-of">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/OOjs_UI_icon_logOut-ltr-invert.svg/1024px-OOjs_UI_icon_logOut-ltr-invert.svg.png"
-                alt="Log out">
-            <img src="img/1.png" alt="error">
+            <img src="../../assets/img/header/exit.png" alt="Log out">
             <p routerLink="login" (click)="onLogOutClick()">Log out
             </p>
         </div>
