@@ -38,8 +38,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     }
     this.courseForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
-      description: '',
-      duration: 0,
+      description: ['', Validators.required],
+      duration: [0, Validators.required],
       creationDate: ['', Validators.required],
       authors: [[], Validators.required],
       id: '',
