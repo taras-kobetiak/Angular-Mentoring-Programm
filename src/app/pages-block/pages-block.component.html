@@ -1,18 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="serch-form">
-            <div class="input-form">
-                <input [formControl]="searchBox" id="search-box" type="text" placeholder="Text to search">
+        <div class="management-container">
+            <div class="serch-form">
+                <div class="input-form">
+                    <input [formControl]="searchBox" id="search-box" type="text" placeholder="Text to search">
+                </div>
             </div>
-        </div>
-        <div class="add-course">
-            <div class="button__row">
+            <div class="add-course">
                 <div class="add-button">
                     <button routerLink="/courses/new">Add course</button>
                 </div>
             </div>
         </div>
-
         <div class="pages">
             <app-courses-page *ngFor="let course of courses |orderBy" [course]="course"
                 (starClicked)="changeRate(course)" (deleteClicked)="deleteComponent($event)">

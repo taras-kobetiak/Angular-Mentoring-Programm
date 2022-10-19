@@ -1,11 +1,11 @@
 .container {
-
     color: white;
     background-color: rgb(69, 54, 54);
     height: 100%;
     width: 100%;
     max-width: 100%;
     display: flex;
+    column-gap: 20px;
     justify-content: space-between;
     align-items: center;
 }
@@ -26,7 +26,7 @@
         justify-content: center;
 
         img {
-            height: 70%;
+            height: 60%;
         }
     }
 
@@ -45,18 +45,18 @@
     width: 70%;
     flex: 0 1 auto;
     display: flex;
+    column-gap: 30px;
     justify-content: flex-end;
 
     .user-login {
-        width: 25%;
+        padding-left: 20%;
         display: flex;
+        justify-content: flex-end;
         align-items: center;
     }
 
     .user-log-of {
-        padding-left: 3%;
         padding-right: 1%;
-        width: 20%;
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -87,12 +87,16 @@
 }
 
 @media (max-width: 1270px) {
+    .login-form {
+        column-gap: 20px;
+    }
+
     .left-box {
         .title {
             h1 {
                 margin: 0;
-                font-size: 14px;
-                line-height: 14px;
+                font-size: 18px;
+                line-height: 22px;
             }
         }
     }
@@ -102,9 +106,13 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 575.98px) {
     .container {
         font-size: 12px;
+    }
+
+    .login-form {
+        column-gap: 8px;
     }
 
     .title {
@@ -118,21 +126,8 @@
     }
 
     .login-form {
-        .user-login {
-            width: 45%;
-        }
-
-        .user-log-of {
-            width: 40%;
-        }
-
         p {
             font-size: 12px;
         }
     }
-}
-
-.login-form {
-    width: 60%;
-    flex: 1 0 auto;
 }

@@ -1,9 +1,9 @@
 {
   "courses": [
     {
-      "title": "ddzfhsfgh",
-      "description": "rasdfafasfasdfмсямисями",
-      "duration": 1,
+      "title": "First course It`s a very intresting course!",
+      "description": "It`s a very intresting course!\nIt`s a very intresting course!\nIt`s a very intresting course!\nIt`s a very intresting course!It`s a very intresting course!It`s a very intresting course!It`s a very intresting course!\nIt`s a very intresting course!\nIt`s a very intresting course!It`s a very intresting course!",
+      "duration": 12,
       "creationDate": "2023-08-14T21:00:00.000Z",
       "authors": [
         {
@@ -31,8 +31,8 @@
       "topRated": false
     },
     {
-      "title": "123",
-      "description": "asdasd",
+      "title": "The Complete JavaScript Course 2022",
+      "description": "The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!",
       "duration": 12,
       "creationDate": "2022-07-12T21:00:00.000Z",
       "authors": [
@@ -45,9 +45,9 @@
       "topRated": false
     },
     {
-      "title": "фівафів",
-      "description": "аіфваіфвафіваіфваіфва",
-      "duration": 12,
+      "title": "Angular and NgRx - writing a real project from scratch",
+      "description": "Learn Angular, NgRx, Typescript, REST Api, JWT Authorization, Router, Effects, Http by developing a real project.",
+      "duration": 123,
       "creationDate": "2022-07-12T21:00:00.000Z",
       "authors": [
         {
@@ -64,6 +64,20 @@
         }
       ],
       "id": "20d87e57-bbb8-481d-9499-edb2ed1387b9",
+      "topRated": false
+    },
+    {
+      "title": "Git Online Course - Start Learning Today",
+      "description": "Join millions of learners from around the world already learning on Udemy. Learn Git online at your own pace. Start today and improve your skills. Over 204,000 Courses. Download To Your Phone. 30-Day Money Guarantee. Lifetime Access. Expert Instructors. Object-Oriented.",
+      "duration": 23,
+      "creationDate": "2039-11-23T22:00:00.000Z",
+      "authors": [
+        {
+          "id": "1qwe",
+          "fullName": "Taras"
+        }
+      ],
+      "id": "58520c33-6a72-4756-8a4b-919e64f0e851",
       "topRated": false
     }
   ],

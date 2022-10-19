@@ -1,29 +1,39 @@
 .row {
+    padding-top: 20px;
     height: 185%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.serch-form {
+.management-container {
     margin-left: 10%;
-    padding-top: 1%;
+    margin-right: 10%;
+    margin-bottom: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 15px;
+}
+
+.serch-form {
     height: 80%;
     display: flex;
 }
 
 .input-form {
-    height: 30px;
-    max-width: 50%;
+    height: 34px;
+    box-sizing: border-box;
 }
 
 .find-button {
-    min-height: 30px
+    min-height: 30px;
 }
 
 input {
     height: 90%;
-    max-width: 80%;
     border: 1px solid rgb(188, 185, 185);
     border-radius: 5px;
     background: url('https://s1.iconbird.com/ico/0912/Radium/w256h2561348762832Search.png') no-repeat center left 5px;
@@ -32,44 +42,17 @@ input {
 }
 
 .add-course {
-    margin-bottom: 10px;
     box-sizing: border-box;
-    height: 40px;
-}
-
-.pages {
-    margin-bottom: 2%;
-    flex: 1 0 auto;
     display: flex;
-    flex-direction: column;
-
-    app-courses-page {
-        height: 150px;
-    }
-}
-
-.no-data {
-    margin: 0 10%;
-    padding: 20px;
-    border: 1px solid black;
-    position: relative;
-    max-width: 100%;
-    text-align: center;
-}
-
-.button__row {
-    display: flex;
-    justify-content: flex-end;
-    height: 100%;
+    align-items: center;
 }
 
 .add-button {
-    margin-right: 10%;
-    min-height: 90%;
+    height: 35px;
 
     button {
-        max-width: 120px;
-        height: 90%;
+        width: 120px;
+        height: 100%;
         border: none;
         border-radius: 5px;
         font-size: 14px;
@@ -85,10 +68,34 @@ input {
     }
 }
 
-@media (max-width:550px) {
+.pages {
+    margin-bottom: 2%;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
 
-    .serch-form,
-    .add-course {
+    app-courses-page {
+        height: 150px;
+    }
+}
+
+
+@media (max-width:575.98px) {
+
+    input {
+        width: 90px;
+        font-size: 12px;
+    }
+
+    .add-button {
+        button {
+            width: 90px;
+            font-size: 12px;
+        }
+    }
+
+    .input-form,
+    .add-button {
         height: 30px;
     }
 }
@@ -97,4 +104,13 @@ input {
     height: 8%;
     margin-bottom: 20px;
     z-index: 100;
+}
+
+.no-data {
+    margin: 0 10%;
+    padding: 20px;
+    border: 1px solid black;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
 }
