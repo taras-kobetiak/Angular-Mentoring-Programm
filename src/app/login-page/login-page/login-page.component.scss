@@ -9,8 +9,12 @@ form {
     margin: 7% auto;
     width: 25%;
     height: 40%;
-    min-width: 200px;
+    min-width: 380px;
     min-height: 180px;
+
+    @media (max-width:767.98px) {
+        min-width: 300px;
+    }
 }
 
 .container {
