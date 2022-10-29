@@ -23,9 +23,8 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   showAuthorsList: boolean;
 
   authorsInput: FormControl = new FormControl();
-  pickedAuthors: FormArray = new FormArray([
-    new FormControl()
-  ], Validators.required);
+
+  pickedAuthors: FormArray<any> = new FormArray<any>([], Validators.required);
 
   authorsList: IAuthors[];
   unsubscribingData$: Subject<void> = new Subject<void>();
@@ -33,9 +32,6 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   constructor(private authorService: AuthorsService) { }
 
   ngOnInit(): void {
-    if (this.pickedAuthors.value[0] === null) {
-      this.pickedAuthors.removeAt(0);
-    }
 
     this.authorService.getFilteredAuthorsList('').subscribe((authors: IAuthors[]) => {
       this.authorsList = authors;
@@ -47,8 +43,10 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
       switchMap((inputData: string) => this.authorService.getFilteredAuthorsList(inputData))
     ).subscribe((authors: IAuthors[]) => {
 
+      this.authorsList = authors;
+
       this.pickedAuthors.value.forEach((author: IAuthors) => {
-        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName)
+        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName);
       })
     });
 
@@ -91,13 +89,7 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   }
 
   onAuthorNameClick(author: IAuthors): void {
-
     let currentAuthorList: IAuthors[] = this.pickedAuthors.value;
-
-    if (this.pickedAuthors.value[0] === null) {
-      this.pickedAuthors.removeAt(0);
-      currentAuthorList = this.pickedAuthors.value;
-    }
 
     if (currentAuthorList.find((el: IAuthors) => el.id === author.id)) {
       return;

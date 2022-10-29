@@ -1,0 +1,103 @@
+h5 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.subtitle {
+  padding-bottom: 2%;
+}
+
+.input {
+  border: 1px solid black;
+  background-color: #fff;
+  cursor: text;
+  min-height: 42px;
+  min-width: 50px;
+  max-width: 320px;
+  display: flex;
+}
+
+.input__wrapper {
+  flex: 0 1 1%;
+}
+.input__wrapper input {
+  border: none;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.input__wrapper input:hover {
+  min-width: 10px;
+}
+.input__wrapper input:focus {
+  min-width: 100px;
+}
+.input__wrapper input:focus-visible {
+  outline: none;
+}
+
+.authors-in-input__wrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.authors-in-input__list {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.authors-in-input__item {
+  margin: 3px;
+  min-height: 25px;
+  height: 75%;
+  background-color: #fff;
+  display: flex;
+  column-gap: 10px;
+}
+
+.author__item {
+  border: 1px solid rgb(227, 224, 226);
+  min-width: 50px;
+  height: 80%;
+  cursor: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.author__name {
+  padding: 2px;
+  font-size: 14px;
+  height: 100%;
+  flex: 0 1 auto;
+}
+
+.author__button {
+  flex: 1 0 auto;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+.author__button img {
+  width: 30%;
+}
+
+.authors__wrapper {
+  max-height: 100px;
+  overflow: auto;
+  overflow-x: hidden;
+  font-size: 16px;
+  background-color: #fff;
+}
+.authors__wrapper p {
+  padding: 5px;
+  border: 1px solid black;
+}
+.authors__wrapper p:hover {
+  cursor: pointer;
+  transform: scale(101%);
+}

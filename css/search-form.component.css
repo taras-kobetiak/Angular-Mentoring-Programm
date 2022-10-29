@@ -1,0 +1,35 @@
+.container {
+  margin-left: 10%;
+  padding-top: 1%;
+  height: 80%;
+  display: flex;
+}
+
+.input-form {
+  height: 30px;
+  max-width: 50%;
+}
+
+.find-button {
+  min-height: 30px;
+}
+
+input {
+  height: 90%;
+  max-width: 80%;
+  border: 1px solid rgb(188, 185, 185);
+  border-radius: 5px;
+  background: url("https://s1.iconbird.com/ico/0912/Radium/w256h2561348762832Search.png") no-repeat center left 5px;
+  background-size: auto 76%;
+  padding-left: 30px;
+}
+
+button {
+  margin-left: 5px;
+  height: 90%;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  background-color: rgb(79, 218, 79);
+  cursor: pointer;
+}

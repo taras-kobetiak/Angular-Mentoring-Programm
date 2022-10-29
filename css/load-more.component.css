@@ -1,0 +1,21 @@
+.container {
+  margin: 0 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: white;
+  height: 50px;
+}
+.container p {
+  margin: 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.container p:active {
+  color: red;
+}
+.container p:hover {
+  transform: scale(105%);
+}
