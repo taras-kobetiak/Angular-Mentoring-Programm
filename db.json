@@ -39,6 +39,10 @@
         {
           "id": "1qwe",
           "fullName": "Taras"
+        },
+        {
+          "id": "1qweadf",
+          "fullName": "Dorosh Artemiy-Artur"
         }
       ],
       "id": "476f71de-f35a-4f54-9a52-874122fa2e89",
@@ -78,6 +82,20 @@
         }
       ],
       "id": "58520c33-6a72-4756-8a4b-919e64f0e851",
+      "topRated": false
+    },
+    {
+      "id": "GDgoOMd",
+      "title": "1",
+      "description": "12",
+      "duration": 1,
+      "creationDate": "2023-07-12T21:00:00.000Z",
+      "authors": [
+        {
+          "id": "1qwe",
+          "fullName": "Taras"
+        }
+      ],
       "topRated": false
     }
   ],

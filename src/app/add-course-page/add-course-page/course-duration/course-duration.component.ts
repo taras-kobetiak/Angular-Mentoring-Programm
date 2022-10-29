@@ -27,8 +27,8 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor {
     })
   }
 
-  writeValue(obj: number): void {
-    this.duration.setValue(obj);
+  writeValue(duration: number): void {
+    this.duration.setValue(duration);
   }
 
   registerOnChange(fn: any): void {

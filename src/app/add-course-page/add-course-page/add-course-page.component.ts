@@ -64,9 +64,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   addNewCourse(): void {
-    this.courseForm.get('id')?.setValue(uuidv4());
-
-    this.courseService.addCourses(this.courseForm.value).pipe(
+    this.courseService.addCourses({ id: uuidv4(), ...this.courseForm.value }).pipe(
       takeUntil(this.unsubscribingData$))
       .subscribe(() => {
         this.loadingService.setValue(false);
