@@ -4,7 +4,7 @@ import { AddCoursePageComponent } from './modules/add-course-page/add-course-pag
 
 import { AuthGuard } from './guards/isAuth.guard';
 import { NotFoundComponent } from './modules/shared/not-found/not-found.component';
-import { PagesBlockComponent } from './components/pages-block/pages-block.component';
+import { PagesBlockComponent } from './modules/main-content/components/pages-block/pages-block.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

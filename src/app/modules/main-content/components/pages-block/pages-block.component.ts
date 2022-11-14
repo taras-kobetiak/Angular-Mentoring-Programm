@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { ICoursePage } from '../../interfaces/course.interface';
+import { ICoursePage } from '../../../../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
 import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from "rxjs";
-import { LoadingService } from '../../modules/shared/loading-block/servises/loading.service';
+import { LoadingService } from '../../../../modules/shared/loading-block/servises/loading.service';
 import { FormControl } from '@angular/forms';
-import { CoursePage } from '../../interfaces/classes';
+import { CoursePage } from '../../../../interfaces/classes';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 

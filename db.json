@@ -1,7 +1,7 @@
 {
   "courses": [
     {
-      "title": "First course",
+      "title": "First course1",
       "description": "It`s a very intresting course!\nIt`s a very intresting course!\nIt`s a very intresting course!\nIt`s a very intresting course!It`s a very intresting course!It`s a very intresting course!It`s a very intresting course!\n",
       "duration": 12,
       "creationDate": "2023-08-14T21:00:00.000Z",
@@ -89,19 +89,19 @@
       "topRated": false
     },
     {
-      "id": "715xc4q",
-      "title": "1",
-      "description": "23",
-      "duration": 12,
-      "creationDate": "2027-12-17T22:00:00.000Z",
+      "id": "UVQBOxZ",
+      "title": "111",
+      "description": "фцв",
+      "duration": 123,
+      "creationDate": "2022-03-14T22:00:00.000Z",
       "authors": [
         {
           "id": "1qwe",
           "fullName": "Taras"
         },
         {
-          "id": "1qweasd",
-          "fullName": "Vika s. Busya"
+          "id": "1qweadf",
+          "fullName": "Dorosh Artemiy-Artur"
         }
       ],
       "topRated": false
