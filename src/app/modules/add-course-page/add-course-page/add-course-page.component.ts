@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { CoursesService } from 'src/app/pages-block/services/courses.service';
-import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
+import { CoursesService } from 'src/app/components/pages-block/services/courses.service';
+import { LoadingService } from 'src/app/modules/shared/loading-block/servises/loading.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({

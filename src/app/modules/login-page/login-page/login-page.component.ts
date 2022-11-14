@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-import { LoadingService } from 'src/app/shared/loading-block/servises/loading.service';
+import { LoadingService } from '../../shared/loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-login-page',
