@@ -14,36 +14,9 @@ import { MainContentModule } from './modules/main-content/main-content.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { HeaderComponent } from './modules/main-content/components/header/header.component';
-// import { FooterComponent } from './modules/main-content/components/footer/footer.component';
-// import { CoursesPageComponent } from './modules/main-content/components/pages-block/courses-page/courses-page.component';
-// import { SearchFormComponent } from './modules/main-content/components/pages-block/search-form/search-form.component';
-// import { BreadcrumbsComponent } from './modules/main-content/components/breadcrumbs/breadcrumbs.component';
-// import { LoadMoreComponent } from './modules/main-content/components/pages-block/load-more/load-more.component';
-// import { PagesBlockComponent } from './modules/main-content/components/pages-block/pages-block.component';
-// import { NewBorderDirective } from './modules/main-content/components/pages-block/directives/new-border.directive';
-// import { DurationPipe } from './modules/main-content/components/pages-block/pipes/duration.pipe';
-// import { ScaleBlockDirective } from './modules/main-content/components/pages-block/directives/translate-block.directive';
-// import { OrderByPipe } from './modules/main-content/components/pages-block/pipes/order-by.pipe';
-// import { CoursesService } from './modules/main-content/components/pages-block/services/courses.service';
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    // HeaderComponent,
-    // FooterComponent,
-    // CoursesPageComponent,
-    // SearchFormComponent,
-    // BreadcrumbsComponent,
-    // LoadMoreComponent,
-    // PagesBlockComponent,
-    // NewBorderDirective,
-    // DurationPipe,
-    // ScaleBlockDirective,
-    // OrderByPipe,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +33,6 @@ import { AppComponent } from './app.component';
   providers:
     [
       AuthServiceService,
-      // CoursesService,
       AuthGuard,
       {
         provide: HTTP_INTERCEPTORS,
