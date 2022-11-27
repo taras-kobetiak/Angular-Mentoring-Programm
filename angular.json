@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
             "outputPath": "dist/angular-mentoring-programm",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -109,5 +112,7 @@
       }
     }
   },
-  "defaultProject": "Angular-Mentoring-Programm"
+  "cli": {
+    "analytics": false
+  }
 }

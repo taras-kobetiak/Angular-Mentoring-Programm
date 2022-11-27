@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthServiceService } from './authentication/services/auth-service.service';
-import { LoadingService } from './shared/loading-block/servises/loading.service';
+import { LoadingService } from './modules/shared/loading-block/servises/loading.service';
 
 @Component({
   selector: 'app-root',

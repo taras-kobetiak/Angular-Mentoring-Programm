@@ -1,0 +1,116 @@
+.row {
+    padding-top: 20px;
+    height: 185%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.management-container {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 15px;
+}
+
+.serch-form {
+    height: 80%;
+    display: flex;
+}
+
+.input-form {
+    height: 34px;
+    box-sizing: border-box;
+}
+
+.find-button {
+    min-height: 30px;
+}
+
+input {
+    height: 90%;
+    border: 1px solid rgb(188, 185, 185);
+    border-radius: 5px;
+    background: url('https://s1.iconbird.com/ico/0912/Radium/w256h2561348762832Search.png') no-repeat center left 5px;
+    background-size: auto 76%;
+    padding-left: 30px;
+}
+
+.add-course {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.add-button {
+    height: 35px;
+
+    button {
+        width: 120px;
+        height: 100%;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        color: white;
+        background: url('../../../../../assets/img/add-course/plus.png') no-repeat 10px rgb(87, 84, 87);
+        background-size: 14px auto;
+        padding-left: 35px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(70, 67, 70);
+        }
+    }
+}
+
+.pages {
+    margin-bottom: 2%;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    app-courses-page {
+        height: 150px;
+    }
+}
+
+
+@media (max-width:575.98px) {
+
+    input {
+        width: 90px;
+        font-size: 12px;
+    }
+
+    .add-button {
+        button {
+            width: 90px;
+            font-size: 12px;
+        }
+    }
+
+    .input-form,
+    .add-button {
+        height: 30px;
+    }
+}
+
+.load-more {
+    height: 8%;
+    margin-bottom: 20px;
+    z-index: 100;
+}
+
+.no-data {
+    margin: 0 10%;
+    padding: 20px;
+    border: 1px solid black;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+}

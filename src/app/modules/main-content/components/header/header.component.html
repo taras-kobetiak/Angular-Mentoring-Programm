@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="left-box" routerLink="/courses">
+        <div class="img">
+            <img src="../../assets/img/header/logo.png" alt="Video icon">
+        </div>
+        <div class="title">
+            <h1>VIDEO COURSE</h1>
+        </div>
+    </div>
+    <div class="login-form" *ngIf="isAuth">
+        <div class="user-login">
+            <img src="../../assets/img/header/user.png" alt="User">
+            <p>Hello, {{currentUser?.firstName}}</p>
+        </div>
+        <div class="user-log-of">
+            <img src="../../assets/img/header/exit.png" alt="Log out">
+            <p routerLink="login" (click)="onLogOutClick()">Log out
+            </p>
+        </div>
+    </div>
+</div>
