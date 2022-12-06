@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AuthServiceService } from './authentication/services/auth-service.service';
-import { LoadingService } from './modules/shared/loading-block/servises/loading.service';
+import { Store } from '@ngrx/store';
+import { Observable, map } from 'rxjs';
+import { isLoadingSelector } from './store/reducers/isLoading.reducer';
+import { isLoginSelector } from './store/reducers/isLogin.reducer';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,11 @@ import { LoadingService } from './modules/shared/loading-block/servises/loading.
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  isAuth$: Observable<boolean>;
-  isLoading$: Observable<boolean>;
+  isAuth$: Observable<boolean> = this.store.select(isLoginSelector);
+  isLoading$: Observable<boolean> = this.store.select(isLoadingSelector);
 
-  constructor(private authService: AuthServiceService, private loadingService: LoadingService) { }
+  constructor(private store: Store) { }
 
-  ngOnInit(): void {
-    this.isLoading$ = this.loadingService.getIsLoadingValue()
-    this.isAuth$ = this.authService.isAuthenticated();
-  }
 }

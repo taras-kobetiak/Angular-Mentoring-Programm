@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
+import { isLoginFalse } from 'src/app/store/actions/isLogin.action';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,12 @@ import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 export class AuthServiceService {
 
   usersData: IUserEntyty[];
-  isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
+  // isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private store: Store
+  ) { }
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -26,12 +31,17 @@ export class AuthServiceService {
   logOut(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
-    this.isAuth$.next(false);
+
+
+    this.store.dispatch(isLoginFalse());
+
+
+    // this.isAuth$.next(false);
   }
 
-  isAuthenticated(): Observable<boolean> {
-    return this.isAuth$.asObservable();
-  }
+  // isAuthenticated(): Observable<boolean> {
+  //   return this.isAuth$.asObservable();
+  // }
 
   getUserInfo(email: string): Observable<IUserEntyty[]> {
     return this.http.get<IUserEntyty[]>(`users/?email=${email}`);

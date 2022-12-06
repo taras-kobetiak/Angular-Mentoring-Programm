@@ -2,9 +2,10 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { ICoursePage } from '../../../../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
 import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from "rxjs";
-import { LoadingService } from '../../../../modules/shared/loading-block/servises/loading.service';
 import { FormControl } from '@angular/forms';
 import { CoursePage } from '../../../../interfaces/classes';
+import { Store } from '@ngrx/store';
+import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -26,7 +27,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   constructor(
     private coursesPagesService: CoursesService,
-    private loadingService: LoadingService,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +58,6 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
       })
     }
   }
-
   loadNewCourses(): void {
     this.numberOfCourses += NUMBER_OF_ADD_COURSES;
     this.refreshCourse();
@@ -65,14 +65,14 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-    this.loadingService.setValue(true);
+    this.store.dispatch(isLoadingTrue());
     this.coursesPagesService.updateCourse(course).pipe(
       takeUntil(this.unsubscribingData$)
-    ).subscribe(() => this.loadingService.setValue(false));
+    ).subscribe(() => this.store.dispatch(isLoadingFalse()));
   }
 
   refreshCourse(): void {
-    this.loadingService.setValue(true);
+    this.store.dispatch(isLoadingTrue());
 
     let currentNumberOfCourses = this.courses.length;
 
@@ -84,7 +84,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
       }
       this.courses = coursesData;
 
-      this.loadingService.setValue(false);
+      this.store.dispatch(isLoadingFalse())
     });
   }
 

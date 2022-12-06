@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
-import { LoadingService } from 'src/app/modules/shared/loading-block/servises/loading.service';
+import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -26,8 +27,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private courseService: CoursesService,
-    private loadingService: LoadingService,
     private formBuilder: FormBuilder,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -48,8 +49,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.loadingService.setValue(true);
-
+    this.store.dispatch(isLoadingTrue());
     this.courseForm.get('id')?.value ? this.updateCourse() :
       this.addNewCourse();
   }
@@ -58,7 +58,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseService.updateCourse(this.courseForm.value).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(() => {
-      this.loadingService.setValue(false);
+      this.store.dispatch(isLoadingFalse());
       this.backToCoursesList();
     })
   }
@@ -67,18 +67,18 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseService.addCourses({ id: uuidv4(), ...this.courseForm.value }).pipe(
       takeUntil(this.unsubscribingData$))
       .subscribe(() => {
-        this.loadingService.setValue(false);
+        this.store.dispatch(isLoadingFalse());
         this.backToCoursesList();
       })
   }
 
   takeCourseData(): void {
-    this.loadingService.setValue(true);
+    this.store.dispatch(isLoadingTrue());
 
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-      this.loadingService.setValue(false);
+      this.store.dispatch(isLoadingFalse());
       this.courseForm.setValue(course);
 
       this.courseService.currentCourseTitle$.next(this.courseForm.get('title')?.value);

@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-import { LoadingService } from '../../shared/loading-block/servises/loading.service';
+import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
+import { isLoginTrue } from 'src/app/store/actions/isLogin.action';
 
 @Component({
   selector: 'app-login-page',
@@ -19,8 +21,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthServiceService,
     private router: Router,
-    private loadingService: LoadingService,
     private formBuilder: FormBuilder,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.loadingService.setValue(true);
+    this.store.dispatch(isLoadingTrue());
+
+
     const currentUser: IUserEntyty = this.loginForm.value;
     this.createUsersData(currentUser);
   }
@@ -50,15 +54,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     ).subscribe((user: IUserEntyty) => {
       localStorage.setItem('token', user.token);
       localStorage.setItem(`currentUser`, JSON.stringify(user));
-      this.authService.isAuth$.next(true);
+
       this.router.navigate(['/courses']);
-      this.loadingService.setValue(false);
+
+
+      this.store.dispatch(isLoadingFalse());
+      this.store.dispatch(isLoginTrue());
+
     })
   }
 
   onWrongData(): void {
     alert('wrong data, please check your email and pass');
-    this.loadingService.setValue(false);
+    this.store.dispatch(isLoadingFalse());
   }
 
   ngOnDestroy(): void {

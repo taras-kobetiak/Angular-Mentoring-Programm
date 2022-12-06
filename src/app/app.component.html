@@ -8,7 +8,7 @@
     <div class="header">
       <app-header></app-header>
     </div>
-    <div class="breadcrumbs" *ngIf="isAuth$ | async">
+    <div class="breadcrumbs" *ngIf="!(isAuth$ | async)">
       <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="main">

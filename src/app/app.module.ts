@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginModule } from './modules/login-page/login-page.module';
@@ -13,6 +13,11 @@ import { UrlInterceptorInterceptor } from './interceptor/url-interceptor.interce
 import { MainContentModule } from './modules/main-content/main-content.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,12 @@ import { AppComponent } from './app.component';
     LoginModule,
     AddCoursePageModule,
     SharedModule,
-    MainContentModule
+    MainContentModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers:
     [
