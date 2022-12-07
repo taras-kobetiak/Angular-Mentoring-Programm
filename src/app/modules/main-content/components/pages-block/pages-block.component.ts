@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUnt
 import { FormControl } from '@angular/forms';
 import { CoursePage } from '../../../../interfaces/classes';
 import { Store } from '@ngrx/store';
-import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
+import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/store/actions/isLoading.action';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -65,14 +65,14 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   changeRate(course: ICoursePage): void {
     course.topRated = !course.topRated;
-    this.store.dispatch(isLoadingTrue());
+    this.store.dispatch(isLoadingPagesBlockTrue());
     this.coursesPagesService.updateCourse(course).pipe(
       takeUntil(this.unsubscribingData$)
-    ).subscribe(() => this.store.dispatch(isLoadingFalse()));
+    ).subscribe(() => this.store.dispatch(isLoadingPagesBlockFalse()));
   }
 
   refreshCourse(): void {
-    this.store.dispatch(isLoadingTrue());
+    this.store.dispatch(isLoadingPagesBlockTrue());
 
     let currentNumberOfCourses = this.courses.length;
 
@@ -84,7 +84,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
       }
       this.courses = coursesData;
 
-      this.store.dispatch(isLoadingFalse())
+      this.store.dispatch(isLoadingPagesBlockFalse())
     });
   }
 

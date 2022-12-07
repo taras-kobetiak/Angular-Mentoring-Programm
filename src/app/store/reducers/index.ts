@@ -7,7 +7,7 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { ISLOADING_KEY, isLoadingState, isLoadingReducer } from './isLoading.reducer';
-import { isLoginReducer, isLoginState, ISLOGIN_KEY } from './isLogin.reducer';
+import { isLoginReducer, isLoginState, ISLOGIN_KEY } from './isAuth.reducer';
 
 export interface State {
   [ISLOADING_KEY]: isLoadingState;

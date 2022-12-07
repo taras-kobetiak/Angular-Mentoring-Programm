@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Store } from "@ngrx/store";
 import { Observable, tap } from "rxjs";
 import { AuthServiceService } from "../authentication/services/auth-service.service";
-import { isLoginSelector } from "../store/reducers/isLogin.reducer";
+import { isLoginSelector } from "../store/reducers/isAuth.reducer";
 
 @Injectable({
     providedIn: 'root'
@@ -26,15 +26,5 @@ export class AuthGuard implements CanActivate {
                 }
             })
         )
-
-
-
-        // this.authService.isAuthenticated().pipe(
-        //     tap((isAuth: boolean) => {
-        //         if (!isAuth) {
-        //             this.router.navigate(['/login']);
-        //         }
-        //     })
-        // )
     }
 }

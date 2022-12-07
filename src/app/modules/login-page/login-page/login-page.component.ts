@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
-import { isLoginTrue } from 'src/app/store/actions/isLogin.action';
+import { isLoadingLoginFalse, isLoadingLoginTrue } from 'src/app/store/actions/isLoading.action';
+import { isAuthLoginPageTrue } from 'src/app/store/actions/isAuth.action';
 
 @Component({
   selector: 'app-login-page',
@@ -33,8 +33,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(isLoadingTrue());
-
+    this.store.dispatch(isLoadingLoginTrue());
 
     const currentUser: IUserEntyty = this.loginForm.value;
     this.createUsersData(currentUser);
@@ -58,15 +57,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.router.navigate(['/courses']);
 
 
-      this.store.dispatch(isLoadingFalse());
-      this.store.dispatch(isLoginTrue());
+      this.store.dispatch(isLoadingLoginFalse());
+      this.store.dispatch(isAuthLoginPageTrue());
 
     })
   }
 
   onWrongData(): void {
     alert('wrong data, please check your email and pass');
-    this.store.dispatch(isLoadingFalse());
+    this.store.dispatch(isLoadingLoginFalse());
   }
 
   ngOnDestroy(): void {

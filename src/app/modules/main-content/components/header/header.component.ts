@@ -4,8 +4,8 @@ import { AuthServiceService } from '../../../../authentication/services/auth-ser
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { isLoadingSelector } from 'src/app/store/reducers/isLoading.reducer';
-import { isLoginFalse } from 'src/app/store/actions/isLogin.action';
-import { isLoginSelector } from 'src/app/store/reducers/isLogin.reducer';
+import { isAuthHeaderFalse } from 'src/app/store/actions/isAuth.action';
+import { isLoginSelector } from 'src/app/store/reducers/isAuth.reducer';
 
 @Component({
   selector: 'app-header',
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogOutClick(): void {
-    this.store.dispatch(isLoginFalse());
+    this.store.dispatch(isAuthHeaderFalse());
   }
 
   ngOnDestroy(): void {

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
-import { isLoadingFalse, isLoadingTrue } from 'src/app/store/actions/isLoading.action';
+import { isLoadingAddCoursePageFalse, isLoadingAddCoursePageTrue } from 'src/app/store/actions/isLoading.action';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -49,7 +49,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(isLoadingTrue());
+    this.store.dispatch(isLoadingAddCoursePageTrue());
     this.courseForm.get('id')?.value ? this.updateCourse() :
       this.addNewCourse();
   }
@@ -58,7 +58,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseService.updateCourse(this.courseForm.value).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(() => {
-      this.store.dispatch(isLoadingFalse());
+      this.store.dispatch(isLoadingAddCoursePageFalse());
       this.backToCoursesList();
     })
   }
@@ -67,18 +67,18 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseService.addCourses({ id: uuidv4(), ...this.courseForm.value }).pipe(
       takeUntil(this.unsubscribingData$))
       .subscribe(() => {
-        this.store.dispatch(isLoadingFalse());
+        this.store.dispatch(isLoadingAddCoursePageFalse());
         this.backToCoursesList();
       })
   }
 
   takeCourseData(): void {
-    this.store.dispatch(isLoadingTrue());
+    this.store.dispatch(isLoadingAddCoursePageTrue());
 
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-      this.store.dispatch(isLoadingFalse());
+      this.store.dispatch(isLoadingAddCoursePageFalse());
       this.courseForm.setValue(course);
 
       this.courseService.currentCourseTitle$.next(this.courseForm.get('title')?.value);

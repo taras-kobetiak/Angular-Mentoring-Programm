@@ -1,5 +1,5 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { isLoginFalse, isLoginTrue } from "../actions/isLogin.action";
+import { isAuthHeaderFalse, isAuthLoginPageTrue } from "../actions/isAuth.action";
 
 
 export const ISLOGIN_KEY = 'isLogin';
@@ -14,8 +14,8 @@ export const initialState: isLoginState = {
 
 export const isLoginReducer = createReducer(
     initialState,
-    on(isLoginFalse, state => ({ isLogin: false })),
-    on(isLoginTrue, state => ({ isLogin: true })),
+    on(isAuthHeaderFalse, state => ({ isLogin: false })),
+    on(isAuthLoginPageTrue, state => ({ isLogin: true })),
 )
 
 export const featureSelector = createFeatureSelector<isLoginState>(ISLOGIN_KEY);
