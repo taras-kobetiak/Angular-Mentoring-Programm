@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { isLoadingSelector } from './store/reducers/isLoading.reducer';
 import { isLoginSelector } from './store/reducers/isAuth.reducer';
+import { AuthServiceService } from './authentication/services/auth-service.service';
 
 @Component({
   selector: 'app-root',

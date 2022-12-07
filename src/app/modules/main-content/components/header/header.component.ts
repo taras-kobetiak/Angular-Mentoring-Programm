@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(private store: Store,
-
+    private authService: AuthServiceService
   ) { };
 
   ngOnInit(): void {
@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOutClick(): void {
     this.store.dispatch(isAuthHeaderFalse());
+    this.authService.logOut();
   }
 
   ngOnDestroy(): void {

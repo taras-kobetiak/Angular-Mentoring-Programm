@@ -1,11 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
-
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +31,5 @@ export class AuthServiceService {
 
   getUserInfo(email: string): Observable<IUserEntyty[]> {
     return this.http.get<IUserEntyty[]>(`users/?email=${email}`);
-  }
-
-  private hasToken(): boolean {
-    return Boolean(localStorage.getItem('token'));
   }
 }

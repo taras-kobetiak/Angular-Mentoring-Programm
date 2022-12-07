@@ -4,23 +4,23 @@ import { isAuthHeaderFalse, isAuthLoginPageTrue } from "../actions/isAuth.action
 
 export const ISLOGIN_KEY = 'isLogin';
 
-export interface isLoginState {
-    isLogin: boolean;
+export interface isAuthState {
+    isAuth: boolean;
 }
 
-export const initialState: isLoginState = {
-    isLogin: false
+export const initialState: isAuthState = {
+    isAuth: Boolean(localStorage.getItem('token'))
 }
 
-export const isLoginReducer = createReducer(
+export const isAuthReducer = createReducer(
     initialState,
-    on(isAuthHeaderFalse, state => ({ isLogin: false })),
-    on(isAuthLoginPageTrue, state => ({ isLogin: true })),
+    on(isAuthHeaderFalse, state => ({ isAuth: false })),
+    on(isAuthLoginPageTrue, state => ({ isAuth: true })),
 )
 
-export const featureSelector = createFeatureSelector<isLoginState>(ISLOGIN_KEY);
+export const featureSelector = createFeatureSelector<isAuthState>(ISLOGIN_KEY);
 
 export const isLoginSelector = createSelector(
     featureSelector,
-    state => state.isLogin
+    state => state.isAuth
 )
