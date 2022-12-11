@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { ICoursePage } from "src/app/interfaces/course.interface";
-import { getCoursesListAction, getCoursesListSuccessAction } from "./courses-list.action";
+import { getCoursesListAction, getCoursesListSuccessAction } from "./courses.action";
 
 export const COURSES = 'courses';
 

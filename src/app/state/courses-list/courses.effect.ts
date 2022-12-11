@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 import { CoursesService } from "src/app/modules/main-content/components/pages-block/services/courses.service";
-import { getCoursesListAction, getCoursesListFailedAction, getCoursesListSuccessAction } from "./courses-list.action";
+import { getCoursesListAction, getCoursesListFailedAction, getCoursesListSuccessAction } from "./courses.action";
 
 @Injectable()
 

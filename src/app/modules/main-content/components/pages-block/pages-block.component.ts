@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 import { CoursePage } from '../../../../interfaces/classes';
 import { Store } from '@ngrx/store';
 import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
-import { getCoursesListAction } from 'src/app/state/courses-list/courses-list.action';
+import { getCoursesListAction } from 'src/app/state/courses-list/courses.action';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
