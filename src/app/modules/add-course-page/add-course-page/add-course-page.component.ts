@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
-import { isLoadingAddCoursePageFalse, isLoadingAddCoursePageTrue } from 'src/app/store/actions/isLoading.action';
+import { isLoadingAddCoursePageTrue, isLoadingAddCoursePageFalse } from 'src/app/state/loading/isLoading.action';
+
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({

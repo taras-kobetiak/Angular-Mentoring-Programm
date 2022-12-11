@@ -14,10 +14,11 @@ import { MainContentModule } from './modules/main-content/main-content.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './store/reducers';
+import { reducers, metaReducers } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import { AuthEffects } from './state/authentication/auth.effect';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AppEffects } from './app.effects';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects, AuthEffects])
   ],
   providers:
     [

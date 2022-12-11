@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { isLoadingSelector } from './store/reducers/isLoading.reducer';
-import { isLoginSelector } from './store/reducers/isAuth.reducer';
 import { AuthServiceService } from './authentication/services/auth-service.service';
+import { isAuthSelector } from './state/authentication/auth.selector';
+import { isLoadingSelector } from './state/loading/isLoading.selector';
 
 
 @Component({
@@ -12,18 +12,14 @@ import { AuthServiceService } from './authentication/services/auth-service.servi
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnDestroy, OnInit {
-  isAuth$: Observable<boolean> = this.store.select(isLoginSelector);
+export class AppComponent implements OnDestroy {
+  isAuth$: Observable<boolean> = this.store.select(isAuthSelector);
   isLoading$: Observable<boolean> = this.store.select(isLoadingSelector);
 
   constructor(
     private store: Store,
     private authService: AuthServiceService
   ) { }
-  ngOnInit(): void {
-    console.log(localStorage);
-
-  }
 
   ngOnDestroy(): void {
     this.authService.logOut()

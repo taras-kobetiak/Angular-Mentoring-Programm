@@ -6,17 +6,17 @@ import {
   createSelector,
   MetaReducer
 } from '@ngrx/store';
-import { ISLOADING_KEY, isLoadingState, isLoadingReducer } from './isLoading.reducer';
-import { isAuthReducer, isAuthState, ISLOGIN_KEY } from './isAuth.reducer';
+import { ISLOADING_KEY, isLoadingState, isLoadingReducer } from './loading/isLoading.reducer';
+import { authReducer, authState, AUTH_KEY } from './authentication/auth.reducer';
 
 export interface State {
   [ISLOADING_KEY]: isLoadingState;
-  [ISLOGIN_KEY]: isAuthState;
+  [AUTH_KEY]: authState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [ISLOADING_KEY]: isLoadingReducer,
-  [ISLOGIN_KEY]: isAuthReducer
+  [AUTH_KEY]: authReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];

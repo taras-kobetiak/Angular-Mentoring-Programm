@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUnt
 import { FormControl } from '@angular/forms';
 import { CoursePage } from '../../../../interfaces/classes';
 import { Store } from '@ngrx/store';
-import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/store/actions/isLoading.action';
+import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 

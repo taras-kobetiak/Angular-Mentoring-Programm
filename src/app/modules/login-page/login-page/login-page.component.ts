@@ -5,8 +5,9 @@ import { Store } from '@ngrx/store';
 import { filter, map, Subject, takeUntil, } from 'rxjs';
 import { AuthServiceService } from 'src/app/authentication/services/auth-service.service';
 import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
-import { isLoadingLoginFalse, isLoadingLoginTrue } from 'src/app/store/actions/isLoading.action';
-import { isAuthLoginPageTrue } from 'src/app/store/actions/isAuth.action';
+import { loginAction, isAuthLoginPageTrue } from 'src/app/state/authentication/auth.action';
+import { isLoadingLoginTrue, isLoadingLoginFalse, isLoadingLoginErrorFalse } from 'src/app/state/loading/isLoading.action';
+
 
 @Component({
   selector: 'app-login-page',
@@ -40,32 +41,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   createUsersData(currentUser: IUserEntyty): void {
-    this.authService.getUserInfo(currentUser.email).pipe(
-      map((user: IUserEntyty[]) => user[0]),
-      filter((user: IUserEntyty) => {
-        if (!user || user.password !== currentUser.password) {
-          this.onWrongData();
-          return false;
-        }
-        return user.password === currentUser.password;
-      }),
-      takeUntil(this.unsubscribingData$)
-    ).subscribe((user: IUserEntyty) => {
-      localStorage.setItem('token', user.token);
-      localStorage.setItem(`currentUser`, JSON.stringify(user));
-
-      this.router.navigate(['/courses']);
-
-
-      this.store.dispatch(isLoadingLoginFalse());
-      this.store.dispatch(isAuthLoginPageTrue());
-
-    })
-  }
-
-  onWrongData(): void {
-    alert('wrong data, please check your email and pass');
-    this.store.dispatch(isLoadingLoginFalse());
+    this.store.dispatch(loginAction({ currentUser: currentUser }))
   }
 
   ngOnDestroy(): void {

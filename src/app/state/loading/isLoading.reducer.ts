@@ -1,5 +1,5 @@
-import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { isLoadingAddCoursePageFalse, isLoadingAddCoursePageTrue, isLoadingLoginFalse, isLoadingLoginTrue, isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from "../actions/isLoading.action";
+import { createReducer, on } from "@ngrx/store";
+import { isLoadingAddCoursePageFalse, isLoadingAddCoursePageTrue, isLoadingLoginErrorFalse, isLoadingLoginFalse, isLoadingLoginTrue, isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from "./isLoading.action";
 
 export const ISLOADING_KEY = 'isLoading';
 
@@ -16,15 +16,10 @@ export const isLoadingReducer = createReducer(
     on(isLoadingAddCoursePageFalse, state => ({ isLoading: false })),
     on(isLoadingAddCoursePageTrue, state => ({ isLoading: true })),
     on(isLoadingLoginFalse, state => ({ isLoading: false })),
+    on(isLoadingLoginErrorFalse, state => ({ isLoading: false })),
     on(isLoadingLoginTrue, state => ({ isLoading: true })),
     on(isLoadingPagesBlockFalse, state => ({ isLoading: false })),
     on(isLoadingPagesBlockTrue, state => ({ isLoading: true })),
 )
 
 
-export const featureSelector = createFeatureSelector<isLoadingState>(ISLOADING_KEY);
-
-export const isLoadingSelector = createSelector(
-    featureSelector,
-    state => state.isLoading
-)
