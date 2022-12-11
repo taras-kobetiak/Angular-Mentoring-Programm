@@ -1,10 +1,7 @@
-import { state } from "@angular/animations";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { authState, AUTH_KEY } from "./auth.reducer";
+import { IAuthState, AUTH_KEY } from "./auth.reducer";
 
-
-
-export const featureSelector = createFeatureSelector<authState>(AUTH_KEY);
+export const featureSelector = createFeatureSelector<IAuthState>(AUTH_KEY);
 
 export const isAuthSelector = createSelector(
     featureSelector,

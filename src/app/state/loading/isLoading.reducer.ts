@@ -3,23 +3,23 @@ import { isLoadingAddCoursePageFalse, isLoadingAddCoursePageTrue, isLoadingLogin
 
 export const ISLOADING_KEY = 'isLoading';
 
-export interface isLoadingState {
+export interface IIsLoadingState {
     isLoading: boolean;
 }
 
-export const initialState: isLoadingState = {
+export const initialState: IIsLoadingState = {
     isLoading: false
 }
 
 export const isLoadingReducer = createReducer(
     initialState,
-    on(isLoadingAddCoursePageFalse, state => ({ isLoading: false })),
-    on(isLoadingAddCoursePageTrue, state => ({ isLoading: true })),
-    on(isLoadingLoginFalse, state => ({ isLoading: false })),
-    on(isLoadingLoginErrorFalse, state => ({ isLoading: false })),
-    on(isLoadingLoginTrue, state => ({ isLoading: true })),
-    on(isLoadingPagesBlockFalse, state => ({ isLoading: false })),
-    on(isLoadingPagesBlockTrue, state => ({ isLoading: true })),
+    on(isLoadingAddCoursePageFalse, state => ({ ...state, isLoading: false })),
+    on(isLoadingAddCoursePageTrue, state => ({ ...state, isLoading: true })),
+    on(isLoadingLoginFalse, state => ({ ...state, isLoading: false })),
+    on(isLoadingLoginErrorFalse, state => ({ ...state, isLoading: false })),
+    on(isLoadingLoginTrue, state => ({ ...state, isLoading: true })),
+    on(isLoadingPagesBlockFalse, state => ({ ...state, isLoading: false })),
+    on(isLoadingPagesBlockTrue, state => ({ ...state, isLoading: true })),
 )
 
 

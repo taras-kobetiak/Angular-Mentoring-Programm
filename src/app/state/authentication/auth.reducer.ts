@@ -3,14 +3,13 @@ import { IUserEntyty } from "src/app/interfaces/user-entyty.interface";
 import { loginAction, isAuthHeaderFalse, isAuthLoginPageTrue, loginSuccessAction } from "./auth.action";
 
 export const AUTH_KEY = 'auth';
-export const USER_KEY = 'user';
 
-export interface authState {
+export interface IAuthState {
     isAuth: boolean;
     user: IUserEntyty;
 }
 
-export const initialState: authState = {
+export const initialState: IAuthState = {
     isAuth: Boolean(localStorage.getItem('token')),
     user: JSON.parse(localStorage.getItem('currentUser')!) || {
         id: "",

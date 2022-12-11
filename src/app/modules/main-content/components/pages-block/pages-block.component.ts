@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { CoursePage } from '../../../../interfaces/classes';
 import { Store } from '@ngrx/store';
 import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
+import { getCoursesListAction } from 'src/app/state/courses-list/courses-list.action';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -32,6 +33,11 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     setTimeout(() => this.refreshCourse(), 0);
+
+
+    this.store.dispatch(getCoursesListAction())
+
+
     this.searchFunction();
   }
 
