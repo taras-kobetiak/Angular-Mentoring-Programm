@@ -6,7 +6,7 @@ import { catchError, map, of, pipe, switchMap, tap } from "rxjs";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 import { CoursesService } from "src/app/modules/main-content/components/pages-block/services/courses.service";
 import { isLoadingAddCoursePageFalse, isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from "../loading/isLoading.action";
-import { createCourseAction, createCourseFailedAction, createCourseSuccessAction, deleteCourseAction, deleteCourseFailedAction, deleteCourseSuccessAction, getCourseAction, getCourseFailedAction, getCoursesListAction, getCoursesListFailedAction, getCoursesListSuccessAction, getCourseSuccessAction, updateCourseAction, updateCourseFailedAction, updateCourseSuccessAction } from "./courses.action";
+import { createCourseAction, createCourseFailedAction, createCourseSuccessAction, deleteCourseAction, deleteCourseFailedAction, deleteCourseSuccessAction, getCourseAction, getCourseFailedAction, getAllCoursesListAction, getAllCoursesListFailedAction, getAllCoursesListSuccessAction, getCourseSuccessAction, updateCourseAction, updateCourseFailedAction, updateCourseSuccessAction, getFilteredCoursesListAction, getFilteredCoursesListSuccessAction, getFilteredCoursesListFailedAction, getCoursesToShowListAction, getCoursesToShowListSuccessAction } from "./courses.action";
 
 @Injectable()
 
@@ -21,57 +21,80 @@ export class CoursesListEffects {
     ) { }
 
     getCoursesList$ = createEffect(() => this.actions$.pipe(
-        ofType(getCoursesListAction),
-        tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        ofType(getAllCoursesListAction),
+
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+
         switchMap(() => this.courseService.getAllCoursesList().pipe(
             map((courses: ICoursePage[]) => {
-                return getCoursesListSuccessAction({ courseList: courses })
+                return getAllCoursesListSuccessAction({ courseList: courses })
             }),
-            tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
-            catchError(() => of(getCoursesListFailedAction))
+
+            // tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
+
+            catchError(() => of(getAllCoursesListFailedAction))
         ))
     ))
 
+    getCoursesFilteredList$ = createEffect(() => this.actions$.pipe(
+        ofType(getFilteredCoursesListAction),
+        switchMap(({ inputData }) => this.courseService.getFilteredList(inputData).pipe(
+            map((courseFilteredList: ICoursePage[]) => getFilteredCoursesListSuccessAction({ courseFilteredList })),
+            catchError(() => of(getFilteredCoursesListFailedAction))
+        ))
+    ))
+
+    getCoursesToShowList$ = createEffect(() => this.actions$.pipe(
+        ofType(getCoursesToShowListAction),
+        switchMap(({ numberOfCourses }) => this.courseService.getCoursesList(numberOfCourses).pipe(
+            map((courseToShowList: ICoursePage[]) => getCoursesToShowListSuccessAction({ courseToShowList }))
+        ))
+    ))
+
+
     deleteCourse$ = createEffect(() => this.actions$.pipe(
         ofType(deleteCourseAction),
-        tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
         switchMap(({ id }) => this.courseService.deleteCourse(id).pipe(
             map(() => deleteCourseSuccessAction({ id })),
-            tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
+            // tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
             catchError(() => of(deleteCourseFailedAction))
         ))
     ))
 
     getCourse$ = createEffect(() => this.actions$.pipe(
         ofType(getCourseAction),
-        tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
         switchMap(({ id }) => this.courseService.getCourseById(id).pipe(
             map((course: ICoursePage) => getCourseSuccessAction({ course })),
-            tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
+            // tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
             catchError(() => of(getCourseFailedAction))
         ))
     ))
 
     updateCourse$ = createEffect(() => this.actions$.pipe(
         ofType(updateCourseAction),
-        tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
         switchMap(({ course }) => this.courseService.updateCourse(course).pipe(
             map(() => updateCourseSuccessAction({ course })),
             tap(() => {
-                this.store.dispatch(isLoadingPagesBlockFalse());
+                console.log(1);
+
+                // this.store.dispatch(isLoadingPagesBlockFalse());
                 this.router.navigate(['courses']);
             }),
             catchError(() => of(updateCourseFailedAction))
         ))
     ))
 
+
     createCourse$ = createEffect(() => this.actions$.pipe(
         ofType(createCourseAction),
-        tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
         switchMap(({ course }) => this.courseService.addCourses(course).pipe(
             map(() => createCourseSuccessAction({ course })),
             tap(() => {
-                this.store.dispatch(isLoadingPagesBlockFalse());
+                // this.store.dispatch(isLoadingPagesBlockFalse());
                 this.router.navigate(['courses']);
             }),
             catchError(() => of(createCourseFailedAction))

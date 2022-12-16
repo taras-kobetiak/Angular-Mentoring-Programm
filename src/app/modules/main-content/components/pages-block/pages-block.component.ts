@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../../../../interfaces/course.interface';
 import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, Observable, Subject, switchMap, takeUntil } from "rxjs";
 import { FormControl } from '@angular/forms';
-import { CoursePage } from '../../../../interfaces/classes';
+
 import { Store } from '@ngrx/store';
 import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
-import { getCoursesListAction } from 'src/app/state/courses-list/courses.action';
+import { deleteCourseAction, deleteCourseSuccessAction, getAllCoursesListAction, getCoursesToShowListAction, getFilteredCoursesListAction, updateCourseAction } from 'src/app/state/courses/courses.action';
+import { AllCoursesListLengthSelector, CoursesToShowListSelector } from 'src/app/state/courses/courses.selector';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -22,76 +23,67 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   searchBox: FormControl;
   showLoadMore: boolean = true;
-  courses: CoursePage[] = [];
   numberOfCourses: number = NUMBER_OF_ADD_COURSES;
+  courses$: Observable<ICoursePage[]> = this.store.select(CoursesToShowListSelector);
+  allCoursesLength$: Observable<number> = this.store.select(AllCoursesListLengthSelector);
+
+
+
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
   constructor(
-    private coursesPagesService: CoursesService,
     private store: Store
   ) { }
 
   ngOnInit(): void {
-    setTimeout(() => this.refreshCourse(), 0);
-
-
-    this.store.dispatch(getCoursesListAction())
-
-
+    this.refreshCourse()
     this.searchFunction();
   }
 
   searchFunction(): void {
     this.searchBox = new FormControl('');
-
     this.searchBox.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
       filter(text => text !== null && text.length > 2 || text === ''),
-      switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase())),
       takeUntil(this.unsubscribingData$)
-    ).subscribe((courseData) => {
-      this.courses = courseData;
+    ).subscribe((inputData) => {
+      this.store.dispatch(getFilteredCoursesListAction({ inputData }))
     })
   }
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.coursesPagesService.deleteCourse(id).pipe(
-        takeUntil(this.unsubscribingData$)
-      ).subscribe(() => {
-        this.refreshCourse();
-      })
+      this.store.dispatch(deleteCourseAction({ id: id }))
+      this.refreshCourse();
     }
   }
+
   loadNewCourses(): void {
     this.numberOfCourses += NUMBER_OF_ADD_COURSES;
     this.refreshCourse();
   }
 
   changeRate(course: ICoursePage): void {
-    course.topRated = !course.topRated;
-    this.store.dispatch(isLoadingPagesBlockTrue());
-    this.coursesPagesService.updateCourse(course).pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe(() => this.store.dispatch(isLoadingPagesBlockFalse()));
+    let newCourse = { ...course };
+    newCourse.topRated = !newCourse.topRated
+    this.store.dispatch(updateCourseAction({ course: newCourse }))
   }
 
   refreshCourse(): void {
     this.store.dispatch(isLoadingPagesBlockTrue());
+    this.store.dispatch(getAllCoursesListAction())
 
-    let currentNumberOfCourses = this.courses.length;
-
-    this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
+    this.allCoursesLength$.pipe(
       takeUntil(this.unsubscribingData$)
-    ).subscribe((coursesData) => {
-      if (currentNumberOfCourses === coursesData.length) {
+    ).subscribe((allCoursesLength) => {
+      allCoursesLength > this.numberOfCourses ? this.showLoadMore = true :
         this.showLoadMore = false;
-      }
-      this.courses = coursesData;
+    })
 
-      this.store.dispatch(isLoadingPagesBlockFalse())
-    });
+    this.store.dispatch(getCoursesToShowListAction({ numberOfCourses: this.numberOfCourses }))
+
+    this.store.dispatch(isLoadingPagesBlockFalse())
   }
 
   ngOnDestroy(): void {

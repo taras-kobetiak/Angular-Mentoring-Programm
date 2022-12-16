@@ -8,14 +8,11 @@ import { IUserEntyty } from 'src/app/interfaces/user-entyty.interface';
 })
 export class AuthServiceService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) { }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
 
   logOut(): void {
     localStorage.removeItem('token');

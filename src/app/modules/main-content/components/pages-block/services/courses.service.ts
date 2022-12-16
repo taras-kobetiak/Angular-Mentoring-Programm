@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CoursePage } from 'src/app/interfaces/classes';
 
 @Injectable({
@@ -9,7 +9,6 @@ import { CoursePage } from 'src/app/interfaces/classes';
 export class CoursesService {
 
   course: CoursePage;
-  currentCourseTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
 

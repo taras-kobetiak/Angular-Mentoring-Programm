@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(isLoadingLoginTrue());
+    // this.store.dispatch(isLoadingLoginTrue());
 
     const currentUser: IUserEntyty = this.loginForm.value;
     this.createUsersData(currentUser);

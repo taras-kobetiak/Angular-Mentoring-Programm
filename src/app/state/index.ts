@@ -8,7 +8,7 @@ import {
 } from '@ngrx/store';
 import { ISLOADING_KEY, IIsLoadingState, isLoadingReducer } from './loading/isLoading.reducer';
 import { authReducer, IAuthState, AUTH_KEY } from './authentication/auth.reducer';
-import { courseListReducer, COURSES, ICourseState } from './courses-list/courses.reducer';
+import { courseListReducer, COURSES, ICourseState } from './courses/courses.reducer';
 
 export interface State {
   [ISLOADING_KEY]: IIsLoadingState;

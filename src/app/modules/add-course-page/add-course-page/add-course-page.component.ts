@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
+import { getCourseAction } from 'src/app/state/courses/courses.action';
 import { isLoadingAddCoursePageTrue, isLoadingAddCoursePageFalse } from 'src/app/state/loading/isLoading.action';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +18,6 @@ import { v4 as uuidv4 } from 'uuid';
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   authorsFilteredList: IAuthors[];
-  temporaryId: number = 1;
   courseId: any;
 
   courseForm: FormGroup;
@@ -37,6 +37,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
+
+      this.store.dispatch(getCourseAction({ id: this.courseId }))
+
     }
     this.courseForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
@@ -74,15 +77,18 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   takeCourseData(): void {
-    this.store.dispatch(isLoadingAddCoursePageTrue());
+
+    // this.store.dispatch(isLoadingAddCoursePageTrue());
+    // this.store.dispatch(isLoadingAddCoursePageFalse());
+
+
 
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-      this.store.dispatch(isLoadingAddCoursePageFalse());
+
       this.courseForm.setValue(course);
 
-      this.courseService.currentCourseTitle$.next(this.courseForm.get('title')?.value);
     });
   }
 
@@ -93,6 +99,5 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
-    this.courseService.currentCourseTitle$.next('')
   }
 }

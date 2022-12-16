@@ -1,7 +1,10 @@
 <div class="container">
     <div class="breadcrumbs">
         <a routerLink="/courses"> Courses</a>
-        <span *ngIf="breadcrumbsTitle">/ </span>
-        <span>{{ courseService.currentCourseTitle$ | async }}</span>
+        <span *ngIf="(title$ | async)">/ </span>
+        <span>{{ (title$ | async)?.title }}</span>
     </div>
 </div>
+
+
+<p>123</p>

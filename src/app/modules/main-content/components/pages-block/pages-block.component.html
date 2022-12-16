@@ -13,10 +13,18 @@
             </div>
         </div>
         <div class="pages">
-            <app-courses-page *ngFor="let course of courses |orderBy" [course]="course"
+
+
+            <!-- | orderBy -->
+
+            <app-courses-page *ngFor="let course of (courses$ | async)" [course]="course"
                 (starClicked)="changeRate(course)" (deleteClicked)="deleteComponent($event)">
             </app-courses-page>
-            <div *ngIf="!courses.length" class="no-data">{{'No data. Feel free to add new courses' | uppercase}} </div>
+
+
+
+            <div *ngIf="!(courses$ |async)?.length" class="no-data">{{'No data. Feel free to add new courses' |
+                uppercase}} </div>
         </div>
     </div>
     <div class="load-more" *ngIf="showLoadMore">
