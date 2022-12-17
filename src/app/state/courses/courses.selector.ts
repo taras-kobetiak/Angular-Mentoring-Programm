@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { COURSES, ICourseState } from "./courses.reducer";
+import { COURSES_KEY, ICourseState } from "./courses.reducer";
 
-export const featureSelector = createFeatureSelector<ICourseState>(COURSES);
+export const featureSelector = createFeatureSelector<ICourseState>(COURSES_KEY);
 
 export const AllCoursesListLengthSelector = createSelector(
     featureSelector,

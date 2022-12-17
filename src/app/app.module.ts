@@ -20,6 +20,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { AuthEffects } from './state/authentication/auth.effect';
 import { CoursesListEffects } from './state/courses/courses.effect';
+import { AuthorsEffects } from './state/authors/authors.effect';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { CoursesListEffects } from './state/courses/courses.effect';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([AppEffects, AuthEffects, CoursesListEffects])
+    EffectsModule.forRoot([AppEffects, AuthEffects, CoursesListEffects, AuthorsEffects])
   ],
   providers:
     [

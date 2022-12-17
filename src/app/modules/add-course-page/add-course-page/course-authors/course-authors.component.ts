@@ -1,7 +1,10 @@
 import { Component, forwardRef, OnInit, } from '@angular/core';
 import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR, Validators, } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { debounceTime, Observable, Subject, switchMap, takeUntil, } from 'rxjs';
 import { IAuthors } from 'src/app/interfaces/authors.interface';
+import { getAuthorsAction, getFilteredAuthorsAction } from 'src/app/state/authors/authors.action';
+import { AuthorsSelector } from 'src/app/state/authors/authors.selector';
 import { AuthorsService } from '../../services/authors.service';
 
 @Component({
@@ -23,39 +26,38 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   showAuthorsList: boolean;
 
   authorsInput: FormControl = new FormControl();
-
   pickedAuthors: FormArray<any> = new FormArray<any>([], Validators.required);
 
-  authorsList: IAuthors[];
+  authorsList$: Observable<IAuthors[]> = this.store.select(AuthorsSelector)
+
+
   unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(private authorService: AuthorsService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
 
-    this.authorService.getFilteredAuthorsList('').subscribe((authors: IAuthors[]) => {
-      this.authorsList = authors;
-    });
+    this.store.dispatch(getAuthorsAction())
 
     this.authorsInput.valueChanges.pipe(
       debounceTime(500),
       takeUntil(this.unsubscribingData$),
-      switchMap((inputData: string) => this.authorService.getFilteredAuthorsList(inputData))
-    ).subscribe((authors: IAuthors[]) => {
 
-      this.authorsList = authors;
+    ).subscribe((inputData: string) => {
 
-      this.pickedAuthors.value.forEach((author: IAuthors) => {
-        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName);
-      })
+      this.store.dispatch(getFilteredAuthorsAction({ inputData: inputData }))
+
+      // this.pickedAuthors.value.forEach((author: IAuthors) => {
+      //   this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName);
+      // })
     });
 
     this.pickedAuthors.valueChanges.pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe((authors: IAuthors) => {
-      this.pickedAuthors.value.forEach((author: IAuthors) => {
-        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName)
-      })
+      // this.pickedAuthors.value.forEach((author: IAuthors) => {
+      //   this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName)
+      // })
 
       if (this.onChange) {
         this.onChange(authors);

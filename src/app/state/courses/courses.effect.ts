@@ -9,8 +9,6 @@ import { isLoadingAddCoursePageFalse, isLoadingPagesBlockFalse, isLoadingPagesBl
 import { createCourseAction, createCourseFailedAction, createCourseSuccessAction, deleteCourseAction, deleteCourseFailedAction, deleteCourseSuccessAction, getCourseAction, getCourseFailedAction, getAllCoursesListAction, getAllCoursesListFailedAction, getAllCoursesListSuccessAction, getCourseSuccessAction, updateCourseAction, updateCourseFailedAction, updateCourseSuccessAction, getFilteredCoursesListAction, getFilteredCoursesListSuccessAction, getFilteredCoursesListFailedAction, getCoursesToShowListAction, getCoursesToShowListSuccessAction } from "./courses.action";
 
 @Injectable()
-
-
 export class CoursesListEffects {
 
     constructor(

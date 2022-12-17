@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 import { createCourseSuccessAction, deleteCourseSuccessAction, getAllCoursesListAction, getAllCoursesListSuccessAction, getCoursesToShowListSuccessAction, getCourseSuccessAction, getFilteredCoursesListSuccessAction, updateCourseSuccessAction } from "./courses.action";
 
-export const COURSES = 'courses';
+export const COURSES_KEY = 'courses';
 
 export interface ICourseState {
     allCoursesList: ICoursePage[];
