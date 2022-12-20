@@ -21,48 +21,6 @@
       ],
       "id": "20d87e57-bbb8-481d-9499-edb2ed1387b9",
       "topRated": true
-    },
-    {
-      "id": "kne3xYF",
-      "title": "123123",
-      "description": "123123",
-      "duration": 23,
-      "creationDate": "2027-12-17T22:00:00.000Z",
-      "authors": [
-        {
-          "id": "1qweadf",
-          "fullName": "Dorosh Artemiy-Artur"
-        }
-      ],
-      "topRated": false
-    },
-    {
-      "id": "PBeBXsc",
-      "title": "фівфі",
-      "description": "фів",
-      "duration": 1,
-      "creationDate": "2022-03-14T22:00:00.000Z",
-      "authors": [
-        {
-          "id": "1qweasd",
-          "fullName": "Vika s. Busya"
-        }
-      ],
-      "topRated": false
-    },
-    {
-      "id": "7jwI3YS",
-      "title": "123123",
-      "description": "фівфівфів",
-      "duration": 123,
-      "creationDate": "2022-03-14T22:00:00.000Z",
-      "authors": [
-        {
-          "id": "1qweadf",
-          "fullName": "Dorosh Artemiy-Artur"
-        }
-      ],
-      "topRated": false
     }
   ],
   "users": [

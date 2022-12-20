@@ -1,11 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
-import { IAuthors } from "src/app/interfaces/authors.interface";
+import { IAuthor } from "src/app/interfaces/authors.interface";
 import { getAuthorsSuccessAction, getFilteredAuthorsSuccessAction } from "./authors.action";
 
 export const AUTHORS_KEY = 'authors';
 
 export interface IAuthorsState {
-    authors: IAuthors[];
+    authors: IAuthor[];
 }
 
 export const initialState: IAuthorsState = {
@@ -16,6 +16,7 @@ export const authorsReduceer = createReducer(
     initialState,
     on(getAuthorsSuccessAction, getFilteredAuthorsSuccessAction, (state, action) => ({
         ...state,
-        authors: action.authorsList
-    }))
+        authors: action.authorsList,
+    })),
+
 )

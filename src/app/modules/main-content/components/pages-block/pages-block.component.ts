@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
-import { deleteCourseAction, deleteCourseSuccessAction, getAllCoursesListAction, getCoursesToShowListAction, getFilteredCoursesListAction, updateCourseAction } from 'src/app/state/courses/courses.action';
+import { deleteCourseAction, deleteCourseSuccessAction, getAllCoursesListAction, getCoursesToShowListAction, getFilteredCoursesListAction, updateCourseRatingAction } from 'src/app/state/courses/courses.action';
 import { AllCoursesListLengthSelector, CoursesToShowListSelector } from 'src/app/state/courses/courses.selector';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
@@ -54,7 +54,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.store.dispatch(deleteCourseAction({ id: id }))
+      this.store.dispatch(deleteCourseAction({ id }))
       this.refreshCourse();
     }
   }
@@ -67,7 +67,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   changeRate(course: ICoursePage): void {
     let newCourse = { ...course };
     newCourse.topRated = !newCourse.topRated
-    this.store.dispatch(updateCourseAction({ course: newCourse }))
+    this.store.dispatch(updateCourseRatingAction({ course: newCourse }))
   }
 
   refreshCourse(): void {

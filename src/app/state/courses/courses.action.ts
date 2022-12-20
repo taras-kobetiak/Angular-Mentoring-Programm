@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { IAuthor } from "src/app/interfaces/authors.interface";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 
 export const getAllCoursesListAction = createAction('[PAGES BLOCK] get all courses list');
@@ -28,13 +29,17 @@ export const deleteCourseAction = createAction('[PAGES BLOCK] delete course', pr
 export const deleteCourseSuccessAction = createAction('[PAGES BLOCK] delete course', props<{ id: string }>());
 export const deleteCourseFailedAction = createAction('[PAGES BLOCK] delete course failed');
 
-export const updateCourseAction = createAction('[PAGES BLOCK] update course', props<{ course: ICoursePage }>());
-export const updateCourseSuccessAction = createAction('[PAGES BLOCK] update course success', props<{ course: ICoursePage }>());
-export const updateCourseFailedAction = createAction('[PAGES BLOCK] update course failed');
+export const updateCourseRatingAction = createAction('[PAGES BLOCK] update course rating', props<{ course: ICoursePage }>());
+export const updateCourseRatingSuccessAction = createAction('[PAGES BLOCK] update course rating success', props<{ course: ICoursePage }>());
+export const updateCourseRatingFailedAction = createAction('[PAGES BLOCK] update course rating failed');
 
-
-
+export const updateCourseAction = createAction('[ADD COURSE] update course', props<{ course: ICoursePage }>());
+export const updateCourseSuccessAction = createAction('[ADD COURS] update course success', props<{ course: ICoursePage }>());
+export const updateCourseFailedAction = createAction('[ADD COURS] update course failed');
 
 export const createCourseAction = createAction('[PAGES BLOCK] create course', props<{ course: ICoursePage }>());
-export const createCourseSuccessAction = createAction('[PAGES BLOCK] ucreate course success', props<{ course: ICoursePage }>());
+export const createCourseSuccessAction = createAction('[PAGES BLOCK] create course success', props<{ course: ICoursePage }>());
 export const createCourseFailedAction = createAction('[PAGES BLOCK] create course failed');
+
+
+

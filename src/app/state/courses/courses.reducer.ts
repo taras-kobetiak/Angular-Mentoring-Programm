@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
+
 import { ICoursePage } from "src/app/interfaces/course.interface";
-import { createCourseSuccessAction, deleteCourseSuccessAction, getAllCoursesListAction, getAllCoursesListSuccessAction, getCoursesToShowListSuccessAction, getCourseSuccessAction, getFilteredCoursesListSuccessAction, updateCourseSuccessAction } from "./courses.action";
+import { createCourseSuccessAction, deleteCourseSuccessAction, getAllCoursesListSuccessAction, getCoursesToShowListSuccessAction, getCourseSuccessAction, getFilteredCoursesListSuccessAction, updateCourseRatingSuccessAction, updateCourseSuccessAction } from "./courses.action";
 
 export const COURSES_KEY = 'courses';
 
@@ -45,7 +46,7 @@ export const courseListReducer = createReducer(
         allCoursesList: state.allCoursesList.filter((course: ICoursePage) => course.id !== action.id)
     })),
 
-    on(updateCourseSuccessAction, (state, action) => ({
+    on(updateCourseRatingSuccessAction, updateCourseSuccessAction, (state, action) => ({
         ...state,
         allCoursesList: state.allCoursesList.map((course: ICoursePage) => course.id === action.course.id ? action.course : course)
     })),
@@ -53,6 +54,9 @@ export const courseListReducer = createReducer(
     on(createCourseSuccessAction, (state, action) => ({
         ...state,
         allCoursesList: [...state.allCoursesList, action.course]
-    }))
+    })),
+
+
+
 
 )

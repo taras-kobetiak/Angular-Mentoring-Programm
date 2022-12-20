@@ -6,7 +6,7 @@ import { catchError, map, of, pipe, switchMap, tap } from "rxjs";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 import { CoursesService } from "src/app/modules/main-content/components/pages-block/services/courses.service";
 import { isLoadingAddCoursePageFalse, isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from "../loading/isLoading.action";
-import { createCourseAction, createCourseFailedAction, createCourseSuccessAction, deleteCourseAction, deleteCourseFailedAction, deleteCourseSuccessAction, getCourseAction, getCourseFailedAction, getAllCoursesListAction, getAllCoursesListFailedAction, getAllCoursesListSuccessAction, getCourseSuccessAction, updateCourseAction, updateCourseFailedAction, updateCourseSuccessAction, getFilteredCoursesListAction, getFilteredCoursesListSuccessAction, getFilteredCoursesListFailedAction, getCoursesToShowListAction, getCoursesToShowListSuccessAction } from "./courses.action";
+import { createCourseAction, createCourseFailedAction, createCourseSuccessAction, deleteCourseAction, deleteCourseFailedAction, deleteCourseSuccessAction, getCourseAction, getCourseFailedAction, getAllCoursesListAction, getAllCoursesListFailedAction, getAllCoursesListSuccessAction, getCourseSuccessAction, updateCourseRatingAction, updateCourseRatingFailedAction, updateCourseRatingSuccessAction, getFilteredCoursesListAction, getFilteredCoursesListSuccessAction, getFilteredCoursesListFailedAction, getCoursesToShowListAction, getCoursesToShowListSuccessAction, updateCourseAction, updateCourseFailedAction, updateCourseSuccessAction } from "./courses.action";
 
 @Injectable()
 export class CoursesListEffects {
@@ -67,6 +67,21 @@ export class CoursesListEffects {
             map((course: ICoursePage) => getCourseSuccessAction({ course })),
             // tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
             catchError(() => of(getCourseFailedAction))
+        ))
+    ))
+
+    updateCourseRating$ = createEffect(() => this.actions$.pipe(
+        ofType(updateCourseRatingAction),
+        // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
+        switchMap(({ course }) => this.courseService.updateCourse(course).pipe(
+            map(() => updateCourseRatingSuccessAction({ course })),
+            tap(() => {
+                console.log(1);
+
+                // this.store.dispatch(isLoadingPagesBlockFalse());
+                this.router.navigate(['courses']);
+            }),
+            catchError(() => of(updateCourseRatingFailedAction))
         ))
     ))
 

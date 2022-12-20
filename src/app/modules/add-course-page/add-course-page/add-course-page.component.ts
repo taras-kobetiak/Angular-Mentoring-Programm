@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { IAuthors } from 'src/app/interfaces/authors.interface';
+import { IAuthor } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
-import { getCourseAction } from 'src/app/state/courses/courses.action';
+import { createCourseAction, getCourseAction, updateCourseAction } from 'src/app/state/courses/courses.action';
 import { isLoadingAddCoursePageTrue, isLoadingAddCoursePageFalse } from 'src/app/state/loading/isLoading.action';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  authorsFilteredList: IAuthors[];
+  authorsFilteredList: IAuthor[];
   courseId: any;
 
   courseForm: FormGroup;
@@ -59,29 +59,22 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   updateCourse(): void {
-    this.courseService.updateCourse(this.courseForm.value).pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe(() => {
-      this.store.dispatch(isLoadingAddCoursePageFalse());
-      this.backToCoursesList();
-    })
+
+
+    this.store.dispatch(updateCourseAction({ course: this.courseForm.value }))
+    this.store.dispatch(isLoadingAddCoursePageFalse());
   }
 
   addNewCourse(): void {
-    this.courseService.addCourses({ id: uuidv4(), ...this.courseForm.value }).pipe(
-      takeUntil(this.unsubscribingData$))
-      .subscribe(() => {
-        this.store.dispatch(isLoadingAddCoursePageFalse());
-        this.backToCoursesList();
-      })
+
+    this.store.dispatch(createCourseAction({ course: { id: uuidv4(), ...this.courseForm.value } }))
+    this.store.dispatch(isLoadingAddCoursePageFalse());
   }
 
   takeCourseData(): void {
 
     // this.store.dispatch(isLoadingAddCoursePageTrue());
     // this.store.dispatch(isLoadingAddCoursePageFalse());
-
-
 
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
