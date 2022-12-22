@@ -19,6 +19,9 @@
             (blur)="onBlur()">
     </div>
 </div>
+
+
+
 <div class="authors__wrapper" [hidden]="!showAuthorsList">
     <div class="authors__list" *ngFor="let author of  (authorsList$ |async)">
         <p (click)="onAuthorNameClick(author)">{{author.fullName}}</p>

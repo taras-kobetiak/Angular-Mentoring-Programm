@@ -5,7 +5,6 @@ import { debounceTime, filter, map, Observable, of, Subject, switchMap, takeUnti
 import { IAuthor } from 'src/app/interfaces/authors.interface';
 import { getAuthorsAction, getFilteredAuthorsAction } from 'src/app/state/authors/authors.action';
 import { AuthorsSelector } from 'src/app/state/authors/authors.selector';
-import { AuthorsService } from '../../services/authors.service';
 
 @Component({
   selector: 'app-course-authors',
@@ -27,12 +26,8 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
   authorsInput: FormControl = new FormControl();
   pickedAuthors: FormArray<any> = new FormArray<any>([], Validators.required);
-  authorsListToShow: IAuthor[]
 
-
-  authorsList$: Observable<IAuthor[]> = this.store.select(AuthorsSelector)
-
-
+  authorsList$: Observable<IAuthor[]>;
 
 
   unsubscribingData$: Subject<void> = new Subject<void>();
@@ -40,6 +35,7 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+
     this.store.dispatch(getAuthorsAction());
 
     this.authorsInput.valueChanges.pipe(
@@ -68,6 +64,16 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
         this.onChange(authors);
       }
     })
+
+
+
+    this.authorsList$ = this.store.pipe(
+      select(AuthorsSelector),
+      map((authors: IAuthor[]) => authors.filter(
+        (author: IAuthor) => !this.pickedAuthors.value.some((item: IAuthor) => item.id === author.id)
+      )),
+    )
+
   }
 
   writeValue(authors: IAuthor[]): void {
@@ -92,19 +98,22 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.onTouched();
-    setTimeout(() => this.showAuthorsList = false, 300)
+    setTimeout(() => this.showAuthorsList = false, 1000)
   }
 
   onAuthorNameClick(author: IAuthor): void {
-
     let currentAuthorList: IAuthor[] = this.pickedAuthors.value;
+    console.log(currentAuthorList);
 
     if (currentAuthorList.find((el: IAuthor) => el.id === author.id)) {
       return;
     }
 
     this.pickedAuthors.push(new FormControl(author));
-    this.showAuthorsList = false;
+
+    setTimeout(() => this.showAuthorsList = true, 0);
+
+
     this.authorsInput.setValue('');
   }
 

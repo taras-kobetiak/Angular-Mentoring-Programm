@@ -54,7 +54,13 @@ export class CoursesListEffects {
         ofType(deleteCourseAction),
         // tap(() => this.store.dispatch(isLoadingPagesBlockTrue())),
         switchMap(({ id }) => this.courseService.deleteCourse(id).pipe(
-            map(() => deleteCourseSuccessAction({ id })),
+            map(() => {
+                console.log(1);
+                return deleteCourseSuccessAction({ id })
+            }
+
+
+            ),
             // tap(() => this.store.dispatch(isLoadingPagesBlockFalse())),
             catchError(() => of(deleteCourseFailedAction))
         ))

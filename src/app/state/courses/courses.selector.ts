@@ -13,6 +13,13 @@ export const CoursesToShowListSelector = createSelector(
     state => state.coursesToShowList
 )
 
+export const CoursesListSelector = createSelector(
+    featureSelector,
+    state => state.allCoursesList
+)
+
+
+
 export const CurrentCourseSelector = createSelector(
     featureSelector,
     state => state.currentCourse

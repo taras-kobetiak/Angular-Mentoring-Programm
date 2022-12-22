@@ -13,7 +13,6 @@ export const getCoursesToShowListSuccessAction = createAction('[PAGES BLOCK] get
     props<{ courseToShowList: ICoursePage[] }>());
 export const getCoursesToShowListFailedAction = createAction('[PAGES BLOCK] get courses to show list failed');
 
-
 export const getFilteredCoursesListAction = createAction('[PAGES BLOCK] get filtered courses list',
     props<{ inputData: string }>());
 export const getFilteredCoursesListSuccessAction = createAction('[PAGES BLOCK] get filtered courses list success',

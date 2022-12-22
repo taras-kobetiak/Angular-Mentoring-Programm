@@ -1,12 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 import { IUserEntyty } from "src/app/interfaces/user-entyty.interface";
-import { loginAction, isAuthHeaderFalse, isAuthLoginPageTrue, loginSuccessAction } from "./auth.action";
+import { isAuthHeaderFalse, isAuthLoginPageTrue, loginSuccessAction } from "./auth.action";
 
 export const AUTH_KEY = 'auth';
 
 export interface IAuthState {
     isAuth: boolean;
     user: IUserEntyty;
+    isLoading: boolean
 }
 
 export const initialState: IAuthState = {
@@ -17,7 +18,8 @@ export const initialState: IAuthState = {
         email: "",
         password: "",
         token: ""
-    }
+    },
+    isLoading: false
 }
 
 export const authReducer = createReducer(
