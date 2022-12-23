@@ -17,7 +17,6 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
 import { AuthEffects } from './state/authentication/auth.effect';
 import { CoursesListEffects } from './state/courses/courses.effect';
 import { AuthorsEffects } from './state/authors/authors.effect';
@@ -41,7 +40,7 @@ import { AuthorsEffects } from './state/authors/authors.effect';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([AppEffects, AuthEffects, CoursesListEffects, AuthorsEffects])
+    EffectsModule.forRoot([AuthEffects, CoursesListEffects, AuthorsEffects])
   ],
   providers:
     [

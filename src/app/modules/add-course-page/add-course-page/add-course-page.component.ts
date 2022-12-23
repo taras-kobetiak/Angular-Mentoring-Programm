@@ -6,7 +6,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { IAuthor } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
 import { createCourseAction, getCourseAction, updateCourseAction } from 'src/app/state/courses/courses.action';
-import { isLoadingAddCoursePageTrue, isLoadingAddCoursePageFalse } from 'src/app/state/loading/isLoading.action';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -53,35 +52,24 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.store.dispatch(isLoadingAddCoursePageTrue());
     this.courseForm.get('id')?.value ? this.updateCourse() :
       this.addNewCourse();
   }
 
   updateCourse(): void {
-
-
     this.store.dispatch(updateCourseAction({ course: this.courseForm.value }))
-    this.store.dispatch(isLoadingAddCoursePageFalse());
   }
 
   addNewCourse(): void {
-
     this.store.dispatch(createCourseAction({ course: { id: uuidv4(), ...this.courseForm.value } }))
-    this.store.dispatch(isLoadingAddCoursePageFalse());
   }
 
   takeCourseData(): void {
 
-    // this.store.dispatch(isLoadingAddCoursePageTrue());
-    // this.store.dispatch(isLoadingAddCoursePageFalse());
-
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-
       this.courseForm.setValue(course);
-
     });
   }
 

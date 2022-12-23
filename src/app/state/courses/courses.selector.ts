@@ -18,6 +18,11 @@ export const CoursesListSelector = createSelector(
     state => state.allCoursesList
 )
 
+export const CoursesIsLoadingSelector = createSelector(
+    featureSelector,
+    state => state.isLoading
+)
+
 
 
 export const CurrentCourseSelector = createSelector(

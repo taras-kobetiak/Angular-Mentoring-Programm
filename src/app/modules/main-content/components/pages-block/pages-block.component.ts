@@ -1,11 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../../../../interfaces/course.interface';
-import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, Observable, Subject, switchMap, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, Observable, Subject, takeUntil } from "rxjs";
 import { FormControl } from '@angular/forms';
-
 import { Store } from '@ngrx/store';
-import { isLoadingPagesBlockFalse, isLoadingPagesBlockTrue } from 'src/app/state/loading/isLoading.action';
 import { deleteCourseAction, getAllCoursesListAction, getCoursesToShowListAction, getFilteredCoursesListAction, updateCourseRatingAction } from 'src/app/state/courses/courses.action';
 import { AllCoursesListLengthSelector, CoursesToShowListSelector } from 'src/app/state/courses/courses.selector';
 
@@ -26,14 +23,9 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   numberOfCourses: number = NUMBER_OF_ADD_COURSES;
   courses$: Observable<ICoursePage[]> = this.store.select(CoursesToShowListSelector);
   allCoursesLength$: Observable<number> = this.store.select(AllCoursesListLengthSelector);
-
-
-
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(
-    private store: Store
-  ) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.refreshCourse()
@@ -66,12 +58,12 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   changeRate(course: ICoursePage): void {
     let newCourse = { ...course };
-    newCourse.topRated = !newCourse.topRated
-    this.store.dispatch(updateCourseRatingAction({ course: newCourse }))
+    newCourse.topRated = !newCourse.topRated;
+    this.store.dispatch(updateCourseRatingAction({ course: newCourse }));
+    this.refreshCourse();
   }
 
   refreshCourse(): void {
-    this.store.dispatch(isLoadingPagesBlockTrue());
     this.store.dispatch(getAllCoursesListAction())
 
     this.allCoursesLength$.pipe(
@@ -81,10 +73,7 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
         this.showLoadMore = false;
     })
 
-
     this.store.dispatch(getCoursesToShowListAction({ numberOfCourses: this.numberOfCourses }))
-
-    this.store.dispatch(isLoadingPagesBlockFalse())
   }
 
   ngOnDestroy(): void {

@@ -6,9 +6,7 @@ import { of } from "rxjs";
 import { catchError, filter, map, switchMap, tap } from "rxjs/operators";
 import { AuthServiceService } from "src/app/authentication/services/auth-service.service";
 import { IUserEntyty } from "src/app/interfaces/user-entyty.interface";
-import { isLoadingLoginErrorFalse } from "../loading/isLoading.action";
-import { isAuthLoginPageTrue, loginAction, loginFailedAction, loginSuccessAction } from "./auth.action";
-
+import { loginAction, loginFailedAction, loginSuccessAction, logoutAction, logoutFailedAction, logoutSuccessAction } from "./auth.action";
 
 @Injectable()
 export class AuthEffects {
@@ -20,7 +18,7 @@ export class AuthEffects {
         private store: Store
     ) { }
 
-    currentUser$ = createEffect(() => this.actions$.pipe(
+    login$ = createEffect(() => this.actions$.pipe(
         ofType(loginAction),
         switchMap(({ currentUser }) => this.authService.getUserInfo(currentUser).pipe(
             filter((users: IUserEntyty[]) => {
@@ -30,7 +28,6 @@ export class AuthEffects {
                 return Boolean(users.length)
             }),
             map((users: IUserEntyty[]) => {
-                this.store.dispatch(isAuthLoginPageTrue());
                 return loginSuccessAction({ user: users[0] })
             }),
             tap(({ user }) => {
@@ -45,8 +42,16 @@ export class AuthEffects {
         ))
     ))
 
+    logout$ = createEffect(() => this.actions$.pipe(
+        ofType(logoutAction),
+        tap(() => this.authService.logOut()),
+        map(() => logoutSuccessAction()),
+        catchError(() => of(logoutFailedAction()))
+
+    ))
+
     onWrongData(): void {
         alert('wrong data, please check your email and password');
-        this.store.dispatch(isLoadingLoginErrorFalse());
+        this.store.dispatch(loginFailedAction())
     }
 }

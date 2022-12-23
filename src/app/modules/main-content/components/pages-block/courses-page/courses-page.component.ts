@@ -14,9 +14,6 @@ export class CoursesPageComponent {
   @Output() deleteClicked: EventEmitter<string> = new EventEmitter();
   @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter();
 
-
-  constructor(private store: Store) { }
-
   onDeleteClicked(): void {
     this.deleteClicked.emit(this.course.id);
   }

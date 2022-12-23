@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { IUserEntyty } from "src/app/interfaces/user-entyty.interface";
-import { isAuthHeaderFalse, isAuthLoginPageTrue, loginSuccessAction } from "./auth.action";
+import { logoutAction, loginAction, loginFailedAction, loginSuccessAction, logoutSuccessAction, logoutFailedAction } from "./auth.action";
 
 export const AUTH_KEY = 'auth';
 
@@ -24,12 +24,18 @@ export const initialState: IAuthState = {
 
 export const authReducer = createReducer(
     initialState,
-    on(isAuthHeaderFalse, state => ({ ...state, isAuth: false })),
-    on(isAuthLoginPageTrue, state => ({ ...state, isAuth: true })),
+
+    on(loginAction, logoutAction, state => ({ ...state, isLoading: true })),
+
     on(loginSuccessAction, (state, action) => ({
         ...state,
-        user: action.user
-    }))
+        user: action.user,
+        isAuth: true,
+        isLoading: false
+    })),
+
+    on(logoutSuccessAction, state => ({ ...state, isAuth: false, isLoading: false })),
+    on(loginFailedAction, logoutFailedAction, state => ({ ...state, isLoading: false })),
 )
 
 

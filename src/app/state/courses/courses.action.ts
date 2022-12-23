@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { IAuthor } from "src/app/interfaces/authors.interface";
 import { ICoursePage } from "src/app/interfaces/course.interface";
 
 export const getAllCoursesListAction = createAction('[PAGES BLOCK] get all courses list');

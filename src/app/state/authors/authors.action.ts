@@ -1,7 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IAuthor } from "src/app/interfaces/authors.interface";
 
-
 export const getAuthorsAction = createAction('[COURSE AUTHORS] get authors list');
 export const getAuthorsSuccessAction = createAction('[COURSE AUTHORS] get authors list success',
     props<{ authorsList: IAuthor[] }>());

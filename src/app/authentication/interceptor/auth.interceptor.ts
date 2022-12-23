@@ -3,7 +3,6 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { currentUserSelector } from "src/app/state/authentication/auth.selector";
-import { AuthServiceService } from "../services/auth-service.service";
 
 @Injectable()
 

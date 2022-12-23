@@ -1,5 +1,5 @@
 <div class="main-container">
-  <div class="loading" *ngIf="isLoading$ | async">
+  <div class="loading" *ngIf=" (isAuthLoading$ | async) || (isAuthorsLoading$ |async) || (isCoursesLoading$ |async)">
     <div class="gif">
       <app-loading-block></app-loading-block>
     </div>

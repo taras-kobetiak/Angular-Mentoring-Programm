@@ -13,4 +13,9 @@ export const currentUserSelector = createSelector(
     state => state.user
 )
 
+export const authIsLoadingSelector = createSelector(
+    featureSelector,
+    state => state.isLoading
+)
+
 
