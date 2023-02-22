@@ -6,11 +6,14 @@ describe('CoursesPageComponent', () => {
   let component: CoursesPageComponent;
   let fixture: ComponentFixture<CoursesPageComponent>;
 
+
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CoursesPageComponent ]
+      declarations: [CoursesPageComponent],
+      providers
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

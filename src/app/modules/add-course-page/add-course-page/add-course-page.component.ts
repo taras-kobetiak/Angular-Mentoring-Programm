@@ -16,7 +16,6 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  authorsFilteredList: IAuthor[];
   courseId: any;
 
   courseForm: FormGroup;
@@ -33,6 +32,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+
+
+
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
@@ -43,7 +45,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(300)]],
-      duration: [0, [Validators.required, Validators.min(1)]],
+      duration: [0, [Validators.required, Validators.min(1), Validators.max(300)]],
       creationDate: ['', Validators.required],
       authors: [[], Validators.required],
       id: '',

@@ -14,6 +14,12 @@ import { CoursesIsLoadingSelector } from './state/courses/courses.selector';
 })
 
 export class AppComponent implements OnDestroy {
+
+
+  test2: string;
+  test3: string;
+
+
   isAuth$: Observable<boolean> = this.store.select(isAuthSelector);
   isAuthLoading$: Observable<boolean> = this.store.select(authIsLoadingSelector);
   isAuthorsLoading$: Observable<boolean> = this.store.select(AuthorsIsLoadingSelector);

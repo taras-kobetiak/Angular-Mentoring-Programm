@@ -37,7 +37,6 @@
       "topRated": false
     },
     {
-      "id": "gZSyE2S",
       "title": "1",
       "description": "1",
       "duration": 12,
@@ -46,8 +45,17 @@
         {
           "id": "1qwe",
           "fullName": "Taras"
+        },
+        {
+          "id": "1qweasd",
+          "fullName": "Vika s. Busya"
+        },
+        {
+          "id": "1qwesfsdh",
+          "fullName": "Kobetiak Andrii"
         }
       ],
+      "id": "gZSyE2S",
       "topRated": false
     }
   ],
