@@ -1,30 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ICoursePage } from 'src/app/interfaces/course.interface';
+import { CurrentCourseSelector } from 'src/app/state/courses/courses.selector';
 
-import { CoursesService } from '../pages-block/services/courses.service';
 
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent implements OnInit, OnDestroy {
+export class BreadcrumbsComponent {
 
   breadcrumbsTitle: string = '';
-  private unsubscribingData$: Subject<void> = new Subject<void>();
+  title$: Observable<ICoursePage | undefined> = this.store.select(CurrentCourseSelector);
 
-  constructor(public courseService: CoursesService) { }
-
-  ngOnInit(): void {
-    this.courseService.currentCourseTitle$.pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe((currentTitle) => {
-      this.breadcrumbsTitle = currentTitle;
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribingData$.next();
-    this.unsubscribingData$.complete();
-  }
+  constructor(private store: Store) { }
 }

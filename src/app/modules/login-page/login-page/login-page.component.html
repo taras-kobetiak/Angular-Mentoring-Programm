@@ -13,9 +13,11 @@
                 <div class="email__input input">
                     <input formControlName="email" type="text" id="email" placeholder="Enter email">
                 </div>
-                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-                    class="email__invalid invalid">
-                    <p for="email"> Please enter login</p>
+                <div class="email__errors errors">
+                    <p *ngIf="loginForm.get('email')?.touched && loginForm.hasError('required', ['email'])"
+                        class="email__invalid invalid"> Please enter email</p>
+                    <p *ngIf="loginForm.get('email')?.touched && loginForm.hasError('email', ['email'])"
+                        class="email__invalid invalid">It should be an email</p>
                 </div>
             </div>
             <div class="password">
@@ -27,9 +29,10 @@
                 <div class="email-input input">
                     <input formControlName="password" type="password" id="pass" placeholder="Enter a password">
                 </div>
-                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-                    class="email__invalid invalid">
-                    <p for="pass"> Please enter a password</p>
+                <div class="password__errors errors">
+                    <p *ngIf="loginForm.get('password')?.touched && loginForm.hasError('required', ['password'])">
+                        Please enter a
+                        password</p>
                 </div>
             </div>
             <div class="form__footer">

@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { IAuthors } from 'src/app/interfaces/authors.interface';
+import { IAuthor } from 'src/app/interfaces/authors.interface';
 import { CoursesService } from 'src/app/modules/main-content/components/pages-block/services/courses.service';
-import { LoadingService } from 'src/app/modules/shared/loading-block/servises/loading.service';
+import { createCourseAction, getCourseAction, updateCourseAction } from 'src/app/state/courses/courses.action';
+
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -14,8 +16,6 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
 
-  authorsFilteredList: IAuthors[];
-  temporaryId: number = 1;
   courseId: any;
 
   courseForm: FormGroup;
@@ -26,20 +26,26 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private courseService: CoursesService,
-    private loadingService: LoadingService,
     private formBuilder: FormBuilder,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
 
+
+
+
     this.courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.courseId) {
       setTimeout(() => this.takeCourseData());
+
+      this.store.dispatch(getCourseAction({ id: this.courseId }))
+
     }
     this.courseForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(300)]],
-      duration: [0, [Validators.required, Validators.min(1)]],
+      duration: [0, [Validators.required, Validators.min(1), Validators.max(300)]],
       creationDate: ['', Validators.required],
       authors: [[], Validators.required],
       id: '',
@@ -48,40 +54,24 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.loadingService.setValue(true);
-
     this.courseForm.get('id')?.value ? this.updateCourse() :
       this.addNewCourse();
   }
 
   updateCourse(): void {
-    this.courseService.updateCourse(this.courseForm.value).pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe(() => {
-      this.loadingService.setValue(false);
-      this.backToCoursesList();
-    })
+    this.store.dispatch(updateCourseAction({ course: this.courseForm.value }))
   }
 
   addNewCourse(): void {
-    this.courseService.addCourses({ id: uuidv4(), ...this.courseForm.value }).pipe(
-      takeUntil(this.unsubscribingData$))
-      .subscribe(() => {
-        this.loadingService.setValue(false);
-        this.backToCoursesList();
-      })
+    this.store.dispatch(createCourseAction({ course: { id: uuidv4(), ...this.courseForm.value } }))
   }
 
   takeCourseData(): void {
-    this.loadingService.setValue(true);
 
     this.courseService.getCourseById(this.courseId).pipe(
       takeUntil(this.unsubscribingData$)
     ).subscribe(course => {
-      this.loadingService.setValue(false);
       this.courseForm.setValue(course);
-
-      this.courseService.currentCourseTitle$.next(this.courseForm.get('title')?.value);
     });
   }
 
@@ -92,6 +82,5 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribingData$.next();
     this.unsubscribingData$.complete();
-    this.courseService.currentCourseTitle$.next('')
   }
 }

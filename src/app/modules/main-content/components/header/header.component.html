@@ -7,10 +7,10 @@
             <h1>VIDEO COURSE</h1>
         </div>
     </div>
-    <div class="login-form" *ngIf="isAuth">
+    <div class="login-form" *ngIf="isAuth$ |async">
         <div class="user-login">
             <img src="../../assets/img/header/user.png" alt="User">
-            <p>Hello, {{currentUser?.firstName}}</p>
+            <p>Hello, {{ (user$ |async)?.firstName }}</p>
         </div>
         <div class="user-log-of">
             <img src="../../assets/img/header/exit.png" alt="Log out">

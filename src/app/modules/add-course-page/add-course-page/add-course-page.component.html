@@ -9,14 +9,13 @@
                     <input formControlName="title" type="text">
                 </div>
                 <div class="errors">
-                    <p *ngIf="courseForm.get('title')?.value.length > 50 && courseForm.get('title')?.touched"
+                    <p *ngIf="courseForm.get('title')?.touched && courseForm.hasError('maxlength', ['title'])"
                         class="invalid">The maximum title length is 50 symbols</p>
-                    <p *ngIf="!courseForm.get('title')?.value && courseForm.get('title')?.touched" class="invalid">
-                        Please
-                        enter a title</p>
+                    <p *ngIf="courseForm.get('title')?.touched && courseForm.hasError('required', ['title'])"
+                        class="invalid"> Please enter a title</p>
                 </div>
             </div>
-            <div class="descriotion__element">
+            <div class="description__element">
                 <div class="subtitle">
                     <h5>Description:</h5>
                 </div>
@@ -24,9 +23,9 @@
                     <textarea formControlName="description" cols="30" rows="10"></textarea>
                 </div>
                 <div class="errors">
-                    <p *ngIf="courseForm.get('description')?.value.length > 300 && courseForm.get('description')?.touched"
+                    <p *ngIf="courseForm.get('description')?.touched && courseForm.hasError('maxlength', ['description'])"
                         class="invalid">The maximum description length is 300 symbols</p>
-                    <p *ngIf="!courseForm.get('description')?.value && courseForm.get('description')?.touched"
+                    <p *ngIf="courseForm.get('description')?.touched && courseForm.hasError('required', ['description'])"
                         class="invalid">
                         Please enter a description</p>
                 </div>
@@ -38,7 +37,7 @@
                 <app-calendar formControlName="creationDate">
                 </app-calendar>
                 <div class="errors">
-                    <p *ngIf="courseForm.get('creationDate')?.invalid && courseForm.get('creationDate')?.touched"
+                    <p *ngIf="courseForm.get('creationDate')?.touched && courseForm.hasError('required', ['creationDate'])"
                         class="invalid">Please enter or pick the date</p>
                 </div>
             </div>
@@ -49,10 +48,12 @@
                 <app-course-duration formControlName="duration">
                 </app-course-duration>
                 <div class="errors">
-                    <p *ngIf="courseForm.get('duration')?.value ===null && courseForm.get('duration')?.touched"
+                    <p *ngIf="courseForm.get('duration')?.touched && courseForm.hasError('required', ['duration'])"
                         class="invalid">Please, enter the duration in minutes</p>
-                    <p *ngIf="courseForm.get('duration')?.value !==null && courseForm.get('duration')?.value <= 0 && courseForm.get('duration')?.touched"
+                    <p *ngIf="courseForm.get('duration')?.touched && courseForm.hasError('min', ['duration'])"
                         class="invalid">Duration should be more than 0 min</p>
+                    <p *ngIf="courseForm.get('duration')?.touched && courseForm.hasError('max', ['duration'])"
+                        class="invalid">It`s to much for course duration</p>
                 </div>
             </div>
             <div class="authors__element">
@@ -61,8 +62,10 @@
                 </div>
                 <app-course-authors formControlName="authors"></app-course-authors>
                 <div class="errors">
-                    <p *ngIf="courseForm.get('authors')?.invalid && courseForm.get('authors')?.touched "
+                    <p *ngIf="courseForm.get('authors')?.touched && courseForm.hasError('required', ['authors'])"
                         class="invalid">Should be at least one author</p>
+                    <p *ngIf="courseForm.get('authors')?.touched && courseForm.get('authors')?.value.length >3"
+                        class="invalid">To much authors</p>
                 </div>
             </div>
             <div class=" management__block">

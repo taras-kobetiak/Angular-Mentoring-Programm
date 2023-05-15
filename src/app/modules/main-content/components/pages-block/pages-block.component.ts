@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ICoursePage } from '../../../../interfaces/course.interface';
-import { CoursesService } from './services/courses.service';
-import { debounceTime, distinctUntilChanged, filter, Subject, switchMap, takeUntil } from "rxjs";
-import { LoadingService } from '../../../../modules/shared/loading-block/servises/loading.service';
+import { debounceTime, distinctUntilChanged, filter, Observable, Subject, takeUntil } from "rxjs";
 import { FormControl } from '@angular/forms';
-import { CoursePage } from '../../../../interfaces/classes';
+import { Store } from '@ngrx/store';
+import { deleteCourseAction, getAllCoursesListAction, getCoursesToShowListAction, getFilteredCoursesListAction, updateCourseRatingAction } from 'src/app/state/courses/courses.action';
+import { AllCoursesListLengthSelector, CoursesToShowListSelector } from 'src/app/state/courses/courses.selector';
 
 const NUMBER_OF_ADD_COURSES: number = 3;
 
@@ -20,41 +20,34 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
 
   searchBox: FormControl;
   showLoadMore: boolean = true;
-  courses: CoursePage[] = [];
   numberOfCourses: number = NUMBER_OF_ADD_COURSES;
+  courses$: Observable<ICoursePage[]> = this.store.select(CoursesToShowListSelector);
+  allCoursesLength$: Observable<number> = this.store.select(AllCoursesListLengthSelector);
   private unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(
-    private coursesPagesService: CoursesService,
-    private loadingService: LoadingService,
-  ) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    setTimeout(() => this.refreshCourse(), 0);
+    this.refreshCourse()
     this.searchFunction();
   }
 
   searchFunction(): void {
     this.searchBox = new FormControl('');
-
     this.searchBox.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
       filter(text => text !== null && text.length > 2 || text === ''),
-      switchMap((inputData: string) => this.coursesPagesService.getFilteredList(inputData.toLowerCase())),
       takeUntil(this.unsubscribingData$)
-    ).subscribe((courseData) => {
-      this.courses = courseData;
+    ).subscribe((inputData) => {
+      this.store.dispatch(getFilteredCoursesListAction({ inputData }))
     })
   }
 
   deleteComponent(id: string): void {
     if (confirm('Do you really want to delete this course? Yes/No')) {
-      this.coursesPagesService.deleteCourse(id).pipe(
-        takeUntil(this.unsubscribingData$)
-      ).subscribe(() => {
-        this.refreshCourse();
-      })
+      this.store.dispatch(deleteCourseAction({ id: id }))
+      this.refreshCourse();
     }
   }
 
@@ -64,28 +57,23 @@ export class PagesBlockComponent implements OnInit, OnDestroy {
   }
 
   changeRate(course: ICoursePage): void {
-    course.topRated = !course.topRated;
-    this.loadingService.setValue(true);
-    this.coursesPagesService.updateCourse(course).pipe(
-      takeUntil(this.unsubscribingData$)
-    ).subscribe(() => this.loadingService.setValue(false));
+    let newCourse = { ...course };
+    newCourse.topRated = !newCourse.topRated;
+    this.store.dispatch(updateCourseRatingAction({ course: newCourse }));
+    this.refreshCourse();
   }
 
   refreshCourse(): void {
-    this.loadingService.setValue(true);
+    this.store.dispatch(getAllCoursesListAction())
 
-    let currentNumberOfCourses = this.courses.length;
-
-    this.coursesPagesService.getCoursesList(this.numberOfCourses).pipe(
+    this.allCoursesLength$.pipe(
       takeUntil(this.unsubscribingData$)
-    ).subscribe((coursesData) => {
-      if (currentNumberOfCourses === coursesData.length) {
+    ).subscribe((allCoursesLength) => {
+      allCoursesLength > this.numberOfCourses ? this.showLoadMore = true :
         this.showLoadMore = false;
-      }
-      this.courses = coursesData;
+    })
 
-      this.loadingService.setValue(false);
-    });
+    this.store.dispatch(getCoursesToShowListAction({ numberOfCourses: this.numberOfCourses }))
   }
 
   ngOnDestroy(): void {

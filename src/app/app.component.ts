@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthServiceService } from './authentication/services/auth-service.service';
-import { LoadingService } from './modules/shared/loading-block/servises/loading.service';
+import { authIsLoadingSelector, isAuthSelector } from './state/authentication/auth.selector';
+import { AuthorsIsLoadingSelector } from './state/authors/authors.selector';
+import { CoursesIsLoadingSelector } from './state/courses/courses.selector';
+
 
 @Component({
   selector: 'app-root',
@@ -9,15 +13,24 @@ import { LoadingService } from './modules/shared/loading-block/servises/loading.
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnDestroy {
 
-  isAuth$: Observable<boolean>;
-  isLoading$: Observable<boolean>;
 
-  constructor(private authService: AuthServiceService, private loadingService: LoadingService) { }
+  test2: string;
+  test3: string;
 
-  ngOnInit(): void {
-    this.isLoading$ = this.loadingService.getIsLoadingValue()
-    this.isAuth$ = this.authService.isAuthenticated();
+
+  isAuth$: Observable<boolean> = this.store.select(isAuthSelector);
+  isAuthLoading$: Observable<boolean> = this.store.select(authIsLoadingSelector);
+  isAuthorsLoading$: Observable<boolean> = this.store.select(AuthorsIsLoadingSelector);
+  isCoursesLoading$: Observable<boolean> = this.store.select(CoursesIsLoadingSelector);
+
+  constructor(
+    private store: Store,
+    private authService: AuthServiceService
+  ) { }
+
+  ngOnDestroy(): void {
+    this.authService.logOut()
   }
 }

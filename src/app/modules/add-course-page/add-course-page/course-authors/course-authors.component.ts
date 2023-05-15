@@ -1,8 +1,10 @@
 import { Component, forwardRef, OnInit, } from '@angular/core';
 import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR, Validators, } from '@angular/forms';
-import { debounceTime, Observable, Subject, switchMap, takeUntil, } from 'rxjs';
-import { IAuthors } from 'src/app/interfaces/authors.interface';
-import { AuthorsService } from '../../services/authors.service';
+import { select, Store } from '@ngrx/store';
+import { debounceTime, map, Observable, Subject, takeUntil, } from 'rxjs';
+import { IAuthor } from 'src/app/interfaces/authors.interface';
+import { getAuthorsAction, getFilteredAuthorsAction } from 'src/app/state/authors/authors.action';
+import { AuthorsSelector } from 'src/app/state/authors/authors.selector';
 
 @Component({
   selector: 'app-course-authors',
@@ -21,49 +23,51 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
   onChange: any;
   onTouched: any;
   showAuthorsList: boolean;
-
   authorsInput: FormControl = new FormControl();
-
   pickedAuthors: FormArray<any> = new FormArray<any>([], Validators.required);
 
-  authorsList: IAuthors[];
+  authorsList$: Observable<IAuthor[]>;
   unsubscribingData$: Subject<void> = new Subject<void>();
 
-  constructor(private authorService: AuthorsService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(getAuthorsAction());
 
-    this.authorService.getFilteredAuthorsList('').subscribe((authors: IAuthors[]) => {
-      this.authorsList = authors;
-    });
+    this.authorsInputTrack();
+    this.pickedAuthorsTrack();
+    this.getAuthorsListWithoutPicked();
+  }
 
+  authorsInputTrack(): void {
     this.authorsInput.valueChanges.pipe(
       debounceTime(500),
       takeUntil(this.unsubscribingData$),
-      switchMap((inputData: string) => this.authorService.getFilteredAuthorsList(inputData))
-    ).subscribe((authors: IAuthors[]) => {
-
-      this.authorsList = authors;
-
-      this.pickedAuthors.value.forEach((author: IAuthors) => {
-        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName);
-      })
+    ).subscribe((inputData: string) => {
+      this.store.dispatch(getFilteredAuthorsAction({ inputData: inputData }))
     });
+  }
 
+  pickedAuthorsTrack(): void {
     this.pickedAuthors.valueChanges.pipe(
       takeUntil(this.unsubscribingData$)
-    ).subscribe((authors: IAuthors) => {
-      this.pickedAuthors.value.forEach((author: IAuthors) => {
-        this.authorsList = this.authorsList.filter(el => el.fullName !== author.fullName)
-      })
-
+    ).subscribe((authors: IAuthor) => {
       if (this.onChange) {
         this.onChange(authors);
       }
     })
   }
 
-  writeValue(authors: IAuthors[]): void {
+  getAuthorsListWithoutPicked(): void {
+    this.authorsList$ = this.store.pipe(
+      select(AuthorsSelector),
+      map((authors: IAuthor[]) => authors.filter(
+        (author: IAuthor) => !this.pickedAuthors.value.some((item: IAuthor) => item.id === author.id)
+      )),
+    )
+  }
+
+  writeValue(authors: IAuthor[]): void {
     authors.forEach((author) => {
       if (author) {
         this.pickedAuthors.push(new FormControl(author));
@@ -85,23 +89,21 @@ export class CourseAuthorsComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.onTouched();
-    setTimeout(() => this.showAuthorsList = false, 300)
+    setTimeout(() => this.showAuthorsList = false, 500)
   }
 
-  onAuthorNameClick(author: IAuthors): void {
-    let currentAuthorList: IAuthors[] = this.pickedAuthors.value;
-
-    if (currentAuthorList.find((el: IAuthors) => el.id === author.id)) {
+  onAuthorNameClick(author: IAuthor): void {
+    let currentAuthorList: IAuthor[] = this.pickedAuthors.value;
+    if (currentAuthorList.find((el: IAuthor) => el.id === author.id)) {
       return;
     }
-
     this.pickedAuthors.push(new FormControl(author));
-    this.showAuthorsList = false;
+    setTimeout(() => this.showAuthorsList = true, 0);
     this.authorsInput.setValue('');
   }
 
-  onAuthorDeleteClick(author: any): void {
-    this.pickedAuthors.value.forEach((pickedAuthor: IAuthors, index: number) => {
+  onAuthorDeleteClick(author: IAuthor): void {
+    this.pickedAuthors.value.forEach((pickedAuthor: IAuthor, index: number) => {
       if (pickedAuthor.id === author.id) {
         this.pickedAuthors.removeAt(index);
       }

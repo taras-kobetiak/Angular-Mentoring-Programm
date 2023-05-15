@@ -3,7 +3,6 @@ export interface ICoursePage extends IAddCourseData {
     topRated: boolean;
 }
 
-
 export interface IAddCourseData {
     title: string;
     creationDate: string;

@@ -1,40 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IUserEntyty } from '../../../../interfaces/user-entyty.interface';
 import { AuthServiceService } from '../../../../authentication/services/auth-service.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { logoutAction } from 'src/app/state/authentication/auth.action';
+import { currentUserSelector, isAuthSelector } from 'src/app/state/authentication/auth.selector';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
 
   currentUser: IUserEntyty;
-  isAuth: boolean;
-  private unsubscribingData$: Subject<void> = new Subject<void>();
+  isAuth$: Observable<boolean> = this.store.select(isAuthSelector);
+  user$: Observable<IUserEntyty> = this.store.select(currentUserSelector)
 
-  constructor(public authService: AuthServiceService) { };
-
-  ngOnInit(): void {
-    this.authService.isAuthenticated().pipe(
-      takeUntil(this.unsubscribingData$),
-    )
-      .subscribe((isAuth: boolean) => {
-        this.isAuth = isAuth;
-        let userData = localStorage.getItem('currentUser') || '';
-        if (userData) {
-          this.currentUser = JSON.parse(userData)
-        }
-      })
-  }
+  constructor(private store: Store) { };
 
   onLogOutClick(): void {
-    this.authService.logOut();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribingData$.next();
-    this.unsubscribingData$.complete();
+    this.store.dispatch(logoutAction());
   }
 }

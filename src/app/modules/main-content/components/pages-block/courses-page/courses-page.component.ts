@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ICoursePage } from 'src/app/interfaces/course.interface';
 
 @Component({
@@ -11,7 +12,7 @@ export class CoursesPageComponent {
 
   @Input() course: ICoursePage;
   @Output() deleteClicked: EventEmitter<string> = new EventEmitter();
-  @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter()
+  @Output() starClicked: EventEmitter<ICoursePage> = new EventEmitter();
 
   onDeleteClicked(): void {
     this.deleteClicked.emit(this.course.id);
